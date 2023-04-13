@@ -1,0 +1,40 @@
+header {
+  height: 12vh;
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  overflow: scroll;
+  height: 100%;
+}
+
+.card {
+  left: 0;
+  min-width: 100vw;
+}
+
+.card-title {
+  text-align: center;
+  position: absolute;
+  height: 100%;
+  max-width: 6vw;
+  width: 21vw;
+  left: 0;
+  writing-mode: vertical-lr;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 0.1em;
+}
+
+p.card-text {
+  margin: 1vh 7vw;
+}
