@@ -204,7 +204,7 @@ footer {
 }
 
 p.card-text {
-  font-size: 2vw;
+  font-size: 1em;
   padding: 0.5em;
 }
 
@@ -215,16 +215,28 @@ p.card-text {
 }
 
 .card-content ul li {
-  font-size: 3vw;
+  font-size: 1.3em;
+}
+
+@media screen and (min-width: 600px) {
+  .card-content ul li {
+    font-size: 3vw;
+  }
 }
 
 .card-content table {
   display: block;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 20px;
-  font-size: 2vw;
   width: 70%;
   margin: 1vh 7vw;
+  font-size: 0.9em;
+}
+
+@media screen and (min-wdith: 600px) {
+  .card-content table {
+    font-size: 2vw;
+  }
 }
 
 .card-content table tr {
@@ -239,4 +251,10 @@ p.card-text {
 
 .card-content table tr td:first-of-type {
   border-left: none;
+}
+
+@media screen and (min-width: 600px) {
+  p.card-text {
+    font-size: 2vw;
+  }
 }
