@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./styles/cmn.css" />
     <link rel="stylesheet" href="./styles/cards-h.css" />
     <link rel="stylesheet" href="./styles/nav.css" />
-
+    <link rel="stylesheet" href="./styles/loader.css" />
     <title>The Exact Opposite - horizontal cards</title>
   </head>
   <body>
@@ -21,19 +21,33 @@
         <li><a data-target="other-container">Other Stuff</a></li>
       </ul>
     </nav>
+    <div id="loading" class="lds-default">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
     <header>The Exact Opposite</header>
     <main>
       <div class="card" id="about-container">
         <img src="https://picsum.photos/1000" alt="" />
         <div class="card-content">
           <div class="card-title">About</div>
-          <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem ea adipisci ipsa nemo, nisi dolore natus ab? Eligendi repudiandae doloremque vero, expedita delectus, ipsa aut, officiis magnam quae sapiente eius!</p>
+          <p id="about-text" class="card-text"></p>
         </div>
       </div>
       <div class="card" id="album-container">
         <img src="https://picsum.photos/800" alt="" />
         <div class="card-content">
-          <div class="card-title">Skill Issue</div>
+          <div id="album-text" class="card-title">Skill Issue</div>
           <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt repudiandae, perspiciatis labore a eveniet, aperiam et incidunt nihil neque iste natus quibusdam molestias commodi assumenda modi unde ducimus deserunt aliquam?</p>
         </div>
       </div>
@@ -71,23 +85,27 @@
       </div>
       <div class="card" id="other-container">
         <img src="https://picsum.photos/950" alt="" />
-        <div class="card-content">
+        <div class="card-content" id="other-content">
           <div class="card-title">Other Stuff</div>
-          <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates atque placeat accusantium quis labore iste nobis, quaerat incidunt distinctio suscipit tempora maxime, eaque culpa! Officiis saepe ab assumenda exercitationem labore.</p>
+          <p id="other-text" class="card-text"></p>
         </div>
       </div>
     </main>
     <footer>
+      <a href="mailto:nigel@theexactopposite.uk">
+        <img src="./assets/images/socials/email.png" alt="email icon" />
+      </a>
       <a href="https://www.facebook.com/theexactopp/">
-        <img src="./assets/images/socials/fb.png" alt="Facebook logo" />
+        <img src="./assets/images/socials/fb.png" alt="Facebook icon" />
       </a>
       <a href="https://twitter.com/theexactopp/">
-        <img src="./assets/images/socials/tw.png" alt="Twitter logo" />
+        <img src="./assets/images/socials/tw.png" alt="Twitter icon" />
       </a>
       <a href="https://www.instagram.com/theexactopp/">
-        <img src="./assets/images/socials/ig.png" alt="Instagram logo" />
+        <img src="./assets/images/socials/ig.png" alt="Instagram icon" />
       </a>
     </footer>
     <script src="./js/nav.js"></script>
+    <script src="./js/content.js"></script>
   </body>
 </html>
