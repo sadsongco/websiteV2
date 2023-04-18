@@ -8,9 +8,15 @@ html {
 nav {
   position: fixed;
   text-align: right;
-  top: 10px;
+  top: 10vh;
   right: 10px;
-  z-index: 3;
+  z-index: 6;
+}
+
+@media screen and (min-width: 600px) {
+  nav {
+    top: 10px;
+  }
 }
 
 nav label {
@@ -81,15 +87,12 @@ nav input:checked ~ ul {
 nav label {
   font-size: 4em;
   display: block;
-  /* opacity: 0.8; */
   transition: opacity 0.4s ease-out, transform 0.4s ease-out, font-size 0.4s ease-out;
 }
 
-nav label .nav-highlight {
-  /* background-color: rgba(0, 0, 0, 0.2); */
-}
-
-nav label:hover {
+nav label:hover,
+nav label:focus,
+nav label:focus-within {
   cursor: pointer;
   opacity: 1;
 }

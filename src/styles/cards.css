@@ -13,7 +13,7 @@ p.card-text {
   margin: 0 5vw 0 5vw;
 }
 
-.card-content ul {
+.card-inner-container ul {
   display: block;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 20px;

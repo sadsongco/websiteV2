@@ -21,73 +21,79 @@
         <li><a data-target="other-container">Other Stuff</a></li>
       </ul>
     </nav>
-    <div id="loading" class="lds-default">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+    <div id="initial-load" class="fullscreen">
+      <div id="loading" class="lds-default">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
     <header>The Exact Opposite</header>
     <main>
       <div class="card" id="about-container">
-        <img src="https://picsum.photos/1000" alt="" />
-        <div class="card-content">
+        <div class="card-inner-container">
           <div class="card-title">About</div>
-          <p id="about-text" class="card-text"></p>
+          <div class="card-content">
+            <p id="about-text" class="card-text"></p>
+          </div>
         </div>
       </div>
       <div class="card" id="album-container">
-        <img src="https://picsum.photos/800" alt="" />
-        <div class="card-content">
-          <div id="album-text" class="card-title">Skill Issue</div>
-          <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt repudiandae, perspiciatis labore a eveniet, aperiam et incidunt nihil neque iste natus quibusdam molestias commodi assumenda modi unde ducimus deserunt aliquam?</p>
+        <div class="card-inner-container">
+          <div class="card-title">Skill Issue</div>
+          <div class="card-content">
+            <p id="album-text" class="card-text"></p>
+          </div>
         </div>
       </div>
       <div class="card" id="shows-container">
-        <img src="https://picsum.photos/900" alt="" />
-        <div class="card-content">
+        <div class="card-inner-container">
           <div class="card-title">Shows</div>
-          <table>
-            <tr>
-              <td>Date</td>
-              <td>City</td>
-              <td>Venue</td>
-              <td>Tickets</td>
-            </tr>
-            <tr>
-              <td>Date</td>
-              <td>City</td>
-              <td>Venue</td>
-              <td>Tickets</td>
-            </tr>
-            <tr>
-              <td>Date</td>
-              <td>City</td>
-              <td>Venue</td>
-              <td>Tickets</td>
-            </tr>
-            <tr>
-              <td>Date</td>
-              <td>City</td>
-              <td>Venue</td>
-              <td>Tickets</td>
-            </tr>
-          </table>
+          <div class="card-content">
+            <table>
+              <tr>
+                <td>Date</td>
+                <td>City</td>
+                <td>Venue</td>
+                <td>Tickets</td>
+              </tr>
+              <tr>
+                <td>Date</td>
+                <td>City</td>
+                <td>Venue</td>
+                <td>Tickets</td>
+              </tr>
+              <tr>
+                <td>Date</td>
+                <td>City</td>
+                <td>Venue</td>
+                <td>Tickets</td>
+              </tr>
+              <tr>
+                <td>Date</td>
+                <td>City</td>
+                <td>Venue</td>
+                <td>Tickets</td>
+              </tr>
+            </table>
+          </div>
         </div>
       </div>
       <div class="card" id="other-container">
-        <img src="https://picsum.photos/950" alt="" />
-        <div class="card-content" id="other-content">
+        <div class="card-inner-container" id="other-content">
           <div class="card-title">Other Stuff</div>
-          <p id="other-text" class="card-text"></p>
+          <div class="card-content">
+            <p id="other-text" class="card-text"></p>
+          </div>
         </div>
       </div>
     </main>
