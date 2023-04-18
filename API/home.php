@@ -3,11 +3,11 @@
 $output = array(
     array(
         "target" => "other",
-        "content" => "OTHER :::: Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum at vel ea quae aperiam a iusto facilis perspiciatis expedita velit, quam corrupti. Excepturi nam temporibus asperiores magni molestiae? Obcaecati, distinctio?"
+        "content" => "!!OTHER :::: Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum at vel ea quae aperiam a iusto facilis perspiciatis expedita velit, quam corrupti. Excepturi nam temporibus asperiores magni molestiae? Obcaecati, distinctio?"
     ),
     array(
         "target" => "about",
-        "content" => "ABOUT ::::Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti voluptatem soluta sequi enim omnis cupiditate. Voluptatum, quos aut libero a obcaecati expedita nam, facere adipisci eligendi debitis velit iusto tenetur?"
+        "content" => "ABOUT :::: Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti voluptatem soluta sequi enim omnis cupiditate. Voluptatum, quos aut libero a obcaecati expedita nam, facere adipisci eligendi debitis velit iusto tenetur?"
     ),
     array(
         "target" => "album",
