@@ -5,8 +5,7 @@ deployment:
     - export DEPLOYPATH=/home/thesadso/theexactopposite.uk/test
     - /bin/cp -R .vscode $DEPLOYPATH
     - /bin/cp -R assets $DEPLOYPATH
-    - /bin/cp -R css $DEPLOYPATH
-    - /bin/cp -R fonts $DEPLOYPATH
-    - /bin/cp -R img $DEPLOYPATH
+    - /bin/cp -R styles $DEPLOYPATH
+    - /bin/cp -R API $DEPLOYPATH
     - /bin/cp -R js $DEPLOYPATH
-    /bin/cp index.html $DEPLOYPATH
+    /bin/cp index-card-h.html $DEPLOYPATH
