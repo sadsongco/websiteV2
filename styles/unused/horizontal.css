@@ -22,16 +22,18 @@ main {
 
 section {
   position: sticky;
+  position: -webkit-sticky;
   top: 0;
   left: 0;
   width: auto;
   height: 90vh;
   margin: 5vh 5vw;
-  background-color: blueviolet;
+  background-color: rgb(42, 39, 45);
 }
 
 section .title {
   position: sticky;
+  position: -webkit-sticky;
   display: block;
   left: 0;
   top: 0;
@@ -59,6 +61,7 @@ section .content {
 
 section .content .item {
   position: sticky;
+  position: -webkit-sticky;
   left: 5vw;
   top: 5vh;
   width: 50vw;

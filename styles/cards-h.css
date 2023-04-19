@@ -18,8 +18,9 @@ footer {
 main {
   display: flex;
   flex-direction: row;
-  overflow: scroll;
-  height: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  height: 100vh;
   scroll-snap-type: inline mandatory;
 }
 
