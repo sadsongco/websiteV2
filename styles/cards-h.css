@@ -16,6 +16,8 @@ footer {
 }
 
 main {
+  max-height: 100vh;
+  overflow-y: scroll;
   scroll-snap-type: block mandatory;
 }
 
