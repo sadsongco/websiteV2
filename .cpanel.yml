@@ -3,7 +3,6 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/thesadso/theexactopposite.uk/test
-    - /bin/cp -R .vscode $DEPLOYPATH
     - /bin/cp -R assets $DEPLOYPATH
     - /bin/cp -R styles $DEPLOYPATH
     - /bin/cp -R API $DEPLOYPATH
