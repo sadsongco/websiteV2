@@ -1,0 +1,14 @@
+.hidden {
+  opacity: 0;
+  filter: blur(5px);
+  transform: scaleY(0.1);
+  transition: opacity 1s, filter 1.5s, transform 1s;
+  transition-delay: filter 0.3s;
+}
+
+.show {
+  opacity: 1;
+  filter: blur(0);
+  transform: scaleY(1);
+}
+/*  */

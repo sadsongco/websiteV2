@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="./styles/cards-h.css" />
     <link rel="stylesheet" href="./styles/nav.css" />
     <link rel="stylesheet" href="./styles/loader.css" />
+    <link rel="stylesheet" href="./styles/animate-on-scroll.css" />
+    <script defer src="./js/nav.js"></script>
+    <script defer src="./js/content.js"></script>
+    <script defer src="./js/animate-on-scroll.js"></script>
     <title>The Exact Opposite - horizontal cards</title>
   </head>
   <body>
@@ -42,7 +46,7 @@
       <div class="card" id="about-container">
         <div class="card-inner-container">
           <div class="card-title">About</div>
-          <div class="card-content">
+          <div class="card-content hidden">
             <p id="about-text" class="card-text"></p>
           </div>
         </div>
@@ -50,7 +54,7 @@
       <div class="card" id="album-container">
         <div class="card-inner-container">
           <div class="card-title">Skill Issue</div>
-          <div class="card-content">
+          <div class="card-content hidden">
             <p id="album-text" class="card-text"></p>
           </div>
         </div>
@@ -58,7 +62,7 @@
       <div class="card" id="shows-container">
         <div class="card-inner-container">
           <div class="card-title">Shows</div>
-          <div class="card-content">
+          <div class="card-content hidden">
             <table>
               <tr>
                 <td>Date</td>
@@ -91,7 +95,7 @@
       <div class="card" id="other-container">
         <div class="card-inner-container" id="other-content">
           <div class="card-title">Other Stuff</div>
-          <div class="card-content">
+          <div class="card-content hidden">
             <p id="other-text" class="card-text"></p>
           </div>
         </div>
@@ -111,7 +115,5 @@
         <img src="./assets/images/socials/ig.png" alt="Instagram icon" />
       </a>
     </footer>
-    <script src="./js/nav.js"></script>
-    <script src="./js/content.js"></script>
   </body>
 </html>
