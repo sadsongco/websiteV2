@@ -60,20 +60,20 @@ p.card-text {
   margin: 0.5em 1.3em;
 }
 
-main {
-  scroll-snap-type: inline mandatory;
-  display: flex;
-  flex-direction: row;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  height: 100vh;
-}
-.card {
-  top: initial;
-  left: 0;
-}
-.card-inner-container {
-  padding-top: 12vh;
-}
-@media screen and (min-width: 6000px) {
+@media screen and (min-width: 600px) {
+  main {
+    scroll-snap-type: inline mandatory;
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    height: 100vh;
+  }
+  .card {
+    top: initial;
+    left: 0;
+  }
+  .card-inner-container {
+    padding-top: 12vh;
+  }
 }
