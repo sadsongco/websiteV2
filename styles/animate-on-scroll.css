@@ -12,7 +12,7 @@
   transform: scaleY(1);
 }
 
-@media (prefers-reduced-motion) {
+@media (prefers-reduced-motion), screen and (max-width: 600px) {
   .hidden {
     transition: none;
   }
