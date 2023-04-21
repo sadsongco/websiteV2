@@ -210,7 +210,7 @@ footer {
 }
 
 p.card-text {
-  font-size: 1em;
+  font-size: clamp(1em, 2vw, 1.6em);
   padding: 0.5em;
 }
 
@@ -259,10 +259,4 @@ p.card-text {
 
 .card-content table tr td:first-of-type {
   border-left: none;
-}
-
-@media screen and (min-width: 600px) {
-  p.card-text {
-    font-size: clamp(1em, 2vw, 1.6em);
-  }
 }

@@ -16,12 +16,7 @@ footer {
 }
 
 main {
-  display: flex;
-  flex-direction: row;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  height: 100vh;
-  scroll-snap-type: inline mandatory;
+  scroll-snap-type: block mandatory;
 }
 
 main > * {
@@ -29,7 +24,8 @@ main > * {
 }
 
 .card {
-  left: 0;
+  left: initial;
+  top: 0;
   min-width: 100vw;
   background-repeat: repeat-y;
   background-attachment: fixed;
@@ -43,20 +39,18 @@ main > * {
   height: 100%;
   width: 6vw;
   left: 0;
+  top: 0;
   writing-mode: vertical-lr;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding-top: 12vh;
-}
-
-.card-inner-container {
-  padding-top: 12vh;
+  padding-top: 13vh;
 }
 
 .card-content {
   margin: 1em 1vw 1em 7vw;
   padding: 1em;
+  margin-top: 13vh;
   border-radius: 10px;
   max-height: 70%;
   overflow: scroll;
@@ -64,4 +58,22 @@ main > * {
 
 p.card-text {
   margin: 0.5em 1.3em;
+}
+
+main {
+  scroll-snap-type: inline mandatory;
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  height: 100vh;
+}
+.card {
+  top: initial;
+  left: 0;
+}
+.card-inner-container {
+  padding-top: 12vh;
+}
+@media screen and (min-width: 6000px) {
 }

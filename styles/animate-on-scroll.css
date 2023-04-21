@@ -2,7 +2,7 @@
   opacity: 0;
   filter: blur(5px);
   transform: scaleY(0.1);
-  transition: opacity 1s, filter 1.5s, transform 1s;
+  transition: opacity 0.5s, filter 0.8s, transform 0.5s;
   transition-delay: filter 0.3s;
 }
 
@@ -11,4 +11,9 @@
   filter: blur(0);
   transform: scaleY(1);
 }
-/*  */
+
+@media (prefers-reduced-motion) {
+  .hidden {
+    transition: none;
+  }
+}

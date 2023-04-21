@@ -14,9 +14,9 @@ const loadBackgroundImage = async (src) => {
 };
 
 const placeBackgroundImage = async (src, target) => {
-  target.style.backgroundImage = `url(${src})`;
   target.style.backgroundAttachment = 'fixed';
   target.style.backgroundSize = 'cover';
+  target.style.backgroundImage = `url(${src})`;
 };
 
 const buildBackgrounds = async () => {
