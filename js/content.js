@@ -18,7 +18,6 @@ const placeBackgroundImage = async (src, target) => {
   imageEl.src = src;
   imageEl.classList.add('bg-image');
   target.appendChild(imageEl);
-  console.log(imageEl);
   target.style.backgroundAttachment = 'fixed';
   target.style.backgroundSize = 'cover';
   target.style.backgroundImage = `url(${src})`;

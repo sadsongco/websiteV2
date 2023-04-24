@@ -16,9 +16,13 @@ footer {
 }
 
 main {
+  scroll-snap-type: inline mandatory;
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  height: 100vh;
   max-height: 100vh;
-  overflow-y: scroll;
-  scroll-snap-type: block mandatory;
 }
 
 main > * {
@@ -26,8 +30,8 @@ main > * {
 }
 
 .card {
-  left: initial;
-  top: 0;
+  top: initial;
+  left: 0;
   min-width: 100vw;
   background-repeat: repeat-y;
   background-attachment: fixed;
@@ -52,32 +56,16 @@ main > * {
 .card-content {
   margin: 1em 1vw 1em 7vw;
   padding: 1em;
-  margin-top: 13vh;
+  margin-top: 8vh;
   border-radius: 10px;
+  max-height: 70%;
+  overflow: scroll;
+}
+
+.card-inner-container {
+  padding-top: 12vh;
 }
 
 p.card-text {
   margin: 0.5em 1.3em;
-}
-
-@media screen and (min-width: 6px) {
-  main {
-    scroll-snap-type: inline mandatory;
-    display: flex;
-    flex-direction: row;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    height: 100vh;
-  }
-  .card {
-    top: initial;
-    left: 0;
-  }
-  .card-inner-container {
-    padding-top: 12vh;
-  }
-  .card-content {
-    max-height: 70%;
-    overflow: scroll;
-  }
 }
