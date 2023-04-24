@@ -55,7 +55,7 @@ main > * {
 }
 
 .card-content {
-  margin: 1em 1vw 11vh 7vw;
+  margin: 1em 1vw calc(11vh + 1em) 7vw;
   padding: 1em;
   border-radius: 10px;
   max-height: 80%;
