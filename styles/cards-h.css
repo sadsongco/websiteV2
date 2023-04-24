@@ -60,7 +60,7 @@ p.card-text {
   margin: 0.5em 1.3em;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 6000px) {
   main {
     scroll-snap-type: inline mandatory;
     display: flex;
