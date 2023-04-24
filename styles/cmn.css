@@ -260,3 +260,12 @@ p.card-text {
 .card-content table tr td:first-of-type {
   border-left: none;
 }
+
+.card .bg-image {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
