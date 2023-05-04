@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/cmn.css" />
+    <link rel="stylesheet" href="./styles/cards-h.css" />
+    <link rel="stylesheet" href="./styles/nav.css" />
+    <link rel="stylesheet" href="./styles/loader.css" />
+    <link rel="stylesheet" href="./styles/animate-on-scroll.css" />
+    <script defer type="module" src="./js/loading.js"></script>
+    <script defer type="module" src="./js/content.js"></script>
+    <!-- <script defer type="module" src="./js/nav.js"></script>
+    <script defer type="module" src="./js/animate-on-scroll.js"></script> -->
+    <!-- <script defer src="./js/animate-on-scroll.js"></script> -->
+    <title>The Exact Opposite</title>
+  </head>
+  <body>
+    <nav class="hidden">
+      <input id="menu" type="checkbox" name="nav-bar" />
+      <label for="menu"><span class="nav-highlight">&#9776;</span></label>
+      <ul id="nav-bar">
+        <li><a data-target="about-container">About Us</a></li>
+        <li><a data-target="album-container">Skill Issue</a></li>
+        <li><a data-target="shows-container">Upcoming Shows</a></li>
+        <li><a data-target="other-container">Other Stuff</a></li>
+      </ul>
+    </nav>
+    <div id="initial-load" class="fullscreen hidden">
+      <div id="loading" class="lds-default">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <header>The Exact Opposite</header>
+    <main id="content-container">
+      <div class="card" id="default">
+        <div class="card-inner-container">
+          <div class="card-title">Home</div>
+          <div class="card-content">
+            <p class="card-strap">This is the website of The Exact Opposite, Jamie and Nigel from Dive Dive's new band. You don't seem to have javascript enabled in your browser, so I'm afraid this page is all you get!</p>
+            <article class="card-article"></article>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <a href="mailto:nigel@theexactopposite.uk">
+        <img src="./assets/images/socials/email.png" alt="email icon" />
+      </a>
+      <a href="https://www.facebook.com/theexactopp/">
+        <img src="./assets/images/socials/fb.png" alt="Facebook icon" />
+      </a>
+      <a href="https://twitter.com/theexactopp/">
+        <img src="./assets/images/socials/tw.png" alt="Twitter icon" />
+      </a>
+      <a href="https://www.instagram.com/theexactopp/">
+        <img src="./assets/images/socials/ig.png" alt="Instagram icon" />
+      </a>
+    </footer>
+  </body>
+</html>

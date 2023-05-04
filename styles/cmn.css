@@ -209,6 +209,7 @@ footer {
   backdrop-filter: blur(5px);
 }
 
+p.card-strap,
 p.card-text {
   font-size: clamp(1em, 2vw, 1.6em);
   padding: 0.5em;
@@ -222,6 +223,16 @@ p.card-text {
 
 .card-inner-container ul li {
   font-size: 1.3em;
+}
+
+.card-article {
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(180, 200, 180, 0.6);
+}
+
+.card-article p {
+  font-size: 1.2em;
+  margin-bottom: 0.5rem;
 }
 
 @media screen and (min-width: 600px) {
