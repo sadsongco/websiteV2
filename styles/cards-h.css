@@ -17,6 +17,7 @@ footer {
 }
 
 main {
+  position: relative;
   scroll-snap-type: inline mandatory;
   display: flex;
   flex-direction: row;

@@ -13,10 +13,17 @@ export const createCard = (template, cardData) => {
   const articleEl = contentEl.getElementsByClassName('card-article')[0];
   articleEl.remove();
   if (cardData.content) {
-    const thisArticleEl = articleEl.cloneNode();
-    const contentArray = cardData.content.article_content.split('\n');
-    thisArticleEl.innerHTML = `<p>${contentArray.join('</p>\n\t\t<p>')}</p>`;
-    contentEl.appendChild(thisArticleEl);
+    cardData.content.forEach((article) => {
+      const thisArticleEl = articleEl.cloneNode();
+      let dateString = '';
+      if (cardData.content_type.substr(0, 5) === 'multi') {
+        dateString = `<div class = "article-date">${article.live_date}</div>`;
+        // dateString = '<div class = "article-date">' + liveDate.getDate() + '/' + (liveDate.getMonth() + 1) + '/' + liveDate.getFullYear() + ', ' + liveDate.getHours() + ':' + liveDate.getMinutes() + '</div>';
+      }
+      const contentArray = article.article_content.split('\n');
+      thisArticleEl.innerHTML = `${dateString}<p>${contentArray.join('</p>\n\t\t<p>')}</p>`;
+      contentEl.appendChild(thisArticleEl);
+    });
   }
   return newCardEl;
 };
