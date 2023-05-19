@@ -74,6 +74,7 @@
   align-items: center;
   padding-top: 13vh;
   font-size: clamp(1.5em, 5.5vw, 2.5em);
+  font-weight: 600;
 }
 
 .card:nth-of-type(odd) .card-inner-container .card-title {
@@ -107,6 +108,10 @@ p.card-text {
 
 p.card-text {
   margin: 0.5em 1.3em;
+}
+
+p.card-strap {
+  font-style: italic;
 }
 
 .card-article {
