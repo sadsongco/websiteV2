@@ -1,3 +1,5 @@
+import { imgTagReplace } from './imgTagReplace.js';
+
 export const createCard = (template, cardData) => {
   const newCardEl = template.cloneNode(true);
   newCardEl.id = `${cardData.card_id}-card`;
@@ -52,6 +54,7 @@ export const createCard = (template, cardData) => {
       if (cardData.content_type.substr(0, 5) === 'multi') {
         dateString = `<div class = "article-date">${article.live_date}</div>`;
       }
+      article.article_content = imgTagReplace(article);
       const contentArray = article.article_content.split('\n');
       thisArticleEl.innerHTML = `${dateString}<p>${contentArray.join('</p>\n\t\t<p>')}</p>`;
       contentEl.appendChild(thisArticleEl);

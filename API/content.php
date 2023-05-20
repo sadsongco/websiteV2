@@ -17,16 +17,36 @@ function getGigs ($db) {
     }
 }
 
+function getArticleImages($db, $article_id) {
+    try {
+        $img_stmt = $db->prepare("SELECT * FROM ArticleImages WHERE article_id = ?");
+        $img_stmt->execute(array($article_id));
+        $img_result = $img_stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (sizeof($img_result) > 0)
+            return $img_result;
+        else
+            return null;
+    }
+    catch (PDOException $e) {
+        echo "Database Error: " . $e->getMessage();     
+    }
+}
+
 function getSingleContent($db, $card_id) {
     try {
         if ($card_id == 'gigs') {
             return getGigs($db);
         }
-        $stmt = $db->prepare("SELECT article_content FROM Articles WHERE card_id = ? ORDER BY live_date DESC LIMIT 1;");
+        $stmt = $db->prepare("SELECT article_id, article_content FROM Articles WHERE card_id = ? ORDER BY live_date DESC LIMIT 1;");
         $stmt->execute(array($card_id));
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $output = [];
+        foreach ($result as $row) {
+            $row['images'] = getArticleImages($db, $row['article_id']);
+            array_push($output, $row);
+        }
         if (sizeof($result) > 0)
-            return $result;
+            return $output;
         else
             return null;
     }
