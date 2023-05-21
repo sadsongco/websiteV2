@@ -1,0 +1,22 @@
+body,
+main {
+  display: block;
+}
+
+.cardsPreview {
+  width: 90vw;
+  height: 20vh;
+  background: #444;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.cardPreview {
+  display: block;
+  height: 100%;
+  background: #aaa;
+  border-right: 1px solid red;
+  border-bottom: 1px solid blue;
+}
