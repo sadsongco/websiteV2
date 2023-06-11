@@ -6,14 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../styles/reset.css" />
     <link rel="stylesheet" href="../styles/vars.css" />
-    <link rel="stylesheet" href="../styles/cmn.css" />
+    <!-- <link rel="stylesheet" href="../styles/cmn.css" /> -->
     <link rel="stylesheet" href="./styles/admin.css" />
     <link rel="stylesheet" href="../styles/loader.css" />
     <script defer type="module" src="./js/app.js"></script>
     <title>The Exact Opposite of admin</title>
   </head>
   <body>
-    <header>The Exact Opposite: Website Admin</header>
+    <header>
+      <img src="../assets/images/graphics/onelineLogoBW.svg" />
+
+      <h1>The Exact Opposite - website content management system</h1>
+    </header>
     <main id="content">
       <div id="loading" class="fullscreen">
         <div id="loading" class="lds-default">
@@ -31,12 +35,12 @@
           <div></div>
         </div>
       </div>
-      <section>
-        <h1>Hello</h1>
+      <section class="cardPreview">
+        <ul class="cardsPreview" id="cardsPreview">
+          <li class="cardPreview" id="cardPreview"></li>
+        </ul>
       </section>
-      <ul class="cardsPreview" id="cardsPreview">
-        <li class="cardPreview" id="cardPreview"></li>
-      </ul>
+      <section id="editCard"></section>
     </main>
   </body>
 </html>

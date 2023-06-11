@@ -30,20 +30,91 @@ const getArticles = async (card) => {
   return articlesArr.json();
 };
 
-const makeArticleEl = async (card) => {
+const submitNewArticle = async (e) => {
+  const data = [];
+  console.log(e.target.parentElement);
+  for (let el of e.target.parentElement.children) {
+    if (el.tagName == 'INPUT' || el.tagName == 'TEXTAREA') {
+      const obj = {};
+      obj[el.name] = el.value;
+      data.push(obj);
+    }
+  }
+  console.log(data);
+};
+
+const makeNewArticleEl = (card) => {
+  console.log(card);
+  const form = document.createElement('form');
+  form.id = 'newArticle';
+  form.method = 'post';
+  form.action = '#';
+  const articleContent = document.createElement('textarea');
+  articleContent.id = 'articleContent';
+  articleContent.name = 'article_content';
+  articleContent.placeholder = 'Enter your article content here';
+  const contentLabel = document.createElement('label');
+  contentLabel.for = 'articleContent';
+  contentLabel.innerHTML = 'create new article';
+  form.appendChild(contentLabel);
+  form.appendChild(articleContent);
+  const liveDate = document.createElement('input');
+  liveDate.type = 'datetime-local';
+  liveDate.id = 'liveDate';
+  const dateLabel = document.createElement('label');
+  dateLabel.for = 'liveDate';
+  dateLabel.innerHTML = 'enter date for article to go live (if nothing entered will go live immediately)';
+  form.appendChild(dateLabel);
+  form.appendChild(liveDate);
+  const cardId = document.createElement('input');
+  cardId.type = 'hidden';
+  cardId.name = 'card_id';
+  cardId.value = card.card_id;
+  const submit = document.createElement('input');
+  submit.type = 'submit';
+  submit.name = 'submit';
+  submit.value = 'upload new article';
+  submit.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const res = await submitNewArticle(e);
+    console.log(res);
+  });
+  form.appendChild(submit);
+  return form;
+};
+
+const makeArticleEls = async (card) => {
   const articles = await getArticles(card);
-  let articleEl = document.createElement('textarea');
-  const articleLabel = document.createElement('label');
-  articleLabel.for = articleEl;
-  articleLabel.innerHTML = 'article content';
-  articleEl.id = 'articleContent';
-  if (card.content_type.substr(0, 5) === 'multi') articleEl.placeholder = 'Enter text for new article here';
-  else articleEl.innerHTML = articles[0].article_content;
-  return [articleLabel, articleEl];
+  if (articles.length === 0) return null;
+  if (card.content_type.substr(0, 5) !== 'multi') articles.length = 1;
+  const articlesEl = document.createElement('section');
+  articlesEl.classList.add('articles');
+  for (let article of articles) {
+    const articleEl = await makeArticleEl(article);
+    if (articleEl) articlesEl.appendChild(articleEl);
+  }
+  return articlesEl;
+};
+
+const makeArticleEl = async (article) => {
+  const articleEl = document.createElement('section');
+  articleEl.addEventListener('click', editArticle(article));
+  articleEl.classList.add('article');
+  const articleHead = document.createElement('h2');
+  articleHead.classList.add('article-head');
+  articleHead.innerHTML = `${article.post_date} : ${article.article_content.slice(0, 30)}...`;
+  const articleMsg = document.createElement('p');
+  articleMsg.innerHTML = 'Click to edit article';
+  articleEl.appendChild(articleHead);
+  articleEl.appendChild(articleMsg);
+  return articleEl;
+};
+
+const editArticle = async (article) => {
+  console.log(article);
 };
 
 const updateCard = async (e) => {
-  e.preventDefault();
   const data = [];
   for (let el of e.target.parentElement.children) {
     if (el.tagName == 'INPUT') {
@@ -60,7 +131,8 @@ const updateCard = async (e) => {
       },
       body: JSON.stringify(data),
     });
-    return res.json();
+    return await res.text();
+    return await res.json();
   } catch (e) {
     console.error('API error: ', e);
   }
@@ -69,6 +141,11 @@ const updateCard = async (e) => {
 export const editCard = async (card) => {
   loading.style.display = 'flex';
   loading.classList.remove('hidden');
+
+  // container for card editing
+  const container = document.getElementById('editCard');
+
+  // card edit form
   const form = createEditForm();
   for (let [key, value] of Object.entries(card)) {
     const inputType = getInputType(key);
@@ -87,21 +164,28 @@ export const editCard = async (card) => {
     form.appendChild(inputEl);
     inputType != 'hidden' ? form.appendChild(document.createElement('br')) : null;
   }
-  const [articleLabel, articleEl] = await makeArticleEl(card);
-  console.log(articleLabel, articleEl);
-  form.appendChild(articleLabel);
-  form.appendChild(articleEl);
   let submitEl = document.createElement('input');
   submitEl.type = 'submit';
   submitEl.name = 'Update Card';
-  submitEl.value = 'submit';
+  submitEl.value = 'Update Card';
   submitEl.addEventListener('click', async (e) => {
+    e.preventDefault();
     const res = await updateCard(e);
     console.log(res);
     document.getElementById('editForm').remove();
   });
   form.appendChild(submitEl);
-  document.getElementById('content').appendChild(form);
+  container.appendChild(form);
+
+  // new article form
+  const newArticleEl = makeNewArticleEl(card);
+  container.appendChild(newArticleEl);
+
+  // edit old articles
+  const articlesEl = await makeArticleEls(card);
+  if (articlesEl) container.appendChild(articlesEl);
+
+  // hide loading
   loading.classList.add('hidden');
   loading.style.display = 'none';
 };
