@@ -57,7 +57,7 @@ function getSingleContent($db, $card_id) {
 
 function getMultiContent($db, $card_id) {
     try {
-        $stmt = $db->prepare("SELECT article_content, DATE_FORMAT(live_date, '%D %b %Y, %H:%i') AS live_date FROM Articles WHERE card_id = ? ORDER BY live_date DESC;");
+        $stmt = $db->prepare("SELECT article_content, DATE_FORMAT(live_date, '%D %b %Y, %H:%i') AS live_date FROM Articles WHERE card_id = ? ORDER BY live_date ASC;");
         $stmt->execute(array($card_id));
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if (sizeof($result) > 0)
