@@ -12,6 +12,11 @@ export const editCard = async (card) => {
   const container = document.getElementById('editCard');
   container.innerHTML = '';
 
+  // container heading
+  const editCardHeading = document.createElement('h1');
+  editCardHeading.innerHTML = 'edit card info';
+  container.appendChild(editCardHeading);
+
   // card edit form
   const form = createEditCardForm();
   createEditCardFormInputs(form, card);

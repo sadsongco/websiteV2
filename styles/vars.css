@@ -16,5 +16,6 @@
   --cta-hover-colour: #b2b2b2;
   --cta-background-colour: rgba(0, 0, 0, 0.6);
   /* fonts */
-  --std-font: Poppins, 'Libre Franklin', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --std-font: Poppins, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --heading-font: 'Libre Franklin', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }

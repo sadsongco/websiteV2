@@ -1,10 +1,16 @@
 import { Sortable } from '../../lib/sortable.core.esm.js';
 import { editCard } from './modules/editCard.js';
+import { closeOpenModals } from './modules/utilities.js';
 
 const loading = document.getElementById('loading');
 window.onload = () => {
   loading.classList.add('hidden');
   loading.addEventListener('transitionend', hideLoading());
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeOpenModals();
+    }
+  });
 };
 
 const hideLoading = () => {

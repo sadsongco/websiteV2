@@ -24,7 +24,7 @@ $query = "INSERT INTO articles VALUES (0, :article_content, NOW(), :live_date, :
 $result = [];
 try {
     $stmt = $db->prepare($query);
-    // $stmt->execute($parameters);
+    $stmt->execute($parameters);
     $result['success'] = true;
 }
 catch (PDOException $e) {

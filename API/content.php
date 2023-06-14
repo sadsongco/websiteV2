@@ -4,7 +4,11 @@ require_once("../../../secure/scripts/teo_connect.php");
 
 function getGigs ($db) {
     try {
-        $gig_stmt = $db->prepare("SELECT * FROM Gigs WHERE DATE(date) > CURDATE() ORDER BY date ASC;");
+        $gig_stmt = $db->prepare("SELECT DATE_FORMAT(date, '%D %b %Y') AS date,
+        venue, tickets, city, country, address
+        FROM Gigs 
+        WHERE DATE(date) > CURDATE() 
+        ORDER BY date ASC;");
         $gig_stmt->execute();
         $gig_result = $gig_stmt->fetchAll(PDO::FETCH_ASSOC);
         if (sizeof($gig_result) > 0)
@@ -37,7 +41,12 @@ function getSingleContent($db, $card_id) {
         if ($card_id == 'gigs') {
             return getGigs($db);
         }
-        $stmt = $db->prepare("SELECT article_id, article_content FROM Articles WHERE card_id = ? ORDER BY live_date DESC LIMIT 1;");
+        $stmt = $db->prepare("SELECT article_id, article_content
+        FROM Articles
+        WHERE card_id = ?
+        AND live_date <= NOW()
+        ORDER BY live_date
+        DESC LIMIT 1;");
         $stmt->execute(array($card_id));
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $output = [];
@@ -57,7 +66,12 @@ function getSingleContent($db, $card_id) {
 
 function getMultiContent($db, $card_id) {
     try {
-        $stmt = $db->prepare("SELECT article_content, DATE_FORMAT(live_date, '%D %b %Y, %H:%i') AS live_date FROM Articles WHERE card_id = ? ORDER BY live_date ASC;");
+        $stmt = $db->prepare("SELECT article_content,
+        DATE_FORMAT(live_date, '%D %b %Y, %H:%i') AS live_date
+        FROM Articles
+        WHERE card_id = ?
+        AND live_date <= NOW()
+        ORDER BY live_date ASC;");
         $stmt->execute(array($card_id));
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if (sizeof($result) > 0)

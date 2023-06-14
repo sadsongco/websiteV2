@@ -1,4 +1,5 @@
 import { createInput, createLabel } from './createFormEls.js';
+import { announceSuccess, insertMessage } from './messages.js';
 
 /* **** API CALLS **** */
 
@@ -188,21 +189,10 @@ const editGig = (gig) => {
 const highlightErrors = (errorFields) => {
   const errorMessage = document.createElement('h1');
   errorMessage.innerHTML = 'You missed out some information';
-  insertMessage(errorMessage);
+  insertMessage('You missed out some information', 'gigForm');
   errorFields.forEach((errorField) => {
     document.getElementById(errorField).classList.add('error');
   });
-};
-
-const insertMessage = (msgEl) => {
-  document.getElementById('gigEditView').insertBefore(msgEl, document.getElementById('gigForm'));
-};
-
-const announceSuccess = (msg) => {
-  document.getElementById('editCard').innerHTML = '';
-  const successMessage = document.createElement('h1');
-  successMessage.innerHTML = msg;
-  document.getElementById('editCard').appendChild(successMessage);
 };
 
 /* **** APPLICATION **** */

@@ -1,3 +1,5 @@
+import { announceSuccess, insertMessage } from './messages.js';
+
 const getInputType = (key) => {
   switch (key) {
     case 'bg_colour':
@@ -29,10 +31,9 @@ const updateCard = async (e) => {
       },
       body: JSON.stringify(data),
     });
-    return await res.text();
     return await res.json();
   } catch (e) {
-    console.error('API error: ', e);
+    return { success: false, error: 'API error: ' + e };
   }
 };
 
@@ -73,8 +74,12 @@ export const createEditCardFormSubmit = (form) => {
   submitEl.addEventListener('click', async (e) => {
     e.preventDefault();
     const res = await updateCard(e);
-    console.log(res);
-    document.getElementById('editForm').remove();
+    if (res.success) {
+      document.getElementById('editCard').innerHTML = '';
+      announceSuccess('card info updated');
+      return;
+    }
+    insertMessage('there was an error: ' + res.error, 'editCard');
   });
   form.appendChild(submitEl);
 };

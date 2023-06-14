@@ -1,4 +1,6 @@
 import { createInput, createLabel } from './createFormEls.js';
+import { announceSuccess, insertMessage } from './messages.js';
+import { closeOpenModals } from './utilities.js';
 
 const submitNewArticle = async (e) => {
   const data = [];
@@ -61,6 +63,8 @@ const editArticle = async (article, card) => {
   const editArticleContainer = document.getElementById('editArticle');
   editArticleContainer.innerHTML = '';
   editArticleContainer.appendChild(form);
+  editArticleContainer.classList.add('modal-open');
+  editArticleContainer.scrollIntoView({ block: 'start', inline: 'start' });
 };
 
 export const createNewArticleForm = (card, formParams, inputs) => {
@@ -75,11 +79,20 @@ export const createNewArticleForm = (card, formParams, inputs) => {
       form.appendChild(labelEl);
     }
     form.appendChild(inputEl);
-    if ((input.type = 'submit')) {
+    if (input.type === 'submit') {
       inputEl.addEventListener('click', async (e) => {
         e.preventDefault();
+        if (e.target.name == 'delete' && !confirm('delete article - are you sure?')) return closeOpenModals();
         const res = await submitNewArticle(e);
-        console.log(res);
+        if (res.success) {
+          document.getElementById('editCard').innerHTML = '';
+          closeOpenModals();
+          if (e.target.name == 'update') return announceSuccess('article updated');
+          if (e.target.name == 'delete') return announceSuccess('article deleted');
+          announceSuccess('new article submitted');
+          return;
+        }
+        insertMessage('there was an error: ' + res.error, 'editCard');
       });
     }
   }
@@ -108,9 +121,8 @@ export const createArticleEls = async (card) => {
   for (let article of articles) {
     const articleEl = await createArticleEl(article);
     if (articleEl) {
-      //   articleEl.addEventListener('click', editArticle(article));
       articleEl.addEventListener('click', async (e) => {
-        const res = await editArticle(article, card);
+        editArticle(article, card);
       });
       articlesEl.appendChild(articleEl);
     }

@@ -6,7 +6,7 @@ export const createInput = (params) => {
     e.target.classList.remove('error');
   });
   if (params.type == 'textarea') {
-    input.innerHTML = params.value;
+    if (params.value) input.innerHTML = params.value;
     return input;
   }
   input.type = params.type;

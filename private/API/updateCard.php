@@ -4,6 +4,7 @@ require_once("../../../../secure/scripts/teo_a_connect.php");
 
 $data = json_decode(file_get_contents('php://input'), true);
 $parameters = [];
+$return = [];
 foreach ($data as $value) {
     switch (key($value)) {
         case 'title':
@@ -21,11 +22,14 @@ $query = "UPDATE Cards SET title = :title, strap = :strap WHERE card_id = :card_
 try {
     $stmt = $db->prepare($query);
     $stmt->execute($parameters);
-    echo "SUCCESS";
+    $return['success'] = true;
 }
 catch (PDOException $e) {
-    echo "Database Error: " . $e->getMessage();
+    $return['success'] = false;
+    $return['error'] = "Database Error: " . $e->getMessage();
 }
+
+echo json_encode($return);
 
 require_once("../../../../secure/scripts/teo_disconnect.php");
 
