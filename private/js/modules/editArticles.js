@@ -1,3 +1,5 @@
+import { createInput, createLabel } from './createFormEls.js';
+
 const submitNewArticle = async (e) => {
   const data = [];
   let target = e.target.name;
@@ -59,27 +61,6 @@ const editArticle = async (article, card) => {
   const editArticleContainer = document.getElementById('editArticle');
   editArticleContainer.innerHTML = '';
   editArticleContainer.appendChild(form);
-};
-
-const createInput = (params) => {
-  const input = params.type == 'textarea' ? document.createElement('textarea') : document.createElement('input');
-  if (params.id) input.id = params.id;
-  input.name = params.name;
-  if (params.type == 'textarea') {
-    input.innerHTML = params.value;
-    return input;
-  }
-  input.type = params.type;
-  if (params.placeholder) input.placeholder = params.placeholder;
-  if (params.value) input.value = params.value;
-  return input;
-};
-
-const createLabel = (params) => {
-  const label = document.createElement('label');
-  label.for = params.for;
-  label.innerHTML = params.text;
-  return label;
 };
 
 export const createNewArticleForm = (card, formParams, inputs) => {

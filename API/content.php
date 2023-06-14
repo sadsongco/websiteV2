@@ -4,7 +4,7 @@ require_once("../../../secure/scripts/teo_connect.php");
 
 function getGigs ($db) {
     try {
-        $gig_stmt = $db->prepare("SELECT * FROM Gigs WHERE DATE(date) > CURDATE();");
+        $gig_stmt = $db->prepare("SELECT * FROM Gigs WHERE DATE(date) > CURDATE() ORDER BY date ASC;");
         $gig_stmt->execute();
         $gig_result = $gig_stmt->fetchAll(PDO::FETCH_ASSOC);
         if (sizeof($gig_result) > 0)

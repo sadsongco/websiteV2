@@ -69,6 +69,20 @@ label {
   font-weight: 600;
   font-size: 1.5em;
 }
+
+fieldset {
+  border: 1px solid black;
+  padding: 0.5em;
+}
+
+fieldset:nth-of-type(odd) {
+  background-color: #fde8e8;
+}
+
+fieldset:nth-of-type(even) {
+  background-color: #e1eef8;
+}
+
 .articles {
   margin-top: 1em;
   padding: 0.5em;
@@ -96,4 +110,15 @@ label {
 
 .article p {
   padding: 0.6em;
+}
+
+/* gigs */
+
+.gigInfo {
+  padding: 0.2em;
+  display: inline-block;
+}
+
+.error {
+  border: 2px solid red;
 }
