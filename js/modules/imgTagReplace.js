@@ -14,7 +14,9 @@ export const imgTagReplace = (content) => {
     for (const img of content.images) {
       if (img.img_pos == imgId) {
         const imgURL = articleImgPath + img.url;
-        const imgEl = `<img src = '${imgURL}' alt = '${img.caption}' />`;
+        const imgEl = `<div class = 'imgContainer'>
+        <img src = '${imgURL}' alt = '${img.caption}' />
+        </div>`;
         content.article_content = content.article_content.replace(tag, imgEl);
       }
     }

@@ -1,5 +1,5 @@
 import { createEditCardForm, createEditCardFormInputs, createEditCardFormSubmit } from './editCardForm.js';
-import { createNewArticleForm, createArticleEls } from './editArticles.js';
+import { createNewArticleForm, createArticleEls, createImageUpload } from './editArticles.js';
 import { createGigEditView } from './editGigs.js';
 
 const loading = document.getElementById('loading');
@@ -48,8 +48,11 @@ export const editCard = async (card) => {
       { type: 'hidden', name: 'card_id', value: card.card_id },
       { type: 'submit', name: 'submit', value: 'upload new article' },
     ];
-    const newArticleForm = createNewArticleForm(card, { id: 'newArticle', method: 'post', action: '#' }, inputs);
+    const newArticleForm = createNewArticleForm({ id: 'newArticle', method: 'post', action: '#' }, inputs);
     container.appendChild(newArticleForm);
+    const [imageUploadInput, imageUploadLabel] = createImageUpload(0, newArticleForm);
+    newArticleForm.appendChild(imageUploadLabel);
+    newArticleForm.appendChild(imageUploadInput);
 
     // edit old articles
     const articlesEl = await createArticleEls(card);

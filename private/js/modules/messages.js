@@ -1,8 +1,8 @@
 export const insertMessage = (msg, targetId) => {
   const message = document.createElement('h1');
+  message.classList.add('message');
   message.innerHTML = msg;
   const target = document.getElementById(targetId);
-  console.log(target);
   target.insertBefore(message, target.children[0]);
 };
 

@@ -41,8 +41,14 @@ footer {
 }
 
 img {
+  max-width: 900px;
+  margin: auto;
+}
+
+.imgContainer {
   width: 100%;
-  height: auto;
+  display: flex;
+  justify-content: center;
 }
 
 /* specific header and footer */

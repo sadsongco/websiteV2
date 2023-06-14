@@ -10,6 +10,16 @@ h1 {
   font-weight: 700;
 }
 
+h1.message {
+  color: rgb(86, 2, 2);
+}
+
+code {
+  font-family: monospace;
+  font-weight: 300;
+  font-size: 0.9em;
+}
+
 .cardsPreview {
   width: auto;
   height: 20vh;
@@ -97,6 +107,8 @@ input {
 }
 
 label {
+  display: inline-block;
+  margin-top: 0.4em;
   font-family: var(--heading-font);
   font-weight: 500;
   font-size: 1.1em;

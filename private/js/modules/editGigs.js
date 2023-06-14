@@ -1,5 +1,6 @@
 import { createInput, createLabel } from './createFormEls.js';
 import { announceSuccess, insertMessage } from './messages.js';
+import { highlightErrors } from './utilities.js';
 
 /* **** API CALLS **** */
 
@@ -154,7 +155,7 @@ const createGigsForm = (edit = null, gigId = null) => {
         console.log(res);
         return;
       }
-      if (res.error === 'validation') highlightErrors(res.errorFields);
+      if (res.error === 'validation') highlightErrors(res.errorFields, 'gigForm');
     });
     gigForm.appendChild(submit);
   }
@@ -186,14 +187,6 @@ const editGig = (gig) => {
 };
 
 /* **** UTILITIES **** */
-const highlightErrors = (errorFields) => {
-  const errorMessage = document.createElement('h1');
-  errorMessage.innerHTML = 'You missed out some information';
-  insertMessage('You missed out some information', 'gigForm');
-  errorFields.forEach((errorField) => {
-    document.getElementById(errorField).classList.add('error');
-  });
-};
 
 /* **** APPLICATION **** */
 

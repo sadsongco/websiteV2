@@ -1,30 +1,50 @@
 import { createInput, createLabel } from './createFormEls.js';
 import { announceSuccess, insertMessage } from './messages.js';
-import { closeOpenModals } from './utilities.js';
+import { closeOpenModals, highlightErrors } from './utilities.js';
 
-const submitNewArticle = async (e) => {
-  const data = [];
-  let target = e.target.name;
-  for (let el of e.target.parentElement.children) {
-    if (el.tagName == 'INPUT' || el.tagName == 'TEXTAREA') {
-      const obj = {};
-      obj[el.name] = el.value;
-      data.push(obj);
+// API calls
+const submitNewArticle = async (target, form) => {
+  const formData = new FormData();
+  const errorFields = [];
+  for (let el of form) {
+    if (el.type != 'file' && el.name != 'live_date' && el.value == '') {
+      errorFields.push(el.id);
+      continue;
     }
+    if (el.type == 'file') {
+      formData.append(el.name, el.files[0]);
+      continue;
+    }
+    formData.append(el.name, el.value);
   }
+  if (errorFields.length > 0) return { success: false, error: 'validation', errorFields: errorFields };
   try {
-    if (target === '') return null;
     const res = await fetch(`./API/${target}Article.php`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
+      method: 'post',
+      // headers: {
+      //   'Content-Type': 'application/json',
+      // },
+      // body: JSON.stringify(data),
+      body: formData,
     });
     // return await res.text();
     return await res.json();
   } catch (e) {
-    console.error('API error: ', e);
+    return { success: false, error: 'API error: ' + e };
+  }
+};
+
+const uploadImage = async (fileInput) => {
+  const formData = new FormData();
+  formData.append('image', fileInput.files[0]);
+  try {
+    const res = await fetch('./API/uploadArticleImage.php', {
+      method: 'post',
+      body: formData,
+    });
+    console.log(await res.text());
+  } catch (e) {
+    console.log(e);
   }
 };
 
@@ -58,8 +78,9 @@ const editArticle = async (article, card) => {
     { name: 'article_id', type: 'hidden', value: article.article_id },
     { type: 'submit', name: 'update', value: 'update article' },
     { type: 'submit', name: 'delete', value: 'delete article' },
+    { type: 'submit', name: 'cancel', value: 'cancel editing' },
   ];
-  const form = createNewArticleForm(card, { id: 'editArticle', method: 'post', action: '#' }, inputs);
+  const form = createNewArticleForm({ id: 'editArticle', method: 'post', action: '#' }, inputs);
   const editArticleContainer = document.getElementById('editArticle');
   editArticleContainer.innerHTML = '';
   editArticleContainer.appendChild(form);
@@ -67,7 +88,7 @@ const editArticle = async (article, card) => {
   editArticleContainer.scrollIntoView({ block: 'start', inline: 'start' });
 };
 
-export const createNewArticleForm = (card, formParams, inputs) => {
+export const createNewArticleForm = (formParams, inputs) => {
   const form = document.createElement('form');
   form.id = formParams.id;
   form.method = formParams.method;
@@ -79,11 +100,14 @@ export const createNewArticleForm = (card, formParams, inputs) => {
       form.appendChild(labelEl);
     }
     form.appendChild(inputEl);
+
+    // add event listener to process form
     if (input.type === 'submit') {
       inputEl.addEventListener('click', async (e) => {
         e.preventDefault();
+        if (e.target.name == 'cancel') return closeOpenModals();
         if (e.target.name == 'delete' && !confirm('delete article - are you sure?')) return closeOpenModals();
-        const res = await submitNewArticle(e);
+        const res = await submitNewArticle(e.target.name, form);
         if (res.success) {
           document.getElementById('editCard').innerHTML = '';
           closeOpenModals();
@@ -92,11 +116,40 @@ export const createNewArticleForm = (card, formParams, inputs) => {
           announceSuccess('new article submitted');
           return;
         }
+        if (res.error === 'validation') return highlightErrors(res.errorFields, form.id);
         insertMessage('there was an error: ' + res.error, 'editCard');
       });
     }
   }
+
   return form;
+};
+
+export const createImageUpload = (idx, form) => {
+  const imageUploadInput = document.createElement('input');
+  imageUploadInput.name = `imageUpload_${idx}`;
+  imageUploadInput.id = `imageUpload_${idx}`;
+  imageUploadInput.type = 'file';
+  imageUploadInput.addEventListener('input', (e) => {
+    const [imageUploadInput, imageUploadLabel] = createImageUpload(++idx, form);
+    form.appendChild(imageUploadLabel);
+    form.appendChild(imageUploadInput);
+  });
+  const imageUploadLabel = document.createElement('label');
+  imageUploadLabel.for = `imageUpload_${idx}`;
+  imageUploadLabel.innerHTML = `upload an image for the article - paste <code>&lt;!--{{img-${idx}}}--&gt;</code> into the text`;
+  return [imageUploadInput, imageUploadLabel];
+  // const imageUploadSubmit = document.createElement('input');
+  // imageUploadSubmit.type = 'submit';
+  // imageUploadSubmit.value = 'upload article image';
+  // imageUploadForm.appendChild(imageUploadSubmit);
+
+  // // handle image upload when submitted
+  // imageUploadSubmit.addEventListener('click', (e) => {
+  //   e.preventDefault();
+  //   uploadImage(imageUploadInput);
+  // });
+  return imageUploadForm;
 };
 
 const createArticleEl = async (article) => {
