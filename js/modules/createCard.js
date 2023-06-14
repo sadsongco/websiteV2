@@ -20,29 +20,37 @@ export const createCard = (template, cardData) => {
       nothing.innerHTML = 'No gigs currently in the diary';
       contentEl.appendChild(nothing);
     } else {
-      const headings = ['date', 'venue', 'city'];
-      const table = document.getElementById('gigTable');
-      const hRow = document.getElementById('gigHead');
-      const row = document.getElementById('gigRow');
-      const hCell = hRow.firstElementChild;
-      const cell = row.firstElementChild;
-      hRow.innerHTML = '';
+      const headings = ['date', 'venue', 'city', 'country', 'address', 'tickets'];
+      const table = document.getElementById('gigsTable');
+      const tbody = document.getElementById('gigsBody');
+      const hRow = document.getElementById('gigHeadRow');
+      const row = document.getElementById('gigBodyRow');
+      const hCell = document.getElementById('gigHeadCell');
+      hCell.remove();
+      const cell = document.getElementById('gigBodyCell');
+      cell.remove();
+      row.remove();
       for (let heading of headings) {
         const thisHeaderCell = hCell.cloneNode();
+        thisHeaderCell.removeAttribute('id');
         thisHeaderCell.innerHTML = heading;
         hRow.appendChild(thisHeaderCell);
       }
-      table.appendChild(hRow);
       table.classList.remove('hidden');
       for (let gig of cardData.content) {
         let thisRow = row.cloneNode();
         thisRow.id = gig.date;
         for (let heading of headings) {
           const thisCell = cell.cloneNode();
-          thisCell.innerHTML = gig[heading];
+          thisCell.removeAttribute('id');
+          if (heading === 'tickets' && gig[heading]) {
+            gig[heading] = `<a href = '${gig[heading]}' target='_blank'>BUY TICKETS</a>`;
+          }
+          if (gig[heading] != '') thisCell.innerHTML = gig[heading];
+          thisCell.classList.add(heading);
           thisRow.appendChild(thisCell);
         }
-        table.appendChild(thisRow);
+        tbody.appendChild(thisRow);
       }
       contentEl.appendChild(table);
     }

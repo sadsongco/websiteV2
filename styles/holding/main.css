@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
+body {
+  font-family: 'Special Elite';
+  margin: 0;
+  padding: 0;
+  background: #efefef;
+}
+
+main {
+  display: flex;
+  height: 60vh;
+  margin-top: 15vh;
+  align-items: center;
+  justify-content: center;
+}
+
+#typewriter {
+  width: 60%;
+  max-width: 25em;
+  height: 50%;
+  padding: 3em;
+  background-color: floralwhite;
+  text-align: left;
+}
+
+.box {
+  position: relative;
+  margin: 40px auto;
+  width: 400px;
+  height: 350px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+.box::before,
+.box::after {
+  content: '';
+  position: absolute;
+  bottom: 10px;
+  width: 40%;
+  height: 10px;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.7);
+  z-index: -1;
+  transition: all 0.3s ease-in-out;
+}
+
+.box::before {
+  left: 15px;
+  transform: skew(-5deg) rotate(-5deg);
+}
+
+.box::after {
+  right: 15px;
+  transform: skew(5deg) rotate(5deg);
+}
+
+.box:hover::before,
+.box:hover::after {
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
+}
+
+.box:hover::before {
+  left: 5px;
+}
+
+.box:hover::after {
+  right: 5px;
+}
+
+#cover {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 10s ease-in-out;
+}
+
+#logo {
+  max-width: 50%;
+  max-height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#logo img {
+  width: 100%;
+  height: auto;
+}
+
+#socials {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 5vh;
+}
+
+#socials img {
+  padding: 0 2em;
+}

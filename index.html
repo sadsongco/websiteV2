@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./styles/vars.css" />
     <link rel="stylesheet" href="./styles/cmn.css" />
     <link rel="stylesheet" href="./styles/cards-h.css" />
+    <link rel="stylesheet" href="./styles/gigTable.css" />
     <link rel="stylesheet" href="./styles/nav.css" />
     <link rel="stylesheet" href="./styles/loader.css" />
     <link rel="stylesheet" href="./styles/animate-on-scroll.css" />
@@ -58,15 +59,15 @@
         </div>
       </div>
     </main>
-    <table class="gigs hidden" id="gigTable">
-      <thead>
-        <tr class="gigHead" id="gigHead">
-          <td class="gigHead"></td>
+    <table class="gigs hidden" id="gigsTable">
+      <thead id="gigsHead">
+        <tr id="gigHeadRow">
+          <th id="gigHeadCell"></th>
         </tr>
       </thead>
-      <tbody>
-        <tr class="gigRow" id="gigRow">
-          <td class="gigCell"></td>
+      <tbody id="gigsBody">
+        <tr id="gigBodyRow">
+          <td id="gigBodyCell"></td>
         </tr>
       </tbody>
     </table>
