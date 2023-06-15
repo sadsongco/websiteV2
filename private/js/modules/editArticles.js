@@ -21,10 +21,6 @@ const submitNewArticle = async (target, form) => {
   try {
     const res = await fetch(`./API/${target}Article.php`, {
       method: 'post',
-      // headers: {
-      //   'Content-Type': 'application/json',
-      // },
-      // body: JSON.stringify(data),
       body: formData,
     });
     // return await res.text();

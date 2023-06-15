@@ -2,17 +2,16 @@
 
 require_once("../../../secure/scripts/teo_a_connect.php");
 
-$data = json_decode(file_get_contents('php://input'), true);
 $parameters = [];
-foreach ($data as $value) {
-    switch (key($value)) {
+foreach ($_POST as $key=>$value) {
+    switch ($key) {
         case 'article_content':
-            case 'live_date':
-                case 'article_id':
-                    $parameters[key($value)] = $value[key($value)];
-                    break;
-                    default:
-                    break;
+        case 'live_date':
+        case 'article_id':
+            $parameters[$key] = $value;
+            break;
+        default:
+            break;
                 }
             }
 
