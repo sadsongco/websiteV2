@@ -88,7 +88,7 @@ foreach ($_POST as $key=>$value) {
 if ($parameters['live_date'] == '') $parameters['live_date'] = date('Y-m-d H:i:s');
 else $parameters['live_date'] = str_replace('T', ' ', $parameters['live_date']).":00";
 
-$query = "INSERT INTO articles VALUES (0, :article_content, NOW(), :live_date, :card_id);";
+$query = "INSERT INTO Articles VALUES (0, :article_content, NOW(), :live_date, :card_id);";
 
 $result = [];
 try {
@@ -98,7 +98,7 @@ try {
 }
 catch (PDOException $e) {
     $result['success'] = false;
-    $result['error'] =  "Database Error: " . $e->getMessage();
+    $result['error'] =  "Database Error: " . $e->getMessage() . "\n\r" . $e->getFile() . ":" . $e->getLine() . "\r\n";
 }
 
 // save any images
