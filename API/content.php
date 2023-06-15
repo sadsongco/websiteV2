@@ -51,9 +51,6 @@ function getSingleContent($db, $card_id) {
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $output = [];
         foreach ($result as $row) {
-            echo "<pre>";
-            print_r($row);
-            echo "</pre>";
             $row['images'] = getArticleImages($db, $row['article_id']);
             array_push($output, $row);
         }
