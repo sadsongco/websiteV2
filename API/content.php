@@ -1,6 +1,6 @@
 <?php
 
-require_once("../../../secure/scripts/teo_connect.php");
+require_once("../../secure/scripts/teo_connect.php");
 
 function getGigs ($db) {
     try {
@@ -122,6 +122,6 @@ function get_cards($db) {
 $output = get_cards($db);
 echo json_encode($output);
 
-require_once("../../../secure/scripts/teo_disconnect.php");
+require_once("../../secure/scripts/teo_disconnect.php");
 
 ?>

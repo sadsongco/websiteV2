@@ -1,6 +1,6 @@
 <?php
 
-require_once("../../../../secure/scripts/teo_connect.php");
+require_once("../../../secure/scripts/teo_connect.php");
 
 try {
     $stmt = $db->prepare("SELECT * FROM Cards ORDER BY card_pos ASC;");
@@ -14,6 +14,6 @@ catch(PDOException $e) {
 
 echo json_encode($result);
 
-require_once("../../../../secure/scripts/teo_disconnect.php");
+require_once("../../../secure/scripts/teo_disconnect.php");
 
 ?>

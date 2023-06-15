@@ -1,6 +1,6 @@
 <?php
 
-require_once("../../../../secure/scripts/teo_a_connect.php");
+require_once("../../../secure/scripts/teo_a_connect.php");
 
 try {
     $query = "SELECT * FROM Articles WHERE card_id = ? ORDER BY post_date DESC ";
@@ -17,6 +17,6 @@ catch(PDOException $e) {
     exit();
 }
 
-require_once("../../../../secure/scripts/teo_disconnect.php");
+require_once("../../../secure/scripts/teo_disconnect.php");
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-require_once("../../../../secure/scripts/teo_a_connect.php");
+require_once("../../../secure/scripts/teo_a_connect.php");
 
 $data = json_decode(file_get_contents('php://input'), true);
 $parameters = [];
@@ -34,6 +34,6 @@ catch (PDOException $e) {
 
 echo json_encode($result);
 
-require_once("../../../../secure/scripts/teo_disconnect.php");
+require_once("../../../secure/scripts/teo_disconnect.php");
 
 ?>

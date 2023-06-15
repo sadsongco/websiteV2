@@ -1,6 +1,6 @@
 <?php
 
-require_once("../../../../secure/scripts/teo_a_connect.php");
+require_once("../../../secure/scripts/teo_a_connect.php");
 
 function resizeImage($file, $type, $max_width) {
     switch ($type) {
@@ -136,6 +136,6 @@ if (count($_FILES) > 0) {
 
 echo json_encode($result);
 
-require_once("../../../../secure/scripts/teo_disconnect.php");
+require_once("../../../secure/scripts/teo_disconnect.php");
 
 ?>

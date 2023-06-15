@@ -1,6 +1,6 @@
 <?php
 
-require_once("../../../../secure/scripts/teo_a_connect.php");
+require_once("../../../secure/scripts/teo_a_connect.php");
 
 $query = 'UPDATE Cards SET card_pos = CASE card_id';
 $update_variables = [];
@@ -27,6 +27,6 @@ catch(PDOException $e) {
     exit();
 }
 
-require_once("../../../../secure/scripts/teo_disconnect.php");
+require_once("../../../secure/scripts/teo_disconnect.php");
 
 ?>

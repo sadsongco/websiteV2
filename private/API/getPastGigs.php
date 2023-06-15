@@ -1,6 +1,6 @@
 <?php
 
-require_once("../../../../secure/scripts/teo_a_connect.php");
+require_once("../../../secure/scripts/teo_a_connect.php");
 
 try {
     $query = "SELECT * FROM Gigs WHERE date < CURDATE() ORDER BY date DESC";
@@ -15,6 +15,6 @@ catch(PDOException $e) {
     exit();
 }
 
-require_once("../../../../secure/scripts/teo_disconnect.php");
+require_once("../../../secure/scripts/teo_disconnect.php");
 
 ?>
