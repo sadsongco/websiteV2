@@ -135,17 +135,6 @@ export const createImageUpload = (idx, form) => {
   imageUploadLabel.for = `imageUpload_${idx}`;
   imageUploadLabel.innerHTML = `upload an image for the article - paste <code>&lt;!--{{img-${idx}}}--&gt;</code> into the text`;
   return [imageUploadInput, imageUploadLabel];
-  // const imageUploadSubmit = document.createElement('input');
-  // imageUploadSubmit.type = 'submit';
-  // imageUploadSubmit.value = 'upload article image';
-  // imageUploadForm.appendChild(imageUploadSubmit);
-
-  // // handle image upload when submitted
-  // imageUploadSubmit.addEventListener('click', (e) => {
-  //   e.preventDefault();
-  //   uploadImage(imageUploadInput);
-  // });
-  return imageUploadForm;
 };
 
 const createArticleEl = async (article) => {

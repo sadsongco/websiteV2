@@ -187,3 +187,26 @@ fieldset:nth-of-type(even) {
 .error {
   border: 2px solid red;
 }
+/* gigs */
+
+.gigEdit {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 1fr 1fr;
+  align-items: center;
+}
+
+.gigEdit:nth-of-type(odd) {
+  background-color: #fde8e8;
+}
+
+.gigEdit:nth-of-type(even) {
+  background-color: #e1eef8;
+}
+.gigInfo {
+  min-height: 2.2em;
+  padding: 5px;
+  border-bottom: 1px solid #000;
+}
+.gigInfo:last-of-type() {
+  border-bottom: none;
+}

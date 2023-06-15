@@ -1,6 +1,6 @@
 import { createInput, createLabel } from './createFormEls.js';
 import { announceSuccess, insertMessage } from './messages.js';
-import { highlightErrors } from './utilities.js';
+import { highlightErrors, createDiv } from './utilities.js';
 
 /* **** API CALLS **** */
 
@@ -15,7 +15,7 @@ const getGigs = async (past = false) => {
   }
 };
 
-const submitGigs = async (gigForm) => {
+const submitGigs = async (gigForm, target = 'submit') => {
   const gigInfoSets = gigForm.getElementsByClassName('gigInfoSet');
   const postData = [];
   const errorFields = [];
@@ -33,7 +33,7 @@ const submitGigs = async (gigForm) => {
     postData.push(gigInfoObj);
   }
   if (errorFields.length > 0) return { success: false, error: 'validation', errorFields: errorFields };
-  const url = './API/submitGigs.php';
+  const url = `./API/${target}Gigs.php`;
   try {
     const res = await fetch(url, {
       method: 'POST',
@@ -44,12 +44,50 @@ const submitGigs = async (gigForm) => {
     });
     return await res.json();
   } catch (e) {
-    console.error('API error: ', e);
+    return { success: false, error: 'API error: ' + e };
   }
 };
 
 const updateGig = async (gigForm) => {
-  console.log(gigForm);
+  return await submitGigs(gigForm, 'update');
+};
+
+const deleteGig = async (gigForm) => {
+  const id = parseInt(gigForm.id.split('_')[1]);
+  const url = './API/deleteGig.php';
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ gig_id: id }),
+    });
+    return await res.json();
+  } catch (e) {
+    return { success: false, error: 'API error: ' + e };
+  }
+};
+
+const gigEditSubmit = async (gigForm, gigDelete = false) => {
+  let res;
+  if (gigDelete) {
+    res = await deleteGig(gigForm);
+    if (res.success) {
+      res.message = 'gig deleted';
+      return res;
+      announceSuccess('gig deleted');
+      document.getElementById('editArticle').classList.remove('modal-open');
+      return res;
+    }
+    return res;
+  }
+  res = await updateGig(gigForm);
+  if (res.success) {
+    return res;
+  }
+  return res;
+  if (res.error === 'validation') highlightErrors(res.errorFields, `${gigForm.id}`);
 };
 
 /* **** FORM CREATION **** */
@@ -111,23 +149,51 @@ const createGigInput = (gigIndex, gigForm, gigInfo) => {
     const inputEl = createInput(input);
     gigInput.appendChild(inputEl);
   }
-  let submit;
   if (!gigInfo) {
-    submit = createInput({ type: 'submit', name: 'addGig', value: 'add another gig' });
+    const submit = createInput({ type: 'submit', name: 'addGig', value: 'add another gig' });
     submit.addEventListener('click', (e) => {
       e.preventDefault();
       e.target.remove();
       gigForm.appendChild(createGigInput(++gigIndex, gigForm));
+      gigInput.appendChild(submit);
     });
+    gigInput.appendChild(submit);
   } else {
-    submit = createInput({ type: 'submit', name: 'updateGig', value: 'update gig' });
+    const gigId = createInput({ type: 'hidden', name: 'gigId', value: gigInfo.gig_id });
+    gigInput.appendChild(gigId);
+    const submit = createInput({ type: 'submit', name: 'updateGig', value: 'update gig' });
+    gigInput.appendChild(submit);
     submit.addEventListener('click', async (e) => {
       e.preventDefault();
-      e.target.remove();
-      await updateGig(gigForm);
+      const res = await gigEditSubmit(gigForm);
+      document.getElementById('editArticle').classList.remove('modal-open');
+      if (res.success) {
+        announceSuccess('gig updated');
+        return;
+      }
+      insertMessage('there was an error: ' + res.error, 'editCard');
     });
+    gigInput.appendChild(submit);
+    const deleteGig = createInput({ type: 'submit', name: 'deleteGig', value: 'delete gig' });
+    deleteGig.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const res = await gigEditSubmit(gigForm, true);
+      document.getElementById('editArticle').classList.remove('modal-open');
+      if (res.success) {
+        announceSuccess('gig deleted');
+        return;
+      }
+      insertMessage('there was an error: ' + res.error, 'editCard');
+    });
+    gigInput.appendChild(deleteGig);
+    const cancelEditing = createInput({ type: 'submit', name: 'cancel', value: 'cancel' });
+    cancelEditing.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('editArticle').classList.remove('modal-open');
+      return;
+    });
+    gigInput.appendChild(cancelEditing);
   }
-  gigInput.appendChild(submit);
   return gigInput;
 };
 
@@ -152,7 +218,6 @@ const createGigsForm = (edit = null, gigId = null) => {
       const res = await submitGigs(gigForm);
       if (res.success) {
         announceSuccess('gigs inserted into database');
-        console.log(res);
         return;
       }
       if (res.error === 'validation') highlightErrors(res.errorFields, 'gigForm');
@@ -164,29 +229,44 @@ const createGigsForm = (edit = null, gigId = null) => {
 
 /* **** EDIT ELEMENT CREATION **** */
 
+const createGigsEdit = async (past = false) => {
+  const gigsEditContainer = document.createElement('section');
+  gigsEditContainer.classList.add('gigsEdit');
+  const gigsEditHead = document.createElement('h1');
+  gigsEditHead.innerHTML = past ? 'edit gig history' : 'edit upcoming gigs';
+  gigsEditContainer.appendChild(gigsEditHead);
+  const gigList = await getGigs(past);
+  for (let gig of gigList) {
+    gigsEditContainer.appendChild(createGigEdit(gig));
+  }
+  return gigsEditContainer;
+};
+
 const createGigEdit = (gig) => {
   const gigEditEl = document.createElement('div');
   gigEditEl.classList.add('gigEdit');
-  const gigInfo = document.createElement('p');
-  gigInfo.classList.add('gigInfo');
-  gigInfo.innerHTML = `${gig.date} - ${gig.venue} - ${gig.city}, ${gig.country}`;
-  gigEditEl.appendChild(gigInfo);
+  gigEditEl.appendChild(createDiv('gigInfo', gig.date));
+  gigEditEl.appendChild(createDiv('gigInfo', gig.venue));
+  gigEditEl.appendChild(createDiv('gigInfo', gig.city));
+  gigEditEl.appendChild(createDiv('gigInfo', gig.country));
   const editGigButton = document.createElement('button');
   editGigButton.innerHTML = 'edit gig';
   editGigButton.addEventListener('click', (e) => {
     editGig(gig);
   });
-  gigEditEl.appendChild(editGigButton);
+  gigEditEl.appendChild(createDiv('gigInfo', editGigButton));
   return gigEditEl;
 };
 
 const editGig = (gig) => {
   const editGigForm = createGigsForm(true, gig.gig_id);
   addNewGigInput(editGigForm, gig.date, gig);
-  document.body.appendChild(editGigForm);
+  const editArticleContainer = document.getElementById('editArticle');
+  editArticleContainer.innerHTML = '';
+  editArticleContainer.appendChild(editGigForm);
+  editArticleContainer.classList.add('modal-open');
+  editArticleContainer.scrollIntoView({ block: 'start', inline: 'start' });
 };
-
-/* **** UTILITIES **** */
 
 /* **** APPLICATION **** */
 
@@ -202,15 +282,8 @@ export const createGigEditView = async (card) => {
   addNewGigInput(gigForm, gigIndex);
   ++gigIndex;
   gigEditView.appendChild(gigForm);
-  // edit upcoming gigs
-  const gigList = await getGigs();
-  for (let gig of gigList) {
-    gigEditView.appendChild(createGigEdit(gig));
-  }
+  gigEditView.appendChild(await createGigsEdit());
   // edit gig history
-  const gigHistory = await getGigs(true);
-  for (let gig of gigHistory) {
-    gigEditView.appendChild(createGigEdit(gig));
-  }
+  gigEditView.appendChild(await createGigsEdit(true));
   return gigEditView;
 };

@@ -13,3 +13,11 @@ export const highlightErrors = (errorFields, form) => {
     document.getElementById(errorField).classList.add('error');
   });
 };
+
+export const createDiv = (className = '', contents = '') => {
+  const div = document.createElement('div');
+  div.classList.add(className);
+  if (typeof contents === 'object') div.appendChild(contents);
+  else div.innerHTML = contents;
+  return div;
+};
