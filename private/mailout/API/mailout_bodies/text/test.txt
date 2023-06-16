@@ -1,0 +1,18 @@
+Dear <!--{{name}}-->
+
+Hello there! You are receiving this email because many years ago you added yourself to the Dive Dive e-mailing list.
+
+You may be interested to know that Jamie and I have started something new called The Exact Opposite, which is a development of everything we were doing in Dive Dive. Your first, and natural, reaction may well be "PLAY ME SOMETHING!". Even though the album is finished we're keeping everything under wraps for the time being, but because you're part of our special gang, here's a secret link to one of the tracks. PLEASE don't share this with anyone - we're talking to labels about releasing, and want to keep our powder dry until that is all sorted. [HERE'S A LINK]
+
+We're much too polite to just automatically add you to the new TEO mailing list. If you would like to get news from us, please click the link below. We won't spam you, and as far as privacy goes, we'll never sell or share your email with anyone. If we do sign, the label will inevitably ask, but we'll tell them to get stuffed.
+
+I'm really excited about the album that we've made. It sounds fresh and vigorous. I hope you can share in the journey with us!
+
+
+nigel xx
+
+
+
+If you would like to subscribe to The Exact Opposite email list, please follow this link:
+
+https://theexactopposite.uk/email_management/subscribe.php?email=<!--{{email}}-->&check=<!--{{secure_id}}-->
