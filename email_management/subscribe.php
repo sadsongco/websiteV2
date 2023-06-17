@@ -1,21 +1,32 @@
 <?php
+// **************** SUBSCRIBE TO TEO MAILING LIST ****************
+// ************ THIS IS ONLY ACCESSED FROM DD MAILOUT ************
 
 include_once("./includes/html_head.php");
 
 require_once("../../secure/scripts/teo_a_connect.php");
 
+function getCheckCode($db, $email) {
+    try {
+        $stmt = $db->prepare("SELECT email_id FROM dd_cons_mailing_list WHERE email=?;");
+        $stmt->execute([$email]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $db_id = $result[0]['email_id'];
+        $secure_id = hash('ripemd128', $email.$db_id.'JamieAndNigel');
+        return $secure_id;
+    }
+    catch(PDOException $e) {
+        return null;
+    }
+}
+
 $message = "<p>Mailing list subscription page. Please access this through the link in your email.</p>";
 
 if (isset ($_POST['add_name']) && $_POST['add_name'] == "Add Your Name") {
     try {
-        $stmt = $db->prepare("SELECT email_id FROM mailing_list WHERE email=?;");
-        $stmt->execute([$_POST['email']]);
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $db_id = $result[0]['email_id'];
-        $secure_id = hash('ripemd128', $_POST['email'].$db_id.'JamieAndNigel');
-        if ($secure_id != $_POST['check']) {
-            throw new PDOException('Bad Check Code', 1176);
-        }
+        $secure_id = getCheckCode($db, $_POST['email']);
+        if ($secure_id == null) throw new PDOException('get check code DB Error', 1078);
+        if ($secure_id != $_POST['check']) throw new PDOException('Bad Check Code', 1176);
         $stmt = $db->prepare("UPDATE mailing_list SET name=? WHERE email_id=? and email=?");
         $stmt->execute([$_POST['name'], $db_id, $_POST['email']]);
         $message = "<h2>Name updated!</h2>";
@@ -23,8 +34,8 @@ if (isset ($_POST['add_name']) && $_POST['add_name'] == "Add Your Name") {
         $_GET['check'] = $_POST['check'];
     }
     catch(PDOException $e) {
+        error_log($e->getMessage());
         if ($e->getCode() != 1176) {
-            error_log($e->getMessage());
             $message = "<p>Sorry, there was a background error</p>";
         }
         else {
@@ -35,14 +46,20 @@ if (isset ($_POST['add_name']) && $_POST['add_name'] == "Add Your Name") {
 
 elseif (isset($_GET['email']) && $_GET['email'] != '' && isset($_GET['check']) && $_GET['check'] != '') {
     try {
+        $secure_id = getCheckCode($db, $_GET['email']);
+        if ($secure_id == null) throw new PDOException('get check code DB Error', 1078);
+        if ($secure_id != $_GET['check']) throw new PDOException('Bad Check Code', 1176);
         $stmt = $db->prepare("INSERT INTO mailing_list (email, name, domain, subscribed, confirmed, date_added) VALUES (?, ?, SUBSTRING_INDEX(?, '@', -1), ?, ?, NOW());");
         $stmt->execute([$_GET['email'], '', $_GET['email'], 1, 1]);
         $_GET['check'] = hash('ripemd128', $_GET['email'].$db->lastInsertId().'JamieAndNigel');
         $message = '<p>The email <span class = "email">'.$_GET['email'].'</span> has been added to the Unbelievable Truth mailing list.<br />';
     }
     catch(PDOException $e) {
-        if ($e->getCode() != 23000) {
-            error_log($e->getMessage());
+        error_log($e->getMessage());
+        if ($e->getCode() == 1176) {
+            $message =  '<h2>'.$e->getMessage().'- please make sure you have accessed this page through the link in your email.</h2>';
+        }
+        elseif ($e->getCode() != 23000) {
             $message = "<p>Sorry, there was a background error</p>";}
         else {
             $stmt = $db->prepare("UPDATE mailing_list SET subscribed=1 WHERE email=?");

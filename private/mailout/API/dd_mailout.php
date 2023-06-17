@@ -6,19 +6,19 @@ function makeLogDir ($path) {
     return is_dir($path) || mkdir($path);
 }
 
-function write_to_log ($log_fp, $ouput) {
+function write_to_log ($log_fp, $output) {
     fwrite($log_fp, $output);
     fclose($log_fp);
 }
 
 function delete_current_mailout() {
-    $fp = fopen('current_mailout.txt', 'w');
+    $fp = fopen('dd_current_mailout.txt', 'w');
     fwrite($fp, '');
     fclose($fp);
 }
 
 function email_admin($mail, $msg) {
-    $mail->Subject = 'The Exact Opposite mailout admin email';
+    $mail->Subject = 'Dive Dive mailout admin email';
     $mail->msgHTML($msg);
     $mail->addAddress('info@thesadsongco.com', 'Info');
     $mail->send();
@@ -32,14 +32,13 @@ function get_email_addresses($db, $mailout_id, $log_fp) {
         }
         else {
             $mailout_id = (int)$mailout_id;
-            $mailing_table = "mailing_list";
+            $mailing_table = "dd_cons_mailing_list";
         };
-        $query = "SELECT email, name, email_id
+        $query = "SELECT email, email_id
         FROM $mailing_table
         WHERE last_sent < ?
         AND subscribed = 1
         AND error = 0
-        ORDER BY domain
         LIMIT 1";
         $stmt = $db->prepare($query);
         $stmt->execute([$mailout_id]);
@@ -57,7 +56,6 @@ function replace_tags($body_template, $row) {
     $secure_id = hash('ripemd128', $row['email'].$row['email_id'].'JamieAndNigel');
     $row['secure_id'] = $secure_id;
     foreach ($row as $tag_name=>$tag_content) {
-        if ($tag_name == 'name' && $tag_content == '') $tag_content = 'Music Friend';
         $body_template = str_replace("<!--{{".$tag_name."}}-->", $tag_content, $body_template);
     }
     return $body_template;
@@ -69,7 +67,7 @@ function mark_as_sent($db, $current_mailout, $row) {
         $stmt->execute([1, $row['email_id'], $row['email']]);
         return "\n--TEST-- :: Message sent: ".htmlspecialchars($row['email']);}
     try {
-        $stmt = $db->prepare("UPDATE mailing_list SET last_sent = ? WHERE email_id = ? AND email = ?");
+        $stmt = $db->prepare("UPDATE dd_cons_mailing_list SET last_sent = ? WHERE email_id = ? AND email = ?");
         $stmt->execute([$current_mailout, $row['email_id'], $row['email']]);
         return 'Message sent: '.htmlspecialchars($row['email']);
     }
@@ -84,7 +82,7 @@ function mark_as_error($db, $row, $current_mailout) {
         $stmt->execute([$row['email_id'], $row['email']]);
         return "--TEST-- :: ERROR SENDING: ".$row['email'];}
     try {
-        $stmt = $db->prepare("UPDATE mailing_list SET error = 1 WHERE email_id = ? AND email = ?");
+        $stmt = $db->prepare("UPDATE dd_cons_mailing_list SET error = 1 WHERE email_id = ? AND email = ?");
         $stmt->execute([$row['email_id'], $row['email']]);
         return 'ERROR SENDING: '.$row['email'];
     }
@@ -111,17 +109,16 @@ date_default_timezone_set('Etc/UTC');
 require 'vendor/autoload.php';
 
 // paths to email data
-$html_email_path = "../assets/mailout_bodies/html/";
-$text_email_path = "../assets/mailout_bodies/text/";
-$subject_path = "../assets/mailout_bodies/subject/";
+$html_email_path = "../assets/dd_mailout_bodies/html/";
+$text_email_path = "../assets/dd_mailout_bodies/text/";
+$subject_path = "../assets/dd_mailout_bodies/subject/";
 // set the current email
-$current_mailout = file_get_contents('./current_mailout.txt');
+$current_mailout = file_get_contents('./dd_current_mailout.txt');
 if ($current_mailout == '') exit();
 // create log
-$log_dir = './logs/';
+$log_dir = './dd_logs/';
 makeLogDir($log_dir);
-$log_fp = fopen("./logs/mailout_log_".$current_mailout.".txt", 'a');
-
+$log_fp = fopen($log_dir."mailout_log_".$current_mailout.".txt", 'a');
 // set up PHP Mailer
 //Passing `true` enables PHPMailer exceptions
 $mail = new PHPMailer(true);
@@ -158,15 +155,13 @@ catch (Exception $e) {
     exit();
 }
 
-
-
 $mail->Subject = $subject;
 
 $result = get_email_addresses($db, $current_mailout, $log_fp);
-if (sizeof($result) == 0) {
+if (sizeof($result) == 0 ) {
     write_to_log($log_fp, "\n\n--------COMPLETE--------");
     delete_current_mailout();
-    email_admin($mail, "<h2>ALL EMAILS SENT. Check ./logs/mailout_log_".$current_mailout.".txt for details<h2>");
+    email_admin($mail, "<h2>ALL EMAILS SENT. Check $log_dir$current_mailout.txt for details<h2>");
     exit();
 }
 
@@ -178,7 +173,7 @@ foreach ($result as $row) {
         $mail->msgHTML($body);
         $text_body = replace_tags($text_template, $row);
         $mail->AltBody = $text_body;
-        $mail->addAddress($row['email'], $row['name']);
+        $mail->addAddress($row['email']);
     } catch (Exception $e) {
         $output .= "\n".mark_as_error($db, $row, $current_mailout);
         $output .=  "\nInvalid address ".$row['email']." skipped";

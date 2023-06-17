@@ -1,0 +1,8 @@
+
+--TEST-- :: ERROR SENDING: nigel@thesadsongco.com
+PHPMailer Error :: 
+REMOVE: https://theexactopposite.uk/email_management/unsubscribe_dd.php?email=nigel@thesadsongco.com&check=64501db0e106d3c616ec21b005eb78e8
+
+--TEST-- :: Message sent: sadsongco@gmail.com
+
+--------COMPLETE--------

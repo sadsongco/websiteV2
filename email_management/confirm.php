@@ -17,7 +17,7 @@ include_once('./includes/replace_tags.php');
 
 function getLatestMailout() {
     $latest_mailout = 0;
-    if ($handle = opendir('../private/mailout/API/mailout_bodies/html')) {
+    if ($handle = opendir('../private/mailout/assets/mailout_bodies/html')) {
         while (false !== ($entry = readdir($handle))) {
             if (substr($entry, 0, 1) != ".") {
                 $mailout_id = explode('.', $entry)[0];
@@ -34,7 +34,7 @@ function sendLastMailout($row) {
 
     $last_mailout = getLatestMailout();
     if ($last_mailout == 0) return null;
-    $bodies_path = '../private/mailout/API/mailout_bodies/';
+    $bodies_path = '../private/mailout/assets/mailout_bodies/';
     //Create an instance; passing `true` enables exceptions
     $mail = new PHPMailer(true);
 

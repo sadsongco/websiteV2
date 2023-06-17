@@ -1,1 +1,3 @@
 .DS_Store
+./private/mailout/API/dd_logs/
+./private/mailout/API/logs/
