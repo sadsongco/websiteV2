@@ -147,9 +147,9 @@ $mail->addReplyTo('info@theexactopposite.uk', 'The Exact Opposite mailing list')
 
 // set up emails
 try {
-    $body_template = file_get_contents($html_email_path.$current_mailout.'.html') or throw new Exception("html");
-    $text_template = file_get_contents($text_email_path.$current_mailout.'.txt') or throw new Exception("text");
-    $subject = file_get_contents($subject_path.$current_mailout.'.txt') or throw new Exception ("subject");
+    try {$body_template = file_get_contents($html_email_path.$current_mailout.'.html');} catch (Exception $e) {throw new Exception("html");}
+    try {$text_template = file_get_contents($text_email_path.$current_mailout.'.txt');} catch (Exception $e) {throw new Exception("text");}
+    try {$subject = file_get_contents($subject_path.$current_mailout.'.txt');} catch (Exception $e) {throw new Exception ("subject");}
 }
 catch (Exception $e) {
     write_to_log($log_fp, "\nFATAL: missing email body file: ".$e->getMessage());

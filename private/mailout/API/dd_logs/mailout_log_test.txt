@@ -6,3 +6,9 @@ REMOVE: https://theexactopposite.uk/email_management/unsubscribe_dd.php?email=ni
 --TEST-- :: Message sent: sadsongco@gmail.com
 
 --------COMPLETE--------
+
+--TEST-- :: Message sent: nigel@thesadsongco.com
+
+--TEST-- :: Message sent: sadsongco@gmail.com
+
+--------COMPLETE--------
