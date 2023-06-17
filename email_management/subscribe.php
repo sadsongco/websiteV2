@@ -12,7 +12,6 @@ if (isset ($_POST['add_name']) && $_POST['add_name'] == "Add Your Name") {
         $stmt->execute([$_POST['email']]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $db_id = $result[0]['email_id'];
-        echo $db_id."<br>";
         $secure_id = hash('ripemd128', $_POST['email'].$db_id.'JamieAndNigel');
         if ($secure_id != $_POST['check']) {
             throw new PDOException('Bad Check Code', 1176);
@@ -36,15 +35,14 @@ if (isset ($_POST['add_name']) && $_POST['add_name'] == "Add Your Name") {
 
 elseif (isset($_GET['email']) && $_GET['email'] != '' && isset($_GET['check']) && $_GET['check'] != '') {
     try {
-        $stmt = $db->prepare("INSERT INTO mailing_list (email, name, domain, subscribed, date_added) VALUES (?, ?, SUBSTRING_INDEX(?, '@', -1), ?, NOW());");
-        $stmt->execute([$_GET['email'], '', $_GET['email'], 1]);
+        $stmt = $db->prepare("INSERT INTO mailing_list (email, name, domain, subscribed, confirmed, date_added) VALUES (?, ?, SUBSTRING_INDEX(?, '@', -1), ?, ?, NOW());");
+        $stmt->execute([$_GET['email'], '', $_GET['email'], 1, 1]);
         $_GET['check'] = hash('ripemd128', $_GET['email'].$db->lastInsertId().'JamieAndNigel');
         $message = '<p>The email <span class = "email">'.$_GET['email'].'</span> has been added to the Unbelievable Truth mailing list.<br />';
     }
     catch(PDOException $e) {
         if ($e->getCode() != 23000) {
             error_log($e->getMessage());
-            echo $e->getMessage();
             $message = "<p>Sorry, there was a background error</p>";}
         else {
             $stmt = $db->prepare("UPDATE mailing_list SET subscribed=1 WHERE email=?");
