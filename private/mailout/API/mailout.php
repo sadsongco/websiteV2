@@ -7,6 +7,18 @@ function write_to_log ($fp, $ouput) {
     fclose($fp);
 }
 
+function delete_current_mailout() {
+    $fp = fopen('current_mailout.txt', 'w');
+    fwrite($fp, '');
+    fclose($fp);
+}
+
+function email_admin($mail, $msg) {
+    $mail->msgHTML($msg);
+    $mail->addAddress('info@thesadsongco.com', 'Info');
+    $mail->send();
+}
+
 function get_email_addresses($db, $mailout_id, $fp) {
     try {
         if ($mailout_id == 'test') {
@@ -29,7 +41,9 @@ function get_email_addresses($db, $mailout_id, $fp) {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     catch(PDOException $e) {
+        global $mail;
         write_to_log($fp, "\nget_email_addresses Database Error: " . $e->getMessage());
+        email_admin($mail, "<p>get_email_addresses Database Error: " . $e->getMessage()."</p>");
         exit();
     }
 }
@@ -102,18 +116,9 @@ if ($current_mailout == '') exit();
 // create log
 $fp = fopen("./logs/mailout_log_".$current_mailout.".txt", 'a');
 
+// set up PHP Mailer
 //Passing `true` enables PHPMailer exceptions
 $mail = new PHPMailer(true);
-
-try {
-    $body_template = file_get_contents($html_email_path.$current_mailout.'.html') or die ("FATAL: missing email body file: html");
-    $text_template = file_get_contents($text_email_path.$current_mailout.'.txt') or die ("FATAL: missing email body file: text");
-    $subject = file_get_contents($subject_path.$current_mailout.'.txt') or die ("FATAL: missing email body file: subject");
-}
-catch (Exception $e) {
-    write_to_log($fp, "FATAL: missing email body file: ".$e->getMessage());
-    exit();
-}
 
 $mail->isSMTP();
 $mail->Host = 'theexactopposite.uk';
@@ -125,7 +130,6 @@ $mail->Password = 'AudienceBuildingExercise#23';
 $mail->setFrom('info@theexactopposite.uk', 'The Exact Opposite mailing list');
 $mail->addReplyTo('info@theexactopposite.uk', 'The Exact Opposite mailing list');
 
-
 // $mail->isSMTP();
 // $mail->Host = 'sandbox.smtp.mailtrap.io';
 // $mail->SMTPAuth = true;
@@ -135,17 +139,28 @@ $mail->addReplyTo('info@theexactopposite.uk', 'The Exact Opposite mailing list')
 // $mail->setFrom('info@thesadsongco.com', 'The Sad Song Co. mailing list');
 // $mail->addReplyTo('info@thesadsongco.com', 'The Sad Song Co. mailing list');
 
+// set up emails
+try {
+    $body_template = file_get_contents($html_email_path.$current_mailout.'.html') or die ("FATAL: missing email body file: html");
+    $text_template = file_get_contents($text_email_path.$current_mailout.'.txt') or die ("FATAL: missing email body file: text");
+    $subject = file_get_contents($subject_path.$current_mailout.'.txt') or die ("FATAL: missing email body file: subject");
+}
+catch (Exception $e) {
+    write_to_log($fp, "FATAL: missing email body file: ".$e->getMessage());
+    delete_current_mailout();
+    email_admin($mail, "FATAL: missing email body file: ".$e->getMessage()." - messages stopped");
+    exit();
+}
+
+
+
 $mail->Subject = $subject;
 
 $result = get_email_addresses($db, $current_mailout, $fp);
 if (sizeof($result) == 0) {
     write_to_log($fp, "\n\n--------COMPLETE--------");
-    $fp = fopen('current_mailout.txt', 'w');
-    fwrite($fp, '');
-    fclose($fp);
-    $mail->msgHTML("<h2>ALL EMAILS SENT. Check ./logs/mailout_log_".$current_mailout.".txt for details<h2>");
-    $mail->addAddress('info@thesadsongco.com', 'Info');
-    $mail->send();
+    delete_current_mailout();
+    email_admin($mail, "<h2>ALL EMAILS SENT. Check ./logs/mailout_log_".$current_mailout.".txt for details<h2>");
     exit();
 }
 
