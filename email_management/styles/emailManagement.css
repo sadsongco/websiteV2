@@ -1,3 +1,25 @@
+/* custom fonts */
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+:root {
+  /* colours */
+  --pink-text: #e51d73;
+  --background: #010101;
+  --main-text-size: clamp(1.3em, 4vw, 2em);
+  --button-text-colour: #ffffff;
+  --button-background-colour: rgba(255, 255, 255, 0.2);
+  --button-background-hover-colour: rgba(0, 0, 0, 0.8);
+  --std-text-color: #a1a1a1;
+  --std-text-size: 0.8em;
+  --cta-colour: #a1a1a1;
+  --cta-hover-colour: #b2b2b2;
+  --cta-background-colour: rgba(0, 0, 0, 0.6);
+  /* fonts */
+  --std-font: Poppins, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --heading-font: 'Libre Franklin', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -135,23 +157,33 @@ table {
   border-spacing: 0;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;600&display=swap');
-
 body {
-  font-family: Inter, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  font-size: 1.2em;
-  font-weight: 200;
-  line-height: 1.2em;
-  background-color: black;
+  font-family: var(--std-font);
+  background-color: #fff;
 }
+
 header {
-  width: 100%;
-  text-align: center;
-  background-color: #baacdd;
-  color: #222;
-  font-weight: 600;
-  font-size: 1.8em;
-  padding: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  padding: 20px 9%;
+  mix-blend-mode: difference;
+}
+
+header.logo img {
+  max-width: 100%;
+}
+
+footer {
+  border-top: 2px solid #fff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1em 0;
+  background-color: rgba(0, 0, 0, 1);
 }
 
 main {
@@ -175,29 +207,6 @@ h1 {
   font-weight: 600;
   font-size: 1.4em;
   line-height: 2em;
-}
-
-.topImage {
-  max-width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.topImage img {
-  margin-left: auto;
-  margin-right: auto;
-  height: auto;
-  max-width: 100%;
-}
-
-footer {
-  width: 100%;
-  color: #999;
-  text-align: center;
-  font-size: 1em;
-  padding: 0.3em;
-  border-top: 1px solid #999;
 }
 
 footer a {

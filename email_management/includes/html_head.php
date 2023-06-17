@@ -8,8 +8,8 @@
     <title>The Exact Opposite - Email Management</title>
 </head>
 <body>
-<header class="callout">
-      <div class="contentwrap">The Exact Opposite</div>
+    <header class="logo desktop-logo">
+        <img src="../assets/images/graphics/onelineLogoWB.svg" alt="The Exact Opposite logo" />
     </header>
     <main>
         <h1>Mailing List</h1>

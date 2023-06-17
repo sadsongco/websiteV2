@@ -2,6 +2,8 @@
 
 // cd /home/thesadso/theexactopposite.uk/private/mailout/API/; /usr/local/bin/php -q mailout.php
 
+include_once('../includes/replace_tags.php');
+
 function makeLogDir ($path) {
     return is_dir($path) || mkdir($path);
 }
@@ -51,16 +53,6 @@ function get_email_addresses($db, $mailout_id, $log_fp) {
         email_admin($mail, "<p>get_email_addresses Database Error: " . $e->getMessage()."</p>");
         exit();
     }
-}
-
-function replace_tags($body_template, $row) {
-    $secure_id = hash('ripemd128', $row['email'].$row['email_id'].'JamieAndNigel');
-    $row['secure_id'] = $secure_id;
-    foreach ($row as $tag_name=>$tag_content) {
-        if ($tag_name == 'name' && $tag_content == '') $tag_content = 'Music Friend';
-        $body_template = str_replace("<!--{{".$tag_name."}}-->", $tag_content, $body_template);
-    }
-    return $body_template;
 }
 
 function mark_as_sent($db, $current_mailout, $row) {
@@ -173,7 +165,10 @@ if (sizeof($result) == 0) {
 }
 
 $output = "";
-$remove_path = 'https://theexactopposite.uk/email_management/unsubscribe_dd.php?email=<!--{{email}}-->&check=<!--{{secure_id}}-->';
+$protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,5))=='https'?'https':'http';
+$host = "$protocol://".$_SERVER['HTTP_HOST'];
+
+$remove_path = $host.'/email_management/unsubscribe_dd.php?email=<!--{{email}}-->&check=<!--{{secure_id}}-->';
 foreach ($result as $row) {
     try {
         $body = replace_tags($body_template, $row);

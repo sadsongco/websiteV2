@@ -22,6 +22,10 @@ function getCheckCode($db, $email) {
 
 $message = "<p>Mailing list subscription page. Please access this through the link in your email.</p>";
 
+// local host server
+$protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,5))=='https'?'https':'http';
+$host = "$protocol://".$_SERVER['HTTP_HOST'];
+
 if (isset ($_POST['add_name']) && $_POST['add_name'] == "Add Your Name") {
     try {
         $secure_id = getCheckCode($db, $_POST['email']);
@@ -82,7 +86,7 @@ elseif (isset($_GET['email']) && $_GET['email'] != '' && isset($_GET['check']) &
             <input type="hidden" name="email" value = "'.$_GET['email'].'" />
         </form>
         <footer>
-            If you want to unsubscribe click &nbsp;<a href="http://theexactopposite.uk/email_management/unsubscribe.php?email='.$_GET['email'].'&check='.$_GET['check'].'">HERE</a><br />
+            If you want to unsubscribe click &nbsp;<a href="'.$host.'/email_management/unsubscribe.php?email='.$_GET['email'].'&check='.$_GET['check'].'">HERE</a><br />
         </footer>
 ';
 }
