@@ -103,6 +103,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require_once('../../../../secure/scripts/teo_a_connect.php');
+require_once("../../../../secure/mailauth/teo.php");
 
 error_reporting(E_ERROR | E_PARSE);
 
@@ -126,15 +127,16 @@ $log_fp = fopen("./logs/mailout_log_".$current_mailout.".txt", 'a');
 //Passing `true` enables PHPMailer exceptions
 $mail = new PHPMailer(true);
 
+// mail auth
 $mail->isSMTP();
-$mail->Host = 'theexactopposite.uk';
+$mail->Host = $mail_auth['host'];
 $mail->SMTPAuth = true;
-$mail->SMTPKeepAlive = true; //SMTP connection will not close after each email sent, reduces SMTP overhead
+$mail->SMTPKeepAlive = false; //SMTP connection will not close after each email sent, reduces SMTP overhead
 $mail->Port = 25;
-$mail->Username = 'info@theexactopposite.uk';
-$mail->Password = 'AudienceBuildingExercise#23';
-$mail->setFrom('info@theexactopposite.uk', 'The Exact Opposite mailing list');
-$mail->addReplyTo('info@theexactopposite.uk', 'The Exact Opposite mailing list');
+$mail->Username = $mail_auth['username'];
+$mail->Password = $mail_auth['password'];
+$mail->setFrom($mail_auth['from']['address'], $mail_auth['from']['name']);
+$mail->addReplyTo($mail_auth['reply']['address'], $mail_auth['reply']['name']);
 
 // $mail->isSMTP();
 // $mail->Host = 'sandbox.smtp.mailtrap.io';

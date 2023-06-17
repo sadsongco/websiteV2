@@ -43,7 +43,7 @@ export const createCard = (template, cardData) => {
         for (let heading of headings) {
           const thisCell = cell.cloneNode();
           thisCell.removeAttribute('id');
-          if (heading === 'tickets' && gig[heading]) {
+          if (heading === 'tickets' && gig[heading] && gig[heading].substr(0, 4) === 'http') {
             gig[heading] = `<a href = '${gig[heading]}' target='_blank'>BUY TICKETS</a>`;
           }
           if (gig[heading] != '') thisCell.innerHTML = gig[heading];

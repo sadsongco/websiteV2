@@ -3,6 +3,7 @@
 include_once("./includes/html_head.php");
 
 require_once("../../secure/scripts/teo_a_connect.php");
+require_once("../../secure/mailauth/teo.php");
 
 //Import PHPMailer classes into the global namespace
 //These must be at the top of your script, not inside a function
@@ -48,14 +49,14 @@ function sendLastMailout($row) {
         $text_body = replace_tags($text_template, $row);
 
         $mail->isSMTP();
-        $mail->Host = 'theexactopposite.uk';
+        $mail->Host = $mail_auth['host'];
         $mail->SMTPAuth = true;
         $mail->SMTPKeepAlive = true; //SMTP connection will not close after each email sent, reduces SMTP overhead
         $mail->Port = 25;
-        $mail->Username = 'info@theexactopposite.uk';
-        $mail->Password = 'AudienceBuildingExercise#23';
-        $mail->setFrom('info@theexactopposite.uk', 'The Exact Opposite mailing list');
-        $mail->addReplyTo('info@theexactopposite.uk', 'The Exact Opposite mailing list');
+        $mail->Username = $mail_auth['username'];
+        $mail->Password = $mail_auth['password'];
+        $mail->setFrom($mail_auth['from']['address'], $mail_auth['from']['name']);
+        $mail->addReplyTo($mail_auth['reply']['address'], $mail_auth['reply']['name']);
         //Recipients
         $mail->addAddress($row['email'], $row['name']);     //Add a recipient
 
