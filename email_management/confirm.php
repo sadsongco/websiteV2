@@ -3,7 +3,6 @@
 include_once("./includes/html_head.php");
 
 require_once("../../secure/scripts/teo_a_connect.php");
-require_once("../../secure/mailauth/teo.php");
 
 //Import PHPMailer classes into the global namespace
 //These must be at the top of your script, not inside a function
@@ -38,6 +37,7 @@ function sendLastMailout($row) {
     $bodies_path = '../private/mailout/assets/mailout_bodies/';
     //Create an instance; passing `true` enables exceptions
     $mail = new PHPMailer(true);
+    require_once("../../secure/mailauth/teo.php");
 
     try {
 
@@ -68,8 +68,11 @@ function sendLastMailout($row) {
         $mail->AltBody = $text_body;
 
         $mail->send();
+        return $last_mailout;
+
     } catch (Exception $e) {
         error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
+        throw (new Exception($mail->ErrorInfo));
     }
 }
 
@@ -87,8 +90,14 @@ if (isset($_GET) && isset($_GET['email'])) {
         $row['check'] = $secure_id;
         $stmt = $db->prepare('UPDATE mailing_list SET confirmed = 1 WHERE email_id = ?');
         $stmt->execute([$email_id]);
+        $last_mailout = sendLastMailout($row);
+        if ($last_mailout != null) {
+            // update last sent
+            $query = 'UPDATE mailing_list SET last_sent = ? WHERE email_id = ?;';
+            $stmt = $db->prepare($query);
+            $stmt->execute([$last_mailout, $email_id]);
+        }
         $message = 'Your email is confirmed, welcome to the email list!';
-        sendLastMailout($row);
     }
     catch (PDOException $e) {
         if ($e->getCode() ==1176) {

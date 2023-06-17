@@ -1,0 +1,5 @@
+The Exact Opposite mailing list.
+
+Please confirm adding your email to The Exact Opposite email list by clicking the link below.
+
+https://<!--{{host}}-->/email_management/confirm.php?email=<!--{{email}}-->&check=<!--{{secure_id}}-->

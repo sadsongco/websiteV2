@@ -17,6 +17,7 @@
     <!-- <script defer type="module" src="./js/nav.js"></script> -->
     <script defer type="module" src="./js/animate-on-scroll.js"></script>
     <!-- <script defer src="./js/animate-on-scroll.js"></script> -->
+    <script defer type="module" src="./js/emailManagement.js"></script>
     <title>The Exact Opposite</title>
   </head>
   <body>
@@ -71,19 +72,29 @@
         </tr>
       </tbody>
     </table>
-    <footer class="socials">
-      <a href="mailto:info@theexactopposite.uk">
-        <img src="./assets/images/socials/email.png" alt="email icon" />
-      </a>
-      <a href="https://www.facebook.com/theexactopp/">
-        <img src="./assets/images/socials/fb.png" alt="Facebook icon" />
-      </a>
-      <a href="https://twitter.com/theexactopp/">
-        <img src="./assets/images/socials/tw.png" alt="Twitter icon" />
-      </a>
-      <a href="https://www.instagram.com/theexactopp/">
-        <img src="./assets/images/socials/ig.png" alt="Instagram icon" />
-      </a>
+    <footer>
+      <section class="emailForm">
+        <label for="emailList">Join our email list for news:</label><br />
+        <form action="#" id="emailList">
+          <input type="text" id="email" placeholder="email address" /> <br />
+          <input type="text" id="name" placeholder="name (optional)" /> <br />
+          <input type="submit" id="emailSubmit" value="enter your email" />
+        </form>
+      </section>
+      <section class="socials">
+        <a href="mailto:info@theexactopposite.uk">
+          <img src="./assets/images/socials/email.png" alt="email icon" />
+        </a>
+        <a href="https://www.facebook.com/theexactopp/">
+          <img src="./assets/images/socials/fb.png" alt="Facebook icon" />
+        </a>
+        <a href="https://twitter.com/theexactopp/">
+          <img src="./assets/images/socials/tw.png" alt="Twitter icon" />
+        </a>
+        <a href="https://www.instagram.com/theexactopp/">
+          <img src="./assets/images/socials/ig.png" alt="Instagram icon" />
+        </a>
+      </section>
     </footer>
   </body>
 </html>
