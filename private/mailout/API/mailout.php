@@ -2,8 +2,12 @@
 
 // cd /home/thesadso/theexactopposite.uk/private/mailout/API/; /usr/local/bin/php -q mailout.php
 
-function get_email_addresses($db, $mailout_id) {
-    global $output;
+function write_to_log ($fp, $ouput) {
+    fwrite($fp, $output);
+    fclose($fp);
+}
+
+function get_email_addresses($db, $mailout_id, $fp) {
     try {
         if ($mailout_id == 'test') {
             $mailout_id = 1;
@@ -25,7 +29,7 @@ function get_email_addresses($db, $mailout_id) {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     catch(PDOException $e) {
-        $output .=  "\nget_email_addresses Database Error: " . $e->getMessage();
+        write_to_log($fp, "\nget_email_addresses Database Error: " . $e->getMessage());
         exit();
     }
 }
@@ -94,7 +98,7 @@ $text_email_path = "./mailout_bodies/text/";
 $subject_path = "./mailout_bodies/subject/";
 // set the current email
 $current_mailout = file_get_contents('./current_mailout.txt');
-if ($current_mailout == '') exit('no mailout set');
+if ($current_mailout == '') exit();
 // create log
 $fp = fopen("./logs/mailout_log_".$current_mailout.".txt", 'a');
 
@@ -107,7 +111,8 @@ try {
     $subject = file_get_contents($subject_path.$current_mailout.'.txt') or die ("FATAL: missing email body file: subject");
 }
 catch (Exception $e) {
-    exit("FATAL: missing email body file: ".$e->getMessage());
+    write_to_log($fp, "FATAL: missing email body file: ".$e->getMessage());
+    exit();
 }
 
 $mail->isSMTP();
@@ -132,10 +137,9 @@ $mail->addReplyTo('info@theexactopposite.uk', 'The Exact Opposite mailing list')
 
 $mail->Subject = $subject;
 
-$result = get_email_addresses($db, $current_mailout);
+$result = get_email_addresses($db, $current_mailout, $fp);
 if (sizeof($result) == 0) {
-    fwrite ($fp, "\n\n--------COMPLETE--------");
-    fclose($fp);
+    write_to_log($fp, "\n\n--------COMPLETE--------");
     $fp = fopen('current_mailout.txt', 'w');
     fwrite($fp, '');
     fclose($fp);
@@ -179,9 +183,7 @@ foreach ($result as $row) {
 }
 
 // create log
-$fp = fopen("./logs/mailout_log_".$current_mailout.".txt", 'a');
-fwrite($fp, $output);
-fclose($fp);
+write_to_log($fp, $output);
 
 include_once('../../../../secure/scripts/teo_disconnect.php');
 
