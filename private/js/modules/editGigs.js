@@ -158,6 +158,12 @@ const createGigInput = (gigIndex, gigForm, gigInfo) => {
       gigInput.appendChild(submit);
     });
     gigInput.appendChild(submit);
+    const createVenue = createInput({ type: 'submit', name: 'addVenue', value: 'add a new venue' });
+    createVenue.addEventListener('click', (e) => {
+      e.preventDefault();
+      addVenue();
+    });
+    gigInput.appendChild(createVenue);
   } else {
     const gigId = createInput({ type: 'hidden', name: 'gigId', value: gigInfo.gig_id });
     gigInput.appendChild(gigId);
@@ -227,6 +233,89 @@ const createGigsForm = (edit = null, gigId = null) => {
   return gigForm;
 };
 
+const createVenueForm = async (tourCountry = 'UK') => {
+  const res = await fetch('./API/getCountries.php');
+  const countries = await res.json();
+  const options = {
+    selected: tourCountry,
+    options: countries,
+  };
+  const inputs = [
+    {
+      type: 'text',
+      id: `venueName`,
+      name: `name`,
+      placeholder: 'venue name',
+      maxlength: '64',
+    },
+    {
+      type: 'text',
+      id: `venueAddress`,
+      name: `address`,
+      placeholder: 'venue address',
+      maxlength: '127',
+    },
+    {
+      type: 'text',
+      id: `venueCity`,
+      name: `city`,
+      placeholder: 'venue city',
+      maxlength: '64',
+    },
+    {
+      type: 'select',
+      id: `country`,
+      name: `country`,
+      options: options,
+    },
+    {
+      type: 'text',
+      id: `venueWebsite`,
+      name: `website`,
+      placeholder: 'venue website',
+      maxlength: '127',
+    },
+    {
+      type: 'textarea',
+      id: `venueNotes`,
+      name: `notes`,
+      placeholder: 'venue notes',
+    },
+    {
+      type: 'submit',
+      name: `addVenue`,
+      id: 'addVenue',
+      value: 'add new venue',
+    },
+    {
+      type: 'submit',
+      name: `cancel`,
+      id: 'cancel',
+      value: 'cancel',
+    },
+  ];
+  const addVenueForm = document.createElement('form');
+  addVenueForm.id = 'addVenue';
+  for (const input of inputs) {
+    const inputEl = createInput(input);
+    addVenueForm.appendChild(inputEl);
+    if (inputEl.id === 'addVenue') {
+      inputEl.addEventListener('click', async (e) => {
+        e.preventDefault();
+        console.log('ADD VENUE!');
+        console.log(addVenueForm);
+      });
+    }
+    if (inputEl.id === 'cancel') {
+      inputEl.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('editArticle').classList.remove('modal-open');
+      });
+    }
+  }
+  return addVenueForm;
+};
+
 /* **** EDIT ELEMENT CREATION **** */
 
 const createGigsEdit = async (past = false) => {
@@ -256,6 +345,15 @@ const createGigEdit = (gig) => {
   });
   gigEditEl.appendChild(createDiv('gigInfo', editGigButton));
   return gigEditEl;
+};
+
+const addVenue = async () => {
+  const addVenueForm = await createVenueForm();
+  const editArticleContainer = document.getElementById('editArticle');
+  editArticleContainer.innerHTML = '';
+  editArticleContainer.appendChild(addVenueForm);
+  editArticleContainer.classList.add('modal-open');
+  editArticleContainer.scrollIntoView({ block: 'start', inline: 'start' });
 };
 
 const editGig = (gig) => {
