@@ -10,6 +10,7 @@ export const createInput = (params) => {
   switch (params.type) {
     case 'textarea':
       input = document.createElement('textarea');
+      if (params.name) input.name = params.name;
       if (params.value) input.innerHTML = params.value;
       if (params.placeholder) input.placeholder = params.placeholder;
       return input;

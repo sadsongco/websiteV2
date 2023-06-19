@@ -3,12 +3,14 @@
 require_once("../../../secure/scripts/teo_a_connect.php");
 
 try {
-    $query = "SELECT abv as id, name FROM Countries";
+    $query = "SELECT venue_id, Venues.name, city, countries.name as country
+    FROM Venues
+    LEFT JOIN Countries on Countries.abv = Venues.country";
     $stmt = $db->query($query);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($result);
 } catch (PDOException $e) {
-    error_log('GetCountries DB error: '. $e->getMessage());
+    error_log('GetVenues DB error: '. $e->getMessage());
     return null;
 }
 
