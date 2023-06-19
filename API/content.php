@@ -4,11 +4,19 @@ require_once("../../secure/scripts/teo_connect.php");
 
 function getGigs ($db) {
     try {
-        $gig_stmt = $db->prepare("SELECT DATE_FORMAT(date, '%D %b %Y') AS date,
-        venue, tickets, city, country, address
-        FROM Gigs 
-        WHERE DATE(date) > CURDATE() 
-        ORDER BY date ASC;");
+        $query = "SELECT Gigs.gig_id as gig_id,
+            DATE_FORMAT(Gigs.date, '%D %b %Y') AS date,
+            Gigs.tickets as tickets,
+            Venues.name as venue,
+            Venues.address as address,
+            Venues.city as city,
+            Countries.name as country
+            FROM Gigs
+            LEFT JOIN Venues ON Gigs.venue = Venues.venue_id
+            LEFT JOIN Countries ON Countries.abv = Venues.country
+            WHERE date >= CURDATE()
+            ORDER BY date DESC";
+        $gig_stmt = $db->prepare($query);
         $gig_stmt->execute();
         $gig_result = $gig_stmt->fetchAll(PDO::FETCH_ASSOC);
         if (sizeof($gig_result) > 0)

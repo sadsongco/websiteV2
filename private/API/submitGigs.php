@@ -2,11 +2,12 @@
 
 require_once("../../../secure/scripts/teo_a_connect.php");
 
-$data = json_decode(file_get_contents('php://input'), true);
+// $data = json_decode(file_get_contents('php://input'), true);
 
 $result = [];
-foreach ($data as $parameters) {
-    $query = "INSERT INTO Gigs VALUES (0, :date, :venue, :tickets, :city, :country, :address);";
+foreach ($_POST['date'] as $key=>$value) {
+    $query = "INSERT INTO Gigs VALUES (0, ?, ?, ?);";
+    $parameters = [$_POST['date'][$key], $_POST['tickets'][$key], $_POST['venue'][$key]];
     try {
         $stmt = $db->prepare($query);
         $stmt->execute($parameters);

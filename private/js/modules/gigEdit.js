@@ -18,30 +18,21 @@ const getGigs = async (past = false) => {
 
 const submitGigs = async (gigForm, target = 'submit') => {
   const gigInfoSets = gigForm.getElementsByClassName('gigInfoSet');
-  const postData = [];
+  const requiredFields = ['date[]', 'venue[]'];
   const errorFields = [];
   for (const gigInfoSet of gigInfoSets) {
-    const gigInfoObj = {};
     for (const gigInfo of gigInfoSet.children) {
       if (gigInfo.tagName === 'LEGEND' || gigInfo.type === 'submit') continue;
-      const gigNameArr = gigInfo.name.split('_');
-      if (gigInfo.value === '') {
-        errorFields.push(gigInfo.name);
-        continue;
-      }
-      gigInfoObj[gigNameArr[0]] = gigInfo.value;
+      if (requiredFields.includes(gigInfo.name) && gigInfo.value === '') errorFields.push(gigInfo.id);
     }
-    postData.push(gigInfoObj);
   }
   if (errorFields.length > 0) return { success: false, error: 'validation', errorFields: errorFields };
+  const data = new FormData(gigForm);
   const url = `./API/${target}Gigs.php`;
   try {
     const res = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(postData),
+      body: data,
     });
     return await res.json();
   } catch (e) {
@@ -81,6 +72,7 @@ const gigEditSubmit = async (gigForm, gigDelete = false) => {
     return res;
   }
   res = await updateGig(gigForm);
+  console.loc(res);
   if (res.success) {
     return res;
   }
@@ -105,19 +97,19 @@ const createGigInput = async (gigIndex, gigForm, gigInfo) => {
     {
       type: 'date',
       id: `date_${gigIndex}`,
-      name: `date_${gigIndex}`,
+      name: `date[]`,
       placeholder: 'gig date',
     },
     {
       type: 'select',
       id: `venue_${gigIndex}`,
-      name: `venue_${gigIndex}`,
+      name: `venue[]`,
       options: options,
     },
     {
       type: 'text',
       id: `tickets_${gigIndex}`,
-      name: `tickets_${gigIndex}`,
+      name: `tickets[]`,
       placeholder: 'ticket link',
     },
   ];
