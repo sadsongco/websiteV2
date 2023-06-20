@@ -2,22 +2,19 @@
 
 require_once("../../../secure/scripts/teo_a_connect.php");
 
-$data = json_decode(file_get_contents('php://input'), true);
+$data = ["gigId"=>(int)$_POST['gigId'], "date"=>$_POST['date'][0], "venue"=>(int)$_POST['venue'][0], "tickets"=>$_POST['tickets'][0]];
 
 $result = [];
 
 $query = "UPDATE Gigs SET
             date=:date,
             venue=:venue,
-            tickets=:tickets,
-            city=:city,
-            country=:country,
-            address=:address
+            tickets=:tickets
         WHERE gig_id = :gigId;";
 
 try {
     $stmt = $db->prepare($query);
-    $stmt->execute($data[0]);
+    $stmt->execute($data);
     $result['success'] = true;
 }
 catch (PDOException $e) {

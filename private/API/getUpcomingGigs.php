@@ -6,6 +6,7 @@ try {
     $query = "SELECT Gigs.gig_id as gig_id,
     Gigs.date as date,
     Gigs.tickets as tickets,
+    Venues.venue_id as venue_id,
     Venues.name as venue,
     Venues.address as address,
     Venues.city as city,

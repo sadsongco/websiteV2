@@ -2,7 +2,7 @@
 
 require_once("../../../secure/scripts/teo_a_connect.php");
 
-$query = "INSERT INTO Venues VALUES (0, :name, :address, :city, :country, :website, :notes);";
+$query = "INSERT INTO Venues VALUES (0, :name, :address, :postcode, :city, :country, :website, :notes);";
 $output = [];
 try {
     $stmt = $db->prepare($query);
