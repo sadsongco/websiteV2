@@ -50,6 +50,9 @@ export const createCard = (template, cardData) => {
             const mapURL = '<a href = "' + encodeURI(`https://www.google.com/maps/search/?api=1&query=${gig.venue}, ${gig.address}, ${gig.city} ${gig.postcode ? gig.postcode : ''} ${gig.country}`) + '" target = "_blank">' + `${gig.address} ${gig.postcode ? gig.postcode : ''}` + '</a>';
             gig[heading] = mapURL;
           }
+          if (heading === 'venue' && gig['website'] != '') {
+            gig[heading] = `<a href = '${gig['website']}' target='_blank'>${gig['venue']}</a>`;
+          }
           if (gig[heading] != '') thisCell.innerHTML = gig[heading];
           thisCell.classList.add(heading);
           thisRow.appendChild(thisCell);

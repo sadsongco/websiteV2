@@ -54,7 +54,7 @@ const createVenueForm = async (tourCountry = 'UK') => {
       type: 'text',
       id: `venuePostcode`,
       name: `postcode`,
-      placeholder: 'venue potcode',
+      placeholder: 'venue postcode',
       maxlength: '12',
     },
     {

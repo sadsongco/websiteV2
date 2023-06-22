@@ -1,10 +1,12 @@
-/* tables */
+/* tables
 
-.card-content table {
+.card-content .gigs {
   padding: 20px;
   width: 85%;
   font-size: clamp(0.8em, 1.5vw, 1em);
   margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 @media screen and (min-width: 600px) {
@@ -13,7 +15,7 @@
   }
 }
 
-.card-content table tbody tr {
+.card-content .gigs .gigsBody div {
   border-bottom: 1px solid #999;
 }
 
@@ -55,12 +57,71 @@ thead th {
   padding: 5px;
 }
 
-td.address,
-td.country,
-td.tickets {
-  font-size: 0.7em;
-}
 
 td.country {
   font-weight: bold;
+} */
+
+/* gigs grid */
+
+.gigs {
+  padding: 20px;
+  width: 85%;
+  font-size: clamp(0.8em, 1.5vw, 1em);
+}
+
+.gigsHead {
+  background-color: #222;
+  color: #aaa;
+  font-weight: 700;
+}
+
+.gigHeadRow,
+.gigBodyRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid black;
+}
+
+.gigBodyRow:last-of-type {
+  border-bottom: none;
+}
+
+.gigBodyRow:nth-of-type(odd) {
+  background-color: rgb(240, 240, 255);
+}
+.gigBodyCell {
+  padding: 0.4rem;
+  justify-content: left;
+  align-items: baseline;
+}
+
+.gigBodyCell.address,
+.gigBodyCell.country,
+.gigBodyCell.tickets {
+  margin-top: 0.15rem;
+  font-size: 0.7em;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.gigs a,
+.gigs a:hover,
+.gigs a:visited {
+  text-decoration: underline;
+  text-transform: uppercase;
+  color: #777;
+}
+
+@media screen and (min-width: 600px) {
+  .gigHeadRow,
+  .gigBodyRow {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+  .gigBodyCell.address,
+  .gigBodyCell.country,
+  .gigBodyCell.tickets {
+    margin-top: inherit;
+    padding-top: inherit;
+    background-color: inherit;
+  }
 }
