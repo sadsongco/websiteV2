@@ -12,7 +12,7 @@ $output['resources'] = [];
 try {
     if ($handle = opendir('../'.$output['path'].$sub_dir)) {
         while (false != ($entry = readdir($handle))) {
-            if (str_starts_with($entry, '.')) continue;
+            if (substr($entry, 0, 1) == '.') continue;
             array_push($output['resources'], $entry);
         }
         closedir($handle);
