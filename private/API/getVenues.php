@@ -3,7 +3,7 @@
 require_once("../../../secure/scripts/teo_a_connect.php");
 
 try {
-    $query = "SELECT venue_id, Venues.name, city, countries.name as country
+    $query = "SELECT venue_id, Venues.name, city, Countries.name as country
     FROM Venues
     LEFT JOIN Countries on Countries.abv = Venues.country";
     $stmt = $db->query($query);

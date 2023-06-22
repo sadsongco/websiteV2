@@ -55,7 +55,7 @@ $thumbnail_width = 200;
 // open full_res path, read contents
 if ($handle = opendir($full_res_path)) {
     while (false != ($file_name = readdir($handle))) {
-        if (str_starts_with($file_name, '.')) continue;
+        if (substr($file_name, 0, 1) == '.') continue;
         try {
             // make web version
             $image_file_type = strtolower(pathinfo($full_res_path.$file_name, PATHINFO_EXTENSION));
