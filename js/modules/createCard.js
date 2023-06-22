@@ -20,7 +20,7 @@ export const createCard = (template, cardData) => {
       nothing.innerHTML = 'No gigs currently in the diary';
       contentEl.appendChild(nothing);
     } else {
-      const headings = ['date', 'venue', 'city', 'country', 'address', 'tickets'];
+      const headings = ['date', 'venue', 'city', 'address', 'country', 'tickets'];
       const table = document.getElementById('gigsTable');
       const tbody = document.getElementById('gigsBody');
       const hRow = document.getElementById('gigHeadRow');
@@ -45,6 +45,10 @@ export const createCard = (template, cardData) => {
           thisCell.removeAttribute('id');
           if (heading === 'tickets' && gig[heading] && gig[heading].substr(0, 4) === 'http') {
             gig[heading] = `<a href = '${gig[heading]}' target='_blank'>BUY TICKETS</a>`;
+          }
+          if (heading === 'address') {
+            const mapURL = '<a href = "' + encodeURI(`https://www.google.com/maps/search/?api=1&query=${gig.venue}, ${gig.address}, ${gig.city} ${gig.postcode ? gig.postcode : ''} ${gig.country}`) + '" target = "_blank">' + `${gig.address} ${gig.postcode ? gig.postcode : ''}` + '</a>';
+            gig[heading] = mapURL;
           }
           if (gig[heading] != '') thisCell.innerHTML = gig[heading];
           thisCell.classList.add(heading);

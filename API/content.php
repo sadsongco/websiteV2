@@ -10,12 +10,13 @@ function getGigs ($db) {
             Venues.name as venue,
             Venues.address as address,
             Venues.city as city,
+            Venues.postcode as postcode,
             Countries.name as country
             FROM Gigs
             LEFT JOIN Venues ON Gigs.venue = Venues.venue_id
             LEFT JOIN Countries ON Countries.abv = Venues.country
             WHERE date >= CURDATE()
-            ORDER BY date DESC";
+            ORDER BY date ASC";
         $gig_stmt = $db->prepare($query);
         $gig_stmt->execute();
         $gig_result = $gig_stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -54,3 +54,13 @@ thead {
 thead th {
   padding: 5px;
 }
+
+td.address,
+td.country,
+td.tickets {
+  font-size: 0.7em;
+}
+
+td.country {
+  font-weight: bold;
+}
