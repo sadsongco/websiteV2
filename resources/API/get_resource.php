@@ -9,13 +9,20 @@ $output['path'] = 'resource_dirs/'.$_GET['resource'].'/';
 $output['name'] = $_GET['resource'];
 $output['resources'] = [];
 
-if ($handle = opendir('../'.$output['path'].$sub_dir)) {
-    while (false != ($entry = readdir($handle))) {
-        if (str_starts_with($entry, '.')) continue;
-        array_push($output['resources'], $entry);
+try {
+    if ($handle = opendir('../'.$output['path'].$sub_dir)) {
+        while (false != ($entry = readdir($handle))) {
+            if (str_starts_with($entry, '.')) continue;
+            array_push($output['resources'], $entry);
+        }
+        closedir($handle);
     }
-    closedir($handle);
+
+} catch (Exception $e) {
+    $output['success'] = false;
+    $output['error'] = $e->getMessage();
 }
+
 
 
 echo json_encode($output);
