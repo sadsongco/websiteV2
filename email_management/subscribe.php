@@ -11,16 +11,17 @@ function getCheckCode($db, $email) {
         $stmt = $db->prepare("SELECT email_id FROM dd_cons_mailing_list WHERE email=?;");
         $stmt->execute([$email]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (sizeof($result) == 0) throw new Exception('Email not found in database', 1176);
         $db_id = $result[0]['email_id'];
         $secure_id = hash('ripemd128', $email.$db_id.'JamieAndNigel');
         return $secure_id;
     }
-    catch(PDOException $e) {
+    catch(Exception $e) {
         return null;
     }
 }
 
-$message = "<p>Mailing list subscription page. Please access this through the link in your email.</p>";
+$message = "<p>The Exact Opposite mailing list subscription page. Please access this through the link in your email.</p>";
 
 // local host server
 $protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,5))=='https'?'https':'http';
@@ -37,7 +38,7 @@ if (isset ($_POST['add_name']) && $_POST['add_name'] == "Add Your Name") {
         $_GET['email'] = $_POST['email'];
         $_GET['check'] = $_POST['check'];
     }
-    catch(PDOException $e) {
+    catch(Exception $e) {
         error_log($e->getMessage());
         if ($e->getCode() != 1176) {
             $message = "<p>Sorry, there was a background error</p>";
@@ -56,7 +57,7 @@ elseif (isset($_GET['email']) && $_GET['email'] != '' && isset($_GET['check']) &
         $stmt = $db->prepare("INSERT INTO mailing_list (email, name, domain, subscribed, confirmed, date_added) VALUES (?, ?, SUBSTRING_INDEX(?, '@', -1), ?, ?, NOW());");
         $stmt->execute([$_GET['email'], '', $_GET['email'], 1, 1]);
         $_GET['check'] = hash('ripemd128', $_GET['email'].$db->lastInsertId().'JamieAndNigel');
-        $message = '<p>The email <span class = "email">'.$_GET['email'].'</span> has been added to the Unbelievable Truth mailing list.<br />';
+        $message = '<p>The email <span class = "email">'.$_GET['email'].'</span> has been added to The Exact Opposite mailing list.<br />';
     }
     catch(PDOException $e) {
         error_log($e->getMessage());
@@ -64,7 +65,8 @@ elseif (isset($_GET['email']) && $_GET['email'] != '' && isset($_GET['check']) &
             $message =  '<h2>'.$e->getMessage().'- please make sure you have accessed this page through the link in your email.</h2>';
         }
         elseif ($e->getCode() != 23000) {
-            $message = "<p>Sorry, there was a background error</p>";}
+            $message = "<p>Sorry, there was a background error</p>";
+        }
         else {
             $stmt = $db->prepare("UPDATE mailing_list SET subscribed=1 WHERE email=?");
             $stmt->execute([$_GET['email']]);
@@ -76,19 +78,19 @@ elseif (isset($_GET['email']) && $_GET['email'] != '' && isset($_GET['check']) &
                 $id = $result[0]['email_id'];
             $_GET['check'] = hash('ripemd128', $_GET['email'].$id.'JamieAndNigel');
             $message = '<p>That email is already on our list, thank you!</p>';
+            $message .= 'If you would like to add your name to your email on The Exact Opposite mailing list so we can be more polite when we contact you, feel free to do so here:<br />
+                <form action = "'.$_SERVER['PHP_SELF'].'" method = "post">
+                    <input type = "text" name = "name" size = "30" placeholder = "your name" />
+                    <input type="submit" name="add_name" value="Add Your Name" />
+                    <input type="hidden" name="check" value = "'.$_GET['check'].'" />
+                    <input type="hidden" name="email" value = "'.$_GET['email'].'" />
+                </form>
+                <footer>
+                    If you want to unsubscribe click &nbsp;<a href="'.$host.'/email_management/unsubscribe.php?email='.$_GET['email'].'&check='.$_GET['check'].'">HERE</a><br />
+                </footer>
+        ';
         }
     }
-    $message .= 'If you would like to add your name to your email on The Exact Opposite mailing list so we can be more polite when we contact you, feel free to do so here:<br />
-        <form action = "'.$_SERVER['PHP_SELF'].'" method = "post">
-            <input type = "text" name = "name" size = "30" placeholder = "your name" />
-            <input type="submit" name="add_name" value="Add Your Name" />
-            <input type="hidden" name="check" value = "'.$_GET['check'].'" />
-            <input type="hidden" name="email" value = "'.$_GET['email'].'" />
-        </form>
-        <footer>
-            If you want to unsubscribe click &nbsp;<a href="'.$host.'/email_management/unsubscribe.php?email='.$_GET['email'].'&check='.$_GET['check'].'">HERE</a><br />
-        </footer>
-';
 }
 
 require_once("../../secure/scripts/teo_disconnect.php");

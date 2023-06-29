@@ -121,7 +121,6 @@ td.country {
   .gigBodyCell.country,
   .gigBodyCell.tickets {
     margin-top: inherit;
-    padding-top: inherit;
     background-color: inherit;
   }
 }

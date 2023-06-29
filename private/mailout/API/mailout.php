@@ -8,7 +8,7 @@ function makeLogDir ($path) {
     return is_dir($path) || mkdir($path);
 }
 
-function write_to_log ($log_fp, $ouput) {
+function write_to_log ($log_fp, $output) {
     fwrite($log_fp, $output);
     fclose($log_fp);
 }

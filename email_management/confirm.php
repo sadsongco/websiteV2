@@ -13,7 +13,7 @@ use PHPMailer\PHPMailer\Exception;
 //Load Composer's autoloader
 require '../private/mailout/API/vendor/autoload.php';
 
-include_once('./includes/replace_tags.php');
+include_once('../private/mailout/includes/replace_tags.php');
 
 function getLatestMailout() {
     $latest_mailout = 0;
@@ -87,7 +87,6 @@ if (isset($_GET) && isset($_GET['email'])) {
         $secure_id = hash('ripemd128', $_GET['email'].$email_id.'JamieAndNigel');
         if ($_GET['check'] != $secure_id) throw new PDOException('Bad check code', 1176);
         $row = $result[0];
-        $row['check'] = $secure_id;
         $stmt = $db->prepare('UPDATE mailing_list SET confirmed = 1 WHERE email_id = ?');
         $stmt->execute([$email_id]);
         $last_mailout = sendLastMailout($row);
