@@ -12,4 +12,4 @@
         <img src="../assets/images/graphics/onelineLogoWB.svg" alt="The Exact Opposite logo" />
     </header>
     <main>
-        <h1>Mailing List</h1>
+        <h1>Mailing List</h1> 
