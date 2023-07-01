@@ -3,7 +3,7 @@ import { imgTagReplace } from './imgTagReplace.js';
 export const createCard = (template, cardData) => {
   const newCardEl = template.cloneNode(true);
   newCardEl.id = `${cardData.card_id}-card`;
-  // newCardEl.style.backgroundColor = cardData.bg_colour;
+  newCardEl.dataset.pos = cardData.card_pos;
   const titleEl = newCardEl.getElementsByClassName('card-title')[0];
   titleEl.id = `${cardData.card_id}-title`;
   titleEl.innerHTML = cardData.title;

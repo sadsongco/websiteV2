@@ -2,6 +2,7 @@ import { loadData } from './modules/loadData.js';
 import { createCard } from './modules/createCard.js';
 import { loadBackgroundImage } from './modules/loadBackgroundImage.js';
 import { placeBackgroundImages } from './modules/placeBackgroundImage.js';
+import { buildNav } from './nav.js';
 import { animateOnScroll } from './animate-on-scroll.js';
 
 // global content container
@@ -37,6 +38,7 @@ for (const cardData of contentData) {
 // images loaded, update cards with images
 // await placeBackgroundImages(contentData);
 
+buildNav();
 // observe for animate on scroll
 animateOnScroll();
 
