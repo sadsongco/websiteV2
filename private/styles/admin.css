@@ -82,6 +82,18 @@ input[type='submit'] {
   max-width: 10em;
 }
 
+input[type='file'] {
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid #333;
+}
+
+input[type='submit'].mainSubmit {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: rgb(86, 2, 2);
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.6);
+}
+
 textarea {
   display: block;
   margin: 0;

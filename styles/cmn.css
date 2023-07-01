@@ -33,7 +33,7 @@ header {
 }
 
 footer {
-  position: fixed;
+  position: inherit;
   border-top: 2px solid #fff;
   background-color: rgba(0, 0, 0, 1);
   left: 0;

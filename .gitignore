@@ -2,4 +2,5 @@
 ./private/mailout/API/dd_logs/
 ./private/mailout/API/logs/
 ./private/mailout/API/current_mailout.txt
-./private/mailoout/API/dd_current_mailout.txt
+./private/mailout/API/dd_current_mailout.txt
+./assets/images/article_images/

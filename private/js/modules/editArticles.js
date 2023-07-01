@@ -7,7 +7,8 @@ const submitNewArticle = async (target, form) => {
   const formData = new FormData();
   const errorFields = [];
   for (let el of form) {
-    if (el.type != 'file' && el.name != 'live_date' && el.value == '') {
+    if (el.type != 'file' && el.name != 'live_date' && el.type != 'submit' && el.value == '') {
+      console.log(el.type);
       errorFields.push(el.id);
       continue;
     }
@@ -97,6 +98,12 @@ export const createNewArticleForm = (formParams, inputs) => {
     }
     form.appendChild(inputEl);
 
+    console.log(input);
+    if (input.classes) {
+      for (let inputClass of input.classes) {
+        inputEl.classList.add(inputClass);
+      }
+    }
     // add event listener to process form
     if (input.type === 'submit') {
       inputEl.addEventListener('click', async (e) => {
@@ -121,19 +128,43 @@ export const createNewArticleForm = (formParams, inputs) => {
   return form;
 };
 
+const copyImageCode = async (idx) => {
+  try {
+    await navigator.clipboard.writeText(`<!--{{img-${idx}}}-->`);
+  } catch (e) {
+    console.error(e);
+    throw new Error('failed to copy');
+  }
+};
+
 export const createImageUpload = (idx, form) => {
   const imageUploadInput = document.createElement('input');
   imageUploadInput.name = `imageUpload_${idx}`;
   imageUploadInput.id = `imageUpload_${idx}`;
   imageUploadInput.type = 'file';
-  imageUploadInput.addEventListener('input', (e) => {
-    const [imageUploadInput, imageUploadLabel] = createImageUpload(++idx, form);
-    form.appendChild(imageUploadLabel);
-    form.appendChild(imageUploadInput);
-  });
   const imageUploadLabel = document.createElement('label');
   imageUploadLabel.for = `imageUpload_${idx}`;
-  imageUploadLabel.innerHTML = `upload an image for the article - paste <code>&lt;!--{{img-${idx}}}--&gt;</code> into the text`;
+  imageUploadLabel.id = `imageUploadLabel_${idx}`;
+  imageUploadLabel.innerHTML = `upload an image for the article`;
+  imageUploadInput.addEventListener('input', (e) => {
+    imageUploadLabel.innerHTML = `paste <code>&lt;!--{{img-${idx}}}--&gt;</code> into the text`;
+    const imageCodeButton = document.createElement('button');
+    imageCodeButton.classList.add('copyCode');
+    imageCodeButton.innerHTML = 'copy to clipboard';
+    imageCodeButton.addEventListener('click', async (e) => {
+      e.preventDefault();
+      try {
+        await copyImageCode(idx);
+      } catch (e) {
+        imageCodeButton.innerHTML = 'error copying';
+      }
+    });
+    imageUploadLabel.appendChild(imageCodeButton);
+    const uploadSubmit = document.getElementById('articleUpload');
+    const [newImageUploadInput, newImageUploadLabel] = createImageUpload(++idx, form);
+    form.insertBefore(newImageUploadLabel, uploadSubmit);
+    form.insertBefore(newImageUploadInput, uploadSubmit);
+  });
   return [imageUploadInput, imageUploadLabel];
 };
 

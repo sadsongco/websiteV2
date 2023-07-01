@@ -46,13 +46,14 @@ export const editCard = async (card) => {
         label: { for: 'liveDate', text: 'enter date for article to go live (if nothing entered will go live immediately)' },
       },
       { type: 'hidden', name: 'card_id', value: card.card_id },
-      { type: 'submit', name: 'submit', value: 'upload new article' },
+      { type: 'submit', name: 'submit', id: 'articleUpload', value: 'upload new article', classes: ['mainSubmit'] },
     ];
     const newArticleForm = createNewArticleForm({ id: 'newArticle', method: 'post', action: '#' }, inputs);
     container.appendChild(newArticleForm);
+    const articleSubmit = document.getElementById('articleUpload');
     const [imageUploadInput, imageUploadLabel] = createImageUpload(0, newArticleForm);
-    newArticleForm.appendChild(imageUploadLabel);
-    newArticleForm.appendChild(imageUploadInput);
+    newArticleForm.insertBefore(imageUploadLabel, articleSubmit);
+    newArticleForm.insertBefore(imageUploadInput, articleSubmit);
 
     // edit old articles
     const articlesEl = await createArticleEls(card);
