@@ -10,9 +10,7 @@ nav {
   text-align: right;
   top: 0px;
   left: 25px;
-  /* background-color: black; */
   border: none;
-  /* mix-blend-mode: difference; */
   z-index: 6;
 }
 
@@ -31,7 +29,7 @@ nav label {
 nav ul {
   position: absolute;
   left: -14em;
-  top: 2.5em;
+  top: 1.6em;
   color: white;
   background-color: rgba(255, 255, 255, 0.9);
   color: #000;
@@ -39,11 +37,10 @@ nav ul {
   min-width: 9.5em;
   border-radius: 5px;
   list-style-type: none;
-  font-size: 1.2em;
-  line-height: 1.5em;
+  font-size: 1.1em;
+  line-height: 1.3em;
   transition: left 0.4s ease-out;
   clear: right;
-  /* mix-blend-mode: normal; */
 }
 
 nav ul li:hover {
@@ -64,7 +61,7 @@ nav input:checked ~ ul {
 }
 
 nav label {
-  font-size: 4em;
+  font-size: 3em;
   display: block;
   transition: opacity 0.4s ease-out, transform 0.4s ease-out, font-size 0.4s ease-out;
 }

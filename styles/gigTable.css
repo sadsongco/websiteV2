@@ -65,8 +65,8 @@ td.country {
 /* gigs grid */
 
 .gigs {
-  padding: 20px;
-  width: 85%;
+  padding: 10px;
+  width: 100%;
   font-size: clamp(0.8em, 1.5vw, 1em);
 }
 
@@ -91,7 +91,7 @@ td.country {
   background-color: rgb(240, 240, 255);
 }
 .gigBodyCell {
-  padding: 0.4rem;
+  padding: 0.3rem;
   justify-content: left;
   align-items: baseline;
 }

@@ -33,14 +33,22 @@ header {
 }
 
 footer {
-  position: inherit;
+  position: absolute;
   border-top: 2px solid #fff;
   background-color: rgba(0, 0, 0, 1);
   left: 0;
   bottom: 0;
   width: 100%;
-  height: auto;
+  height: 155px;
   min-height: 11vh;
+}
+
+@media screen and (max-width: 800px) {
+  footer {
+    position: inherit;
+    bottom: -40px;
+    overflow-x: hidden;
+  }
 }
 
 img {
@@ -56,36 +64,36 @@ img {
 
 /* specific header and footer */
 
-.logo {
-  padding-top: 9px;
-  position: fixed;
-  top: 0;
-  left: 7vw;
-  width: 93vw;
-  height: 12vh;
-  z-index: 3;
-  mix-blend-mode: difference;
-}
-
 .socials {
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 1em 0;
   width: 80%;
+  max-width: 80vw;
+}
+
+.logo {
+  padding-top: 9px;
+  position: fixed;
+  top: 0;
+  left: calc(clamp(35px, 6vw, 100px) + 0.3em);
+  max-width: calc(100vw - clamp(35px, 6vw, 100px) - 0.6em);
+  height: 12vh;
+  z-index: 3;
+  mix-blend-mode: difference;
 }
 
 .mobile-logo {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  /* max-height: 25vh; */
 }
 
 .mobile-logo img {
   object-fit: contain;
   width: 90%;
-  /* max-height: 25vh; */
+  max-height: 25vh;
 }
 
 .desktop-logo {
@@ -97,13 +105,14 @@ img {
     display: none;
   }
   .desktop-logo {
+    width: 100vw;
     display: block;
   }
 }
 
 form input {
-  width: 20em;
-  font-size: 1em;
+  width: 16em;
+  font-size: 0.8em;
   margin: 0.1em;
 }
 
