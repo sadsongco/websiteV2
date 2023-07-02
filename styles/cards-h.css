@@ -8,6 +8,7 @@
   min-height: 100vh;
   color: white;
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   top: initial;
@@ -28,10 +29,6 @@
   color: #c9c9c9;
 }
 
-.imgContainer img {
-  max-width: 90%;
-}
-
 /* .card img {
   position: absolute;
   top: 0;
@@ -43,11 +40,16 @@
   filter: brightness(0.5);
 } */
 
+.card .logo-spacer {
+  position: relative;
+  width: 100%;
+  height: 0;
+}
+
 .card-inner-container {
-  position: absolute;
+  position: relative;
   left: 0;
   top: 0;
-  margin-top: 12vh;
   width: calc(100vw - clamp(35px, 6vw, 100px) - 0.6em);
   height: calc(100% - 155px - 12vh - 0.6em);
   z-index: 2;
@@ -56,15 +58,26 @@
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
-  padding-top: 15vh;
   overflow-x: hidden;
   overflow-y: scroll;
+  scrollbar-color: #999 #323232;
 }
 
 @media screen and (min-width: 800px) {
-  .card-inner-container {
-    padding-top: 12vh;
+  .card .logo-spacer {
+    height: 10vh;
   }
+}
+
+.card-inner-container::-webkit-scrollbar {
+  background-color: #323232;
+  width: 4px;
+}
+
+.card-inner-container::-webkit-scrollbar-thumb {
+  background-color: #999; /* color of the scroll thumb */
+  border-radius: 5px; /* roundness of the scroll thumb */
+  border: 1px solid #000; /* creates padding around scroll thumb */
 }
 
 .card-title {
@@ -83,16 +96,6 @@
   font-weight: 600;
 }
 
-.card:nth-of-type(odd) .card-inner-container .card-title {
-  background-color: #000;
-  color: #c9c9c9;
-}
-
-.card:nth-of-type(even) .card-inner-container .card-title {
-  background-color: #fff;
-  color: #323232;
-}
-
 .card-content {
   margin: 0.3em 0 0 clamp(35px, 6vw, 100px);
   max-width: calc(100vw - clamp(35px, 6vw, 100px) - 0.6em);
@@ -101,20 +104,10 @@
   backdrop-filter: blur(5px);
 }
 
-.card-content::-webkit-scrollbar {
-  width: 5px;
-}
-
-.card-content::-webkit-scrollbar-thumb {
-  background-color: #999; /* color of the scroll thumb */
-  border-radius: 5px; /* roundness of the scroll thumb */
-  border: 1px solid #000; /* creates padding around scroll thumb */
-}
-
 p.card-strap,
 p.card-text {
   font-size: clamp(1em, 2vw, 1.6em);
-  padding: 0.5em;
+  padding: 0.3em;
 }
 
 p.card-text {
@@ -141,6 +134,10 @@ p.card-strap {
 .card-article p {
   font-size: 1.2em;
   margin-bottom: 0.5rem;
+}
+
+.imgContainer img {
+  max-width: calc(90% - clamp(35px, 6vw, 100px) - 0.6em);
 }
 
 @media screen and (min-width: 600px) {

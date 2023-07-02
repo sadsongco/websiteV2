@@ -75,8 +75,8 @@ img {
 
 .logo {
   padding-top: 9px;
-  position: fixed;
-  top: 0;
+  position: sticky;
+  bottom: 10vh;
   left: calc(clamp(35px, 6vw, 100px) + 0.3em);
   max-width: calc(100vw - clamp(35px, 6vw, 100px) - 0.6em);
   height: 12vh;
@@ -88,12 +88,12 @@ img {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  height: 25vh;
 }
 
 .mobile-logo img {
   object-fit: contain;
   width: 90%;
-  max-height: 25vh;
 }
 
 .desktop-logo {
@@ -105,7 +105,10 @@ img {
     display: none;
   }
   .desktop-logo {
+    position: fixed;
+    top: 0;
     width: 100vw;
+    margin-top: 7px;
     display: block;
   }
 }
