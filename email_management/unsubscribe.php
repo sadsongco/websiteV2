@@ -8,13 +8,14 @@ $message = "<p>The Exact Opposite mail unsubscribe page. You can access this thr
 
 if (isset($_GET['email']) && $_GET['email'] != '') {
     try {
+        include("../../secure/secure_id/secure_id.php");
         $stmt = $db->prepare("SELECT email_id FROM mailing_list WHERE email=?;");
         $stmt->execute([$_GET['email']]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $db_id = 0;
         if (isset($result) && isset($result[0]))
             $db_id = $result[0]['email_id'];
-        $secure_id = hash('ripemd128', $_GET['email'].$db_id.'JamieAndNigel');
+        $secure_id = generateSecureId($_GET['email'], $db_id);
         if ($secure_id != $_GET['check']) {
             throw new PDOException('Bad Check Code', 1176);
         }

@@ -80,11 +80,12 @@ $message = 'There was an error. Make sure you only access this page from your em
 
 if (isset($_GET) && isset($_GET['email'])) {
     try {
+        include_once('../../secure/secure_id/secure_id.php');
         $stmt = $db->prepare('SELECT email_id, email, name FROM mailing_list WHERE email=?');
         $stmt->execute([$_GET['email']]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $email_id = $result[0]['email_id'];
-        $secure_id = hash('ripemd128', $_GET['email'].$email_id.'JamieAndNigel');
+        $secure_id = generateSecureId($_GET['email'], $email_id);
         if ($_GET['check'] != $secure_id) throw new PDOException('Bad check code', 1176);
         $row = $result[0];
         $stmt = $db->prepare('UPDATE mailing_list SET confirmed = 1 WHERE email_id = ?');

@@ -3,6 +3,7 @@
 // cd /home/thesadso/theexactopposite.uk/private/mailout/API/; /usr/local/bin/php -q mailout.php
 
 include_once('../includes/replace_tags.php');
+include_once("../../../../secure/secure_id/secure_id.php");
 
 function makeLogDir ($path) {
     return is_dir($path) || mkdir($path);

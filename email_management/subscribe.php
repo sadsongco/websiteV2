@@ -6,6 +6,8 @@ include_once("./includes/html_head.php");
 
 require_once("../../secure/scripts/teo_a_connect.php");
 
+include_once("../../secure/secure_id/secure_id.php");
+
 function getCheckCode($db, $email) {
     try {
         $stmt = $db->prepare("SELECT email_id FROM dd_cons_mailing_list WHERE email=?;");
@@ -13,7 +15,7 @@ function getCheckCode($db, $email) {
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if (sizeof($result) == 0) throw new Exception('Email not found in database', 1176);
         $db_id = $result[0]['email_id'];
-        $secure_id = hash('ripemd128', $email.$db_id.'JamieAndNigel');
+        $secure_id = generateSecureId($email, $db_id);
         return $secure_id;
     }
     catch(Exception $e) {
@@ -56,7 +58,7 @@ elseif (isset($_GET['email']) && $_GET['email'] != '' && isset($_GET['check']) &
         if ($secure_id != $_GET['check']) throw new PDOException('Bad Check Code', 1176);
         $stmt = $db->prepare("INSERT INTO mailing_list (email, name, domain, subscribed, confirmed, date_added) VALUES (?, ?, SUBSTRING_INDEX(?, '@', -1), ?, ?, NOW());");
         $stmt->execute([$_GET['email'], '', $_GET['email'], 1, 1]);
-        $_GET['check'] = hash('ripemd128', $_GET['email'].$db->lastInsertId().'JamieAndNigel');
+        $_GET['check'] = generateSecureId($_GET['email'], $db->lastInsertId());
         $message = '<p>The email <span class = "email">'.$_GET['email'].'</span> has been added to The Exact Opposite mailing list.<br />';
     }
     catch(PDOException $e) {
@@ -76,7 +78,7 @@ elseif (isset($_GET['email']) && $_GET['email'] != '' && isset($_GET['check']) &
             $id = 0;
             if (isset($result) && isset($result[0]))
                 $id = $result[0]['email_id'];
-            $_GET['check'] = hash('ripemd128', $_GET['email'].$id.'JamieAndNigel');
+            $_GET['check'] = generateSecureId($_GET['email'], $id);
             $message = '<p>That email is already on our list, thank you!</p>';
             $message .= 'If you would like to add your name to your email on The Exact Opposite mailing list so we can be more polite when we contact you, feel free to do so here:<br />
                 <form action = "'.$_SERVER['PHP_SELF'].'" method = "post">

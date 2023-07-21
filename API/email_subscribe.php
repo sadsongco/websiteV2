@@ -61,9 +61,10 @@ $post = json_decode($post, true);
 
 if (isset($post['email']) && $post['email'] != '') {
     try {
+        include ('../../secure/secure_id/secure_id.php');
         $stmt = $db->prepare("INSERT INTO mailing_list (email, domain, name, last_sent, subscribed, date_added) VALUES (?, SUBSTRING_INDEX(?, '@', -1), ?, ?, ?, NOW())");
         $stmt->execute([$post['email'], $post['email'], $post['name'], 0, 1]);
-        $secure_id = hash('ripemd128', $post['email'].$db->lastInsertID().'JamieAndNigel');
+        $secure_id = generateSecureId($post['email'], $db->lastInsertID());
         sendConfirmationEmail(['email'=>$post['email'], 'name'=>$post['name'], 'check'=>$secure_id]);
         $output = ['success'=> true];
     }
