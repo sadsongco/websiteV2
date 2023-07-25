@@ -10,7 +10,8 @@ use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
 require '../private/mailout/API/vendor/autoload.php';
-include_once('../email_management/includes/replace_tags.php');
+include_once('../private/mailout/includes/replace_tags.php');
+include_once("../../secure/secure_id/secure_id.php");
 
 function sendConfirmationEmail($row) {
     //Create an instance; passing `true` enables exceptions
@@ -61,11 +62,10 @@ $post = json_decode($post, true);
 
 if (isset($post['email']) && $post['email'] != '') {
     try {
-        include ('../../secure/secure_id/secure_id.php');
         $stmt = $db->prepare("INSERT INTO mailing_list (email, domain, name, last_sent, subscribed, date_added) VALUES (?, SUBSTRING_INDEX(?, '@', -1), ?, ?, ?, NOW())");
         $stmt->execute([$post['email'], $post['email'], $post['name'], 0, 1]);
-        $secure_id = generateSecureId($post['email'], $db->lastInsertID());
-        sendConfirmationEmail(['email'=>$post['email'], 'name'=>$post['name'], 'check'=>$secure_id]);
+        // $secure_id = generateSecureId($post['email'], $db->lastInsertID());
+        sendConfirmationEmail(['email'=>$post['email'], 'name'=>$post['name'], 'email_id'=>$db->lastInsertID()]);
         $output = ['success'=> true];
     }
     catch (PDOException $e) {
