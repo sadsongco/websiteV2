@@ -4,6 +4,7 @@
 
 include_once('../includes/replace_tags.php');
 include_once("../../../../secure/secure_id/secure_id.php");
+include_once("../../../email_management/includes/get_host.php");
 
 function makeLogDir ($path) {
     return is_dir($path) || mkdir($path);
@@ -162,9 +163,7 @@ if (sizeof($result) == 0 ) {
 }
 
 $output = "";
-$protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,5))=='https'?'https':'http';
-$host = "$protocol://".$_SERVER['HTTP_HOST'];
-
+$host = getHost();
 $remove_path = $host.'/email_management/unsubscribe_dd.php?email=<!--{{email}}-->&check=<!--{{secure_id}}-->';
 foreach ($result as $row) {
     try {

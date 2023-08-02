@@ -8,6 +8,8 @@ require_once("../../secure/scripts/teo_a_connect.php");
 
 include_once("../../secure/secure_id/secure_id.php");
 
+include_once("includes/get_host.php");
+
 function getCheckCode($db, $email) {
     try {
         $stmt = $db->prepare("SELECT email_id FROM dd_cons_mailing_list WHERE email=?;");
@@ -24,10 +26,6 @@ function getCheckCode($db, $email) {
 }
 
 $message = "<p>The Exact Opposite mailing list subscription page. Please access this through the link in your email.</p>";
-
-// local host server
-$protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,5))=='https'?'https':'http';
-$host = "$protocol://".$_SERVER['HTTP_HOST'];
 
 if (isset ($_POST['add_name']) && $_POST['add_name'] == "Add Your Name") {
     try {
@@ -79,6 +77,7 @@ elseif (isset($_GET['email']) && $_GET['email'] != '' && isset($_GET['check']) &
             if (isset($result) && isset($result[0]))
                 $id = $result[0]['email_id'];
             $_GET['check'] = generateSecureId($_GET['email'], $id);
+            $host = getHost();
             $message = '<p>That email is already on our list, thank you!</p>';
             $message .= 'If you would like to add your name to your email on The Exact Opposite mailing list so we can be more polite when we contact you, feel free to do so here:<br />
                 <form action = "'.$_SERVER['PHP_SELF'].'" method = "post">

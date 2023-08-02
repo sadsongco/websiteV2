@@ -19,3 +19,11 @@
 --------COMPLETE--------
 
 --TEST-- :: Message sent: nigel@thesadsongco.com
+
+--------COMPLETE--------
+
+--TEST-- :: Message sent: nigel@thesadsongco.com
+
+--TEST-- :: Message sent: sadsongco@gmail.com
+
+--------COMPLETE--------

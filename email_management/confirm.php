@@ -12,7 +12,7 @@ use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
 require '../private/mailout/API/vendor/autoload.php';
-
+include_once("includes/get_host.php");
 include_once('../private/mailout/includes/replace_tags.php');
 
 function getLatestMailout() {
