@@ -98,7 +98,7 @@ function getMultiContent($db, $card_id) {
     }
 }
 
-function get_cards($db) {
+function getCards($db) {
     try {
         $stmt = $db->prepare("SELECT * FROM Cards ORDER BY card_pos ASC;");
         $stmt->execute();
@@ -126,7 +126,7 @@ function get_cards($db) {
     return $output;
 }
             
-$output = get_cards($db);
+$output = getCards($db);
 echo json_encode($output);
 
 require_once("../../secure/scripts/teo_disconnect.php");
