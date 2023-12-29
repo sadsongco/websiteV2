@@ -41,7 +41,7 @@ document.getElementById('emailList').addEventListener('submit', async (e) => {
     submit.value = `you're already on the list!`;
   }
   if (res.success) {
-    submit.value = 'thank you! check email for confirmation';
+    submit.value = 'thank you! check email to confirm';
   }
   document.getElementById('email').disabled = true;
   document.getElementById('name').disabled = true;

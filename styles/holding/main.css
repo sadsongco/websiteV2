@@ -78,7 +78,7 @@ footer {
   left: 0;
   bottom: 0;
   width: 100vw;
-  height: 155px;
+  height: 179px;
   min-height: 11vh;
   display: flex;
   justify-content: center;
@@ -93,4 +93,18 @@ footer {
   padding: 1em 0;
   width: 80%;
   max-width: 80vw;
+}
+form input {
+  width: 16em;
+  font-size: 0.8em;
+  margin: 0.1em;
+}
+
+input:disabled {
+  background-color: #222;
+  color: #f88;
+}
+
+h3 {
+  line-height: 5px;
 }

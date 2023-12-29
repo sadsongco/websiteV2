@@ -50,6 +50,7 @@ function sendConfirmationEmail($row) {
         $mail->send();
     } catch (Exception $e) {
         error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
+        exit(json_encode(['success'=>false, 'status'=>'email_error']));
     }
 }
 
@@ -57,6 +58,7 @@ $output = "404 Not Found";
 
 $post = file_get_contents('php://input');
 $post = json_decode($post, true);
+
 
 // $post['email'] = 'nigel@thesadsongco.com';
 // $post['name'] = '';
@@ -73,7 +75,7 @@ if (isset($post['email']) && $post['email'] != '') {
         if ($e->getCode() == 23000) {
             $output = ['success'=> false, 'status'=>'exists'];
         } else {
-            $output = ['succes'=>false, 'status'=>'db_error'];
+            $output = ['success'=>false, 'status'=>'db_error'];
             error_log($e->getMessage());
         }
     }
