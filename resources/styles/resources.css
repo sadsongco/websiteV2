@@ -1,0 +1,33 @@
+/* general */
+
+body {
+  font-family: var(--std-font);
+}
+
+h1 {
+  font-family: var(--heading-font);
+  font-size: 1.3em;
+  font-weight: 700;
+}
+
+section.resource {
+  padding: 2em;
+  border-bottom: 1px solid black;
+}
+
+section.resource img {
+  max-width: 40%;
+  padding: 2em;
+}
+
+section.resource:nth-last-of-type(odd) {
+  background-color: white;
+}
+
+section.resource:nth-last-of-type(even) {
+  background-color: #eee;
+}
+
+a.imgLink {
+  display: block;
+}
