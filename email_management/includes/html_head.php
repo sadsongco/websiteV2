@@ -9,7 +9,7 @@
 </head>
 <body>
     <header class="logo desktop-logo">
-        <img src="../assets/images/graphics/onelineLogoWB.svg" alt="The Exact Opposite logo" />
+        <img src="../assets/graphics/onelineLogoWB.svg" alt="The Exact Opposite logo" />
     </header>
     <main>
         <h1>Mailing List</h1> 

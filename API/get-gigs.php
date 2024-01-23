@@ -1,0 +1,54 @@
+<?php
+
+require_once("../../secure/scripts/teo_connect.php");
+require '../lib/mustache.php-main/src/Mustache/Autoloader.php';
+Mustache_Autoloader::register();
+
+$m = new Mustache_Engine(array(
+    'loader' => new Mustache_Loader_FilesystemLoader('../templates'),
+    'partials_loader' => new Mustache_Loader_FilesystemLoader('../templates/partials')
+));
+
+function getGigs ($db, $past=false) {
+    $past_cond = $past ? 'WHERE date < CURDATE()' : 'WHERE date >= CURDATE()';
+    try {
+        $query = "SELECT Gigs.gig_id as gig_id,
+            DATE_FORMAT(Gigs.date, '%D %b %Y') AS date,
+            Gigs.tickets as tickets,
+            Venues.name as venue,
+            Venues.address as address,
+            Venues.city as city,
+            Venues.postcode as postcode,
+            Venues.website as website,
+            Countries.name as country
+            FROM Gigs
+            LEFT JOIN Venues ON Gigs.venue = Venues.venue_id
+            LEFT JOIN Countries ON Countries.abv = Venues.country
+            $past_cond
+            ORDER BY date ASC";
+        $gig_stmt = $db->prepare($query);
+        $gig_stmt->execute();
+        $gig_result = $gig_stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($gig_result as &$gig_details) {
+            $gig_details['map_query'] = urlencode($gig_details['venue'].",".$gig_details['address'].",".$gig_details['city'].",".$gig_details['postcode'].",".$gig_details['country']);
+        }
+        if (sizeof($gig_result) > 0)
+            return ['giglist'=>$gig_result];
+        else
+            return null;
+    }
+    catch (PDOException $e) {
+        throw $e;
+    }
+}
+
+$output = [
+    "gigs"=>getGigs($db),
+    "gigography"=>getGigs($db, true)
+];
+
+if (!$output['gigs'] && !$output['gigography']) exit("<h1>GIGS</h1>");
+
+echo $m->render("gigs", $output);
+
+?>

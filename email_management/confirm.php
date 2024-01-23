@@ -84,6 +84,7 @@ if (isset($_GET) && isset($_GET['email'])) {
         $stmt = $db->prepare('SELECT email_id, email, name FROM mailing_list WHERE email=?');
         $stmt->execute([$_GET['email']]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (sizeof($result) == 0) throw new PDOException("Email not found", 2300);
         $email_id = $result[0]['email_id'];
         $secure_id = generateSecureId($_GET['email'], $email_id);
         if ($_GET['check'] != $secure_id) throw new PDOException('Bad check code', 1176);
@@ -102,6 +103,9 @@ if (isset($_GET) && isset($_GET['email'])) {
     catch (PDOException $e) {
         if ($e->getCode() ==1176) {
             $message = 'Bad check code';
+        }
+        if ($e->getCode() == 2300) {
+            $message = "Email not found";
         }
         error_log($e->getMessage());
     }

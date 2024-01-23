@@ -1,0 +1,35 @@
+/* custom fonts */
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+:root {
+  /* body */
+  --body-bg: #fff;
+  /* colours */
+  --pink-text: #e51d73;
+  --background: #010101;
+  --main-text-size: clamp(1.3em, 4vw, 2em);
+  --button-text-colour: #ffffff;
+  --button-background-colour: rgba(255, 255, 255, 0.2);
+  --button-background-hover-colour: rgba(0, 0, 0, 0.8);
+  --std-text-color: #a1a1a1;
+  --std-text-size: 0.8em;
+  --cta-colour: #a1a1a1;
+  --cta-hover-colour: #b2b2b2;
+  --cta-background-colour: rgba(0, 0, 0, 0.6);
+  /* fonts */
+  --std-font: Poppins, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --heading-font: 'Libre Franklin', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.card {
+  --card-bg-odd: #fff;
+  --card-bg-even: #000;
+  --card-color-odd: #323232;
+  --card-color-even: #c9c9c9;
+}
+
+header {
+  --font-size: clamp(2em, 7vw, 4em);
+  --font-weight: 700;
+}

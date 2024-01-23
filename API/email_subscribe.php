@@ -65,8 +65,8 @@ $post = json_decode($post, true);
 
 if (isset($post['email']) && $post['email'] != '') {
     try {
-        $stmt = $db->prepare("INSERT INTO mailing_list (email, domain, name, last_sent, subscribed, date_added) VALUES (?, SUBSTRING_INDEX(?, '@', -1), ?, ?, ?, NOW())");
-        $stmt->execute([$post['email'], $post['email'], $post['name'], 0, 1]);
+        $stmt = $db->prepare("INSERT INTO mailing_list (email, domain, name, last_sent, subscribed, confirmed, date_added) VALUES (?, SUBSTRING_INDEX(?, '@', -1), ?, ?, ?, ?, NOW())");
+        $stmt->execute([$post['email'], $post['email'], $post['name'], 0, 1, 0]);
         // $secure_id = generateSecureId($post['email'], $db->lastInsertID());
         sendConfirmationEmail(['email'=>$post['email'], 'name'=>$post['name'], 'email_id'=>$db->lastInsertID()]);
         $output = ['success'=> true];
@@ -75,7 +75,7 @@ if (isset($post['email']) && $post['email'] != '') {
         if ($e->getCode() == 23000) {
             $output = ['success'=> false, 'status'=>'exists'];
         } else {
-            $output = ['success'=>false, 'status'=>'db_error'];
+            $output = ['success'=>false, 'status'=>'db_error', 'message'=>$e->getMessage()];
             error_log($e->getMessage());
         }
     }

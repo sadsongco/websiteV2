@@ -1,0 +1,35 @@
+{{^gigs}}
+    <h2>New gigs announced soon...</h2>
+{{/gigs}}
+
+{{#gigs}}
+    <h2>Upcoming Shows</h2>
+    <div class='gigs'>
+        <div class='gigsBody'>
+            {{#giglist}}
+                {{>gig-row}}
+            {{/giglist}}
+        </div>
+    </div>
+{{/gigs}}
+
+{{^gigography}}
+    <h2>No gig history here...</h2>
+{{/gigography}}
+{{#gigography}}
+<h2>Our Gig History</h2>
+    <div class='gigs gigography'>
+        <div class='gigsHead'>
+            <div class='gigHeadRow gigography'>
+                <div class='gigHeadCell'>Date</div>
+                <div class='gigHeadCell'>Venue</div>
+                <div class='gigHeadCell'>Country</div>
+            </div>
+        </div>
+        <div class='gigsBody'>
+            {{#giglist}}
+                {{>gigography-row}}
+            {{/giglist}}
+        </div>
+    </div>
+{{/gigography}}

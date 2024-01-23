@@ -2,94 +2,28 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./styles/reset.css" />
-    <link rel="stylesheet" href="./styles/vars.css" />
-    <link rel="stylesheet" href="./styles/cmn.css" />
-    <link rel="stylesheet" href="./styles/cards-h.css" />
-    <link rel="stylesheet" href="./styles/gigTable.css" />
-    <link rel="stylesheet" href="./styles/nav.css" />
-    <link rel="stylesheet" href="./styles/loader.css" />
-    <script defer type="module" src="./js/loading.js"></script>
-    <script defer type="module" src="./js/content.js"></script>
-    <script defer type="module" src="./js/emailManagement.js"></script>
+    <link rel="stylesheet" href="/styles/base.css">
+    <script src="lib/htmx.min.js"></script>
+    <script defer src="js/emailManagement.js"></script>
     <title>The Exact Opposite</title>
   </head>
   <body>
-    <nav>
-      <input id="menu" type="checkbox" name="nav-bar" />
-      <label for="menu"><span class="nav-highlight">&#9776;</span></label>
-      <ul id="nav-bar"></ul>
-    </nav>
-    <div id="initial-load" class="fullscreen hidden">
-      <div id="loading" class="lds-default">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-    <header class="logo desktop-logo"><img src="./assets/images/graphics/onelineLogoWB.svg" alt="The Exact Opposite logo" /></header>
-    <header class="logo mobile-logo"><img src="./assets/images/graphics/threelineLogoW.svg" alt="The Exact Opposite logo" /></header>
-    <main id="content-container">
-      <div class="card" id="default">
-        <div class="logo-spacer"></div>
-        <div class="card-title">Home</div>
-        <div class="card-inner-container">
-          <div class="card-content">
-            <p class="card-strap">This is the website of The Exact Opposite, Jamie and Nigel from Dive Dive's new band. You don't seem to have javascript enabled in your browser, so I'm afraid this page is all you get!</p>
-            <article class="card-article"></article>
-          </div>
-        </div>
-      </div>
+    <header class="logo desktop-logo"><img src="./assets/graphics/onelineLogoWB.svg" alt="The Exact Opposite logo" /></header>
+    <header class="logo mobile-logo"><img src="./assets/graphics/threelineLogoW.svg" alt="The Exact Opposite logo" /></header>
+    <main hx-get="/api/get-content.php" hx-swap="innerHTML" hx-trigger="load">
+        <img src="/assets/graphics/loading.svg" alt="loading spinner" class="htmx-indicator" />
     </main>
-    <div class="gigs hidden" id="gigsTable">
-      <div class="gigsHead" id="gigsHead">
-        <div class="gigHeadRow" id="gigHeadRow">
-          <div class="gigHeadCell" id="gigHeadCell"></div>
-        </div>
-      </div>
-      <div class="gigsBody" id="gigsBody">
-        <div class="gigBodyRow" id="gigBodyRow">
-          <div class="gigBodyCell" id="gigBodyCell"></div>
-        </div>
-      </div>
-    </div>
     <footer>
       <section class="emailForm">
-        <label for="emailList">Join our email list for news:</label><br />
         <form action="#" id="emailList">
-          <input type="text" id="email" placeholder="email address" /> <br />
-          <input type="text" id="name" placeholder="name (optional)" /> <br />
-          <input type="submit" id="emailSubmit" value="enter your email" />
+          <span class="emailCTA">Join our email list for news:</span>
+          <input type="text" id="email" placeholder="email address" autocomplete="email" />
+          <input type="text" id="name" placeholder="name (optional)" autocomplete="name" />
+          <input type="submit" id="emailSubmit" value="enter your email" disabled="" />
         </form>
       </section>
-      <section class="socials">
-        <a href="mailto:info@theexactopposite.uk">
-          <img src="./assets/images/socials/email.png" alt="email icon" />
-        </a>
-        <a href="https://www.facebook.com/theexactopp/">
-          <img src="./assets/images/socials/fb.png" alt="Facebook icon" />
-        </a>
-        <a href="https://www.threads.net/@theexactopp">
-          <img src="./assets/images/socials/th.png" alt="Threads icon" />
-        </a>
-        <a href="https://twitter.com/theexactopp/">
-          <img src="./assets/images/socials/tw.png" alt="Twitter icon" />
-        </a>
-        <a href="https://www.instagram.com/theexactopp/">
-          <img src="./assets/images/socials/ig.png" alt="Instagram icon" />
-        </a>
+      <section class="socials" hx-get="api/get-socials.php" hx-trigger="load">
       </section>
     </footer>
-  </body>
 </html>

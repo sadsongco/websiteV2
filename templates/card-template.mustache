@@ -1,0 +1,10 @@
+{{# data}}
+<section class="card" id="{{ card_id }}">
+  <div class="logo-spacer"></div>
+  <div class="card-inner-container">
+  <div class="card-title">{{ title }}</div>
+    <section class="card-content" hx-get="api/get-{{card_id}}.php" hx-trigger="load">
+    </section>
+  </div>
+</section>
+{{/ data}}

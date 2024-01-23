@@ -1,6 +1,4 @@
-/* tables
-
-.card-content .gigs {
+/* tables .card-content .gigs {
   padding: 20px;
   width: 85%;
   font-size: clamp(0.8em, 1.5vw, 1em);
@@ -11,7 +9,7 @@
 
 @media screen and (min-width: 600px) {
   .card-content table {
-    font-size: clamp(1em, 2vw, 1.5em);
+    font-size: clamp(0.8em, 1.5vw, 1em);
   }
 }
 
@@ -57,7 +55,6 @@ thead th {
   padding: 5px;
 }
 
-
 td.country {
   font-weight: bold;
 } */
@@ -68,6 +65,7 @@ td.country {
   padding: 10px;
   width: 100%;
   font-size: clamp(0.8em, 1.5vw, 1em);
+  margin-bottom: 2em;
 }
 
 .gigsHead {
@@ -94,6 +92,8 @@ td.country {
   padding: 0.3rem;
   justify-content: left;
   align-items: baseline;
+  font-family: var(--std-font);
+  font-weight: normal;
 }
 
 .gigBodyCell.address,
@@ -116,6 +116,12 @@ td.country {
   .gigHeadRow,
   .gigBodyRow {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+  .gigs.gigography {
+    max-width: 50em;
+  }
+  .gigography {
+    grid-template-columns: 10em 1fr 10em;
   }
   .gigBodyCell.address,
   .gigBodyCell.country,
