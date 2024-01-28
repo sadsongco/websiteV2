@@ -14,6 +14,11 @@ h1.message {
   color: rgb(86, 2, 2);
 }
 
+h2 {
+  font-size: 1.1em;
+  font-weight: 700;
+}
+
 code {
   font-family: monospace;
   font-weight: 300;
@@ -36,6 +41,7 @@ code {
   color: #d9d9d9;
   display: block;
   height: 100%;
+  width: 20%;
   border-left: 1px solid white;
   border-right: 1px solid white;
 }
@@ -231,4 +237,37 @@ fieldset:nth-of-type(even) {
 }
 .gigInfo:last-of-type() {
   border-bottom: none;
+}
+
+.articleList {
+  margin: 1em;
+  padding: 0.5em;
+  border: 1px solid black;
+}
+
+.articleSelect {
+  margin: 0.5em;
+  padding: 0.5em;
+  border: 1px solid black;
+}
+
+.articleSelect:nth-child(odd) {
+  background-color: #ccc;
+}
+
+.articleSelect:nth-child(even) {
+  background-color: #e7e7e7;
+}
+
+.truncate {
+  width: 18em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.article-date {
+  font-style: italic;
+  font-size: 0.8em;
+  text-align: right;
 }

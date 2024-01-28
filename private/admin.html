@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="../styles/vars.css" />
     <link rel="stylesheet" href="./styles/admin.css" />
     <link rel="stylesheet" href="../styles/loader.css" />
-    <script defer type="module" src="./js/app.js"></script>
+    <script src="../lib/htmx.min.js"></script>
+    <script src="../js/sorttable.js"></script>
     <title>The Exact Opposite of admin</title>
   </head>
   <body>
@@ -18,30 +19,9 @@
       <h1>website content management system</h1>
     </header>
     <main id="content">
-      <div id="loading" class="fullscreen">
-        <div id="loading" class="lds-default">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </div>
-      <section class="cardContainer">
-        <p>Drag to reorder. Double click card to edit info and articles</p>
-        <ul class="cardsPreview" id="cardsPreview">
-          <li class="cardPreview" id="cardPreview"></li>
-        </ul>
-      </section>
-      <section id="editCard" class="editCard"></section>
-      <section id="editArticle" class="editArticle"></section>
+      <section class="cards" hx-get="api/get-cards.php" hx-trigger="load"></section>
+      <section id="editCard"></section>
+      <section id="editArticle"></section>
     </main>
   </body>
 </html>

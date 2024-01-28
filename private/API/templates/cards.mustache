@@ -1,0 +1,15 @@
+<section class="cardContainer">
+    <p>Drag to reorder. Double click card to edit info and articles</p>
+    <ul class="cardsPreview" id="cardsPreview">
+        {{#data}}
+            <li
+                class="cardPreview"
+                id="{{card_id}}"
+                hx-get="api/edit-card.php?card_id={{card_id}}"
+                hx-trigger="dblclick"
+                hx-target="#editCard"
+            >{{title}}</li>
+        {{/data}}
+    </ul>
+</section>
+<script src="../js/setupCards.js"></script>

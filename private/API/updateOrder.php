@@ -6,6 +6,7 @@ $query = 'UPDATE Cards SET card_pos = CASE card_id';
 $update_variables = [];
 $reset_variables = [];
 $reset_counter = count($_GET) + 1;
+
 foreach ($_GET as $card_id=>$card_pos) {
     $query .= " WHEN ? THEN ?";
     array_push($update_variables, $card_id);
@@ -26,7 +27,3 @@ catch(PDOException $e) {
     echo "Database Error: " . $e->getMessage();
     exit();
 }
-
-require_once("../../../secure/scripts/teo_disconnect.php");
-
-?>

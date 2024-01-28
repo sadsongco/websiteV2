@@ -1,0 +1,25 @@
+{{#card-info}}
+<h1>Edit Card: {{title}}</h1>
+
+<section class="editCardInfo">
+    <form hx-post="api/updateCard.php">
+        <label for="cardTitle">Title</label>
+        <Input id="cardTitle" type="text" name="title" value="{{title}}" />
+        <label for="cardStrap">Strapline</label>
+        <input id="cardStrap" type="text" name="strap" value="{{strap}}"" />
+        <input type="submit" value="Update Card Info" />
+    </form>
+    <form hx-post="api/create-article-form.php" hx-target="#createArticle">
+        <input type="hidden" name="card_id" value="{{card_id}}" />
+        <input type="submit" value="Create Article" />
+    </form>
+</section>
+{{/card-info}}
+<section id="createArticle"></section>
+
+{{#card-info}}
+<section class="articleList" hx-get="api/getCardArticles.php?card_id={{card_id}}&content_type={{content_type}}" hx-trigger="load">
+</section>
+{{/card-info}}
+
+{{>fileUpload}}

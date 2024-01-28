@@ -1,0 +1,10 @@
+<form hx-post="api/create-article.php">
+    <input type="hidden" name="card_id" value="{{card_id}}" />
+    <label for="articleTitle">Article Title</label>
+    <input type="text" name="article_title" id="articleTitle" />
+    <label for="articleContent">Article Content</label>
+    <textarea name="article_content" id="articleContent"></textarea>
+    <label for="liveDate">Article Live Date (leave blank for immediate posting)</label>
+    <input type="datetime-local" name="live_date" id="liveDate" />
+    <input type="submit" value="Create Article" />
+</form>

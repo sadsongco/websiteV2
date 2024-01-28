@@ -6,6 +6,7 @@
   position: -webkit-sticky;
   width: 100vw;
   height: 88vh;
+  /* height: fit-content; */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -63,6 +64,8 @@
   width: 100%;
   display: grid;
   grid-template-columns: clamp(35px, 6vw, 100px) 1fr;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .card-content {
@@ -80,7 +83,7 @@
 
 .card-article {
   width: 85%;
-  height: fit-content;
+  /* height: fit-content; */
   padding: 0.7em;
   margin-top: 1em;
   border-bottom: 2px solid var(--article-underline-color);

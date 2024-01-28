@@ -9,6 +9,7 @@ try {
     FROM Articles 
     WHERE card_id = ?
     AND live_date < NOW()
+    ORDER BY live_date DESC
     LIMIT 1;
     ";
     $stmt = $db->prepare($query);

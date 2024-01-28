@@ -63,6 +63,7 @@ const container = document.getElementById('container');
 
 for (let resourceSection of resourceSections) {
   const content = await getResources(resourceSection);
+  console.log(content);
   const resourceEl = createResourceEl(content);
   container.appendChild(resourceEl);
 }

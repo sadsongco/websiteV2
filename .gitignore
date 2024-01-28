@@ -4,3 +4,10 @@
 ./private/mailout/API/current_mailout.txt
 ./private/mailout/API/dd_current_mailout.txt
 ./assets/images/article_images/
+.htaccess
+.cpanel.yml
+php.ini
+/tmp_uploads/
+*upload_test*
+*upload_progress*
+*handle_upload*

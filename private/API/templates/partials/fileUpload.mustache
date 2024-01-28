@@ -1,0 +1,12 @@
+
+<div class = "userFileUpload">
+    <h2>Upload File</h2>
+    <p>Images - .jpg, .jpeg, .png, .gif<br/>
+    Audio - .mp3</p>
+    <form hx-post="api/handle_file_upload.php" hx-target="#uploadStatus" id="fileUpload" enctype="multipart/form-data">
+        <input type="hidden" name="MAX_FILE_SIZE" value="{{max-size}}" />
+        <input type="hidden" value="fileUpload" name="{{session_upload_name}}>">
+        <input type="file" name="files[]" id="file_{{id}}" />
+        <input type="submit" value="Upload File" />
+    </form>
+</div>
