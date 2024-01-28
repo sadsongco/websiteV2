@@ -16,5 +16,3 @@ function get_cards($db) {
     }
     return $output;
 }
-
-?>

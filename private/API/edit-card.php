@@ -15,4 +15,4 @@ $params['card-info'] = $result[0];
 $params['max-size'] = return_bytes(ini_get("upload_max_filesize"));
 $params['session_upload_name'] = ini_get("session.upload_progress.name");
 
-echo $m->render('editCard', $params);
+echo $m->render('editCard', $params); 

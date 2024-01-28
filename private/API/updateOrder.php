@@ -27,3 +27,4 @@ catch(PDOException $e) {
     echo "Database Error: " . $e->getMessage();
     exit();
 }
+ 
