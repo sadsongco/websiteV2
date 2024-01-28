@@ -3,9 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script defer type="module" src="./js/getResources.js"></script>
+    <!-- <script defer type="module" src="./js/getResources.js"></script> -->
+    <script src="../lib/htmx.min.js"></script>
     <link rel="stylesheet" href="../styles/vars.css" />
-    <link rel="stylesheet" href="./styles/resources.css" />
+    <link rel="stylesheet" href="resources/styles/resources.css" />
     <title>The Exact Opposite - Resources</title>
   </head>
   <body>
@@ -14,6 +15,7 @@
     </header>
     <main id="container">
       <h1>Resources Page</h1>
+      <section hx-get="resources/API/get-resources.php" hx-trigger="load"></section>
     </main>
   </body>
 </html>

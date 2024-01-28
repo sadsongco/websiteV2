@@ -1,0 +1,21 @@
+<section class="resource">
+    <h2>{{name}}</h2>
+    {{#resources}}
+        {{^playlists}}
+            <a href="{{path}}{{resource}}">
+                {{#img_preview}}
+                    <img src="{{img_preview}}{{resource}}" alt="Thumbnail image of {{resource}}" />
+                {{/img_preview}}
+                {{^img_preview}}
+                    {{resource}}
+                {{/img_preview}}
+            </a>
+        {{#photo_credit}}
+            <br />Please credit photo to {{{photo_credit}}}
+        {{/photo_credit}}
+        {{/playlists}}
+        {{#playlists}}
+            {{>playlist}}
+        {{/playlists}}
+    {{/resources}}
+</section>

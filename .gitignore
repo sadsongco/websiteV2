@@ -1,9 +1,9 @@
 .DS_Store
-./private/mailout/API/dd_logs/
-./private/mailout/API/logs/
-./private/mailout/API/current_mailout.txt
-./private/mailout/API/dd_current_mailout.txt
-./assets/images/article_images/
+private/mailout/API/dd_logs/
+private/mailout/API/logs/
+private/mailout/API/current_mailout.txt
+private/mailout/API/dd_current_mailout.txt
+assets/images/article_images/
 .htaccess
 .cpanel.yml
 php.ini
@@ -11,3 +11,5 @@ php.ini
 *upload_test*
 *upload_progress*
 *handle_upload*
+*error_log*
+.prettierignore
