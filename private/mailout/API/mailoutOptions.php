@@ -12,5 +12,5 @@ if ($handle = opendir('../assets/mailout_bodies/html')) {
 }
 
 echo json_encode($mailoutOptions);
-
+ 
 ?>

@@ -11,6 +11,8 @@ $m = new Mustache_Engine(array(
 
 include_once('../../api/includes/processors.php');
 
+date_default_timezone_set('Europe/London');
+
 function return_bytes($val)
 {
     preg_match('/(?<value>\d+)(?<option>.?)/i', trim($val), $matches);
