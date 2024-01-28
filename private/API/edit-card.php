@@ -3,7 +3,7 @@
 include_once('includes/private-api-header.php');
 
 try {
-    $query = "SELECT * FROM cards WHERE card_id = ?;";
+    $query = "SELECT * FROM Cards WHERE card_id = ?;";
     $stmt = $db->prepare($query);
     $stmt->execute([$_GET['card_id']]);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
