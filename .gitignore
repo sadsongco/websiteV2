@@ -13,3 +13,8 @@ php.ini
 *handle_upload*
 *error_log*
 .prettierignore
+resources/resource_dirs/bio/*
+resources/resource_dirs/logos/*
+resources/resource_dirs/playlists/*
+resources/resource_dirs/press_shots/*
+resources/resource_dirs/tech_spec/*
