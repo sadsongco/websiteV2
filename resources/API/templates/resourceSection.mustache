@@ -3,17 +3,19 @@
     {{#resources}}
         {{^playlists}}
             <div class="resourceItem">
-                <a href="{{path}}{{resource}}" target="_blank">
-                    {{#img_preview}}
-                        <img src="{{img_preview}}{{resource}}" alt="Thumbnail image of {{resource}}" />
-                    {{/img_preview}}
-                    {{^img_preview}}
+                {{#img_preview}}
+                    <img src="{{path}}thumbnail/{{resource}}" alt="Thumbnail image of {{resource}}" />
+                    <br />
+                    <a href="{{path}}full_res/{{resource}}" target="_blank">Download at print resolution</a>&nbsp;||&nbsp;<a href="{{path}}web/{{resource}}" target="_blank">Download at web resolution</a>
+                    {{#photo_credit}}
+                        <br />Please credit photo to {{{photo_credit}}}
+                    {{/photo_credit}}
+                {{/img_preview}}
+                {{^img_preview}}
+                    <a href="{{path}}{{resource}}" target="_blank">
                         {{resource}}
-                    {{/img_preview}}
-                </a>
-                {{#photo_credit}}
-                    <br />Please credit photo to {{{photo_credit}}}
-                {{/photo_credit}}
+                    </a>
+                {{/img_preview}}
             </div>
         {{/playlists}}
         {{#playlists}}

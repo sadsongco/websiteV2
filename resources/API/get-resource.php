@@ -34,9 +34,10 @@ function getResource($section) {
         if ($handle = opendir('../'.$path.$sub_dir)) {
             while (false != ($entry = readdir($handle))) {
                 if (substr($entry, 0, 1) == '.') continue;
-                $resource = ["path"=>'/resources/'.$path.$sub_dir, "resource"=>$entry];
+                echo $entry;
+                $resource = ["path"=>'/resources/'.$path, "resource"=>$entry];
                 if ($section == 'press_shots') {
-                    $resource['img_preview'] = '/resources/resource_dirs/'.$section.'/thumbnail/';
+                    $resource['img_preview'] = true;
                     $resource['photo_credit'] = "Scarlet Page <a href = 'https://www.instagram.com/scarletpage/' target='_blank'>@scarletpage</a>";
                 }
                 $output['resources'][] = $resource;
