@@ -1,5 +1,12 @@
 <?php
 
+function sortResourcesByName($a, $b) {
+    if ($a['resource'] == $b['resource']) {
+        return 0;
+    }
+    return ($a['resource'] < $b['resource']) ? -1 : 1;
+}
+
 function getSouncloudPlaylists($path) {
     $file_string = file_get_contents("../".$path."soundcloud_playlists.txt");
     $playlist_arr = explode("\n", $file_string);
@@ -52,10 +59,8 @@ function getResource($section) {
         $output['success'] = false;
         $output['error'] = $e->getMessage();
     }
-    
-    asort($output['resources']);
+
+    usort($output['resources'], 'sortResourcesByName');
     
     return $output;
 }
-
-?>
