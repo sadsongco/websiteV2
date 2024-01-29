@@ -4,9 +4,11 @@
         {{^playlists}}
             <div class="resourceItem">
                 {{#img_preview}}
-                    <img src="{{path}}thumbnail/{{resource}}" alt="Thumbnail image of {{resource}}" />
+                    <img src="{{path}}thumbnail/{{resource}}" alt="Thumbnail image of {{resource}}" {{#thumbnail_size}}{{{3}}}{{/thumbnail_size}}/>
                     <br />
-                    <a href="{{path}}full_res/{{resource}}" target="_blank">Download at print resolution</a>&nbsp;||&nbsp;<a href="{{path}}web/{{resource}}" target="_blank">Download at web resolution</a>
+                    <a href="{{path}}full_res/{{resource}}" target="_blank">Download at print resolution</a> ({{#full_res_size}}{{0}} x {{1}}{{/full_res_size}}, 300dpi)
+                    &nbsp;||&nbsp;
+                    <a href="{{path}}web/{{resource}}" target="_blank">Download at web resolution</a> ({{#web_size}}{{0}} x {{1}}{{/web_size}}, 72dpi)
                     {{#photo_credit}}
                         <br />Please credit photo to {{{photo_credit}}}
                     {{/photo_credit}}
