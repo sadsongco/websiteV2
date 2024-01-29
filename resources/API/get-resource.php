@@ -39,6 +39,7 @@ function getResource($section) {
                     $resource['img_preview'] = true;
                     $resource['photo_credit'] = "Scarlet Page <a href = 'https://www.instagram.com/scarletpage/' target='_blank'>@scarletpage</a>";
                 }
+                if ($section == 'logos') $resource['logo_preview'] = true;
                 $output['resources'][] = $resource;
             }
             closedir($handle);

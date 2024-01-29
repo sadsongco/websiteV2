@@ -13,6 +13,9 @@
                 {{/img_preview}}
                 {{^img_preview}}
                     <a href="{{path}}{{resource}}" target="_blank">
+                        {{#logo_preview}}
+                            <img src="{{path}}{{resource}}" width = "200" alt="image of {{resource}}" /><br />
+                        {{/logo_preview}}
                         {{resource}}
                     </a>
                 {{/img_preview}}
