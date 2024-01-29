@@ -34,7 +34,6 @@ function getResource($section) {
         if ($handle = opendir('../'.$path.$sub_dir)) {
             while (false != ($entry = readdir($handle))) {
                 if (substr($entry, 0, 1) == '.') continue;
-                echo $entry;
                 $resource = ["path"=>'/resources/'.$path, "resource"=>$entry];
                 if ($section == 'press_shots') {
                     $resource['img_preview'] = true;
