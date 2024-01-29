@@ -2,20 +2,24 @@
     <h2>{{name}}</h2>
     {{#resources}}
         {{^playlists}}
-            <a href="{{path}}{{resource}}" target="_blank">
-                {{#img_preview}}
-                    <img src="{{img_preview}}{{resource}}" alt="Thumbnail image of {{resource}}" />
-                {{/img_preview}}
-                {{^img_preview}}
-                    {{resource}}
-                {{/img_preview}}
-            </a>
-        {{#photo_credit}}
-            <br />Please credit photo to {{{photo_credit}}}
-        {{/photo_credit}}
+            <div class="resourceItem">
+                <a href="{{path}}{{resource}}" target="_blank">
+                    {{#img_preview}}
+                        <img src="{{img_preview}}{{resource}}" alt="Thumbnail image of {{resource}}" />
+                    {{/img_preview}}
+                    {{^img_preview}}
+                        {{resource}}
+                    {{/img_preview}}
+                </a>
+                {{#photo_credit}}
+                    <br />Please credit photo to {{{photo_credit}}}
+                {{/photo_credit}}
+            </div>
         {{/playlists}}
         {{#playlists}}
-            {{>playlist}}
+            <div class="resourceItem">
+                {{>playlist}}
+            </div>
         {{/playlists}}
     {{/resources}}
 </section>
