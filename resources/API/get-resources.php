@@ -15,7 +15,7 @@ function p_2($input) {
 
 include("get-resource.php");
 
-$resource_sections = ['bio', 'playlists', 'press_shots', 'logos', 'tech_spec'];
+$resource_sections = ['bio_&_press_releases', 'playlists', 'press_shots', 'logos', 'tech_spec'];
 
 
 foreach ($resource_sections AS $resource_section) {
