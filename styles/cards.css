@@ -5,8 +5,7 @@
   position: sticky;
   position: -webkit-sticky;
   width: 100vw;
-  height: 88vh;
-  /* height: fit-content; */
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -28,8 +27,7 @@
 
 .card-title {
   text-align: center;
-  height: 100%;
-  min-height: 100vh;
+  /* min-height: 85vh; */
   /* width: clamp(35px, 6vw, 100px); */
   writing-mode: vertical-lr;
   display: flex;
@@ -64,15 +62,16 @@
   width: 100%;
   display: grid;
   grid-template-columns: clamp(35px, 6vw, 100px) 1fr;
-  height: 100%;
-  overflow-y: scroll;
 }
 
 .card-content {
+  margin-top: 1rem;
   padding: 0.5rem;
-  margin-left: auto;
-  margin-right: auto;
+  /* margin-left: auto;
+  margin-right: auto; */
   width: 85%;
+  height: 60vh;
+  overflow-y: auto;
 }
 
 .article-date {
@@ -83,11 +82,11 @@
 
 .card-article {
   width: 85%;
-  /* height: fit-content; */
   padding: 0.7em;
   margin-top: 1em;
   border-bottom: 2px solid var(--article-underline-color);
 }
 
 .article-content {
+  padding: 0.5rem;
 }
