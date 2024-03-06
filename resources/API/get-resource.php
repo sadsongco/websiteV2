@@ -27,7 +27,7 @@ function getResource($section) {
     $output = [];
     $sub_dir = '';
     
-    if ($section == 'press_shots') $sub_dir = 'full_res/';
+    if ($section == 'press_shots' || $section == 'artwork') $sub_dir = 'full_res/';
     
     $path = 'resource_dirs/'.$section.'/';
     $output['name'] = ucwords(str_replace("_", " ", $section));
@@ -42,12 +42,14 @@ function getResource($section) {
             while (false != ($entry = readdir($handle))) {
                 if (substr($entry, 0, 1) == '.') continue;
                 $resource = ["path"=>'/resources/'.$path, "resource"=>$entry];
-                if ($section == 'press_shots') {
+                if ($section == 'press_shots' || $section == 'artwork') {
                     $resource['full_res_size'] = getimagesize("../".$path."full_res/".$entry);
                     $resource['web_size'] = getimagesize("../".$path."web/".$entry);
                     $resource['thumbnail_size'] = getimagesize("../".$path."thumbnail/".$entry);
                     $resource['img_preview'] = true;
-                    $resource['photo_credit'] = "Scarlet Page <a href = 'https://www.instagram.com/scarletpage/' target='_blank'>@scarletpage</a>";
+                    if ($section == 'press_shots') {
+                        $resource['photo_credit'] = "Scarlet Page <a href = 'https://www.instagram.com/scarletpage/' target='_blank'>@scarletpage</a>";
+                    }
                 }
                 if ($section == 'logos') {
                     $resource['logo_size'] = getimagesize("../".$path.$entry);
