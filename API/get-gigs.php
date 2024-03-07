@@ -10,9 +10,10 @@ $m = new Mustache_Engine(array(
 ));
 
 function getGigs ($db, $past=false) {
-    $past_cond = $past ? 'WHERE date < CURDATE() ORDER BY date DESC' : 'WHERE date >= CURDATE() ORDER BY date ASC';
+    $past_cond = $past ? 'WHERE date < CURDATE() ORDER BY order_date DESC' : 'WHERE date >= CURDATE() ORDER BY order_date ASC';
     try {
         $query = "SELECT Gigs.gig_id as gig_id,
+            Gigs.date AS order_date,
             DATE_FORMAT(Gigs.date, '%D %b %Y') AS date,
             Gigs.tickets as tickets,
             Venues.name as venue,
