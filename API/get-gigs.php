@@ -10,7 +10,7 @@ $m = new Mustache_Engine(array(
 ));
 
 function getGigs ($db, $past=false) {
-    $past_cond = $past ? 'WHERE date < CURDATE()' : 'WHERE date >= CURDATE()';
+    $past_cond = $past ? 'WHERE date < CURDATE() ORDER BY date ASC' : 'WHERE date >= CURDATE() ORDER BY date DESC';
     try {
         $query = "SELECT Gigs.gig_id as gig_id,
             DATE_FORMAT(Gigs.date, '%D %b %Y') AS date,
@@ -24,8 +24,7 @@ function getGigs ($db, $past=false) {
             FROM Gigs
             LEFT JOIN Venues ON Gigs.venue = Venues.venue_id
             LEFT JOIN Countries ON Countries.abv = Venues.country
-            $past_cond
-            ORDER BY date ASC";
+            $past_cond";
         $gig_stmt = $db->prepare($query);
         $gig_stmt->execute();
         $gig_result = $gig_stmt->fetchAll(PDO::FETCH_ASSOC);
