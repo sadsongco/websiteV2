@@ -15,6 +15,7 @@ $params['card-info'] = $result[0];
 $params['max-size'] = return_bytes(ini_get("upload_max_filesize"));
 $params['session_upload_name'] = ini_get("session.upload_progress.name");
 
+
 if ($_GET['card_id'] == "gigs") {
     echo $m->render('editGigs', $params);
 } else {
