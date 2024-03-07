@@ -19,7 +19,7 @@ const updateOrder = async () => {
 
 const getCardInfo = async () => {
   try {
-    const response = await fetch('./API/cards.php');
+    const response = await fetch('./api/cards.php');
     return response.json();
   } catch (err) {
     console.error('API error: ', err);

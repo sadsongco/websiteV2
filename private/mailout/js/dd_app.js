@@ -1,5 +1,5 @@
 const updateCurrentMailout = async (mailout) => {
-  const sendURL = `./API/dd_set_current_mailout.php?mailout=${mailout}`;
+  const sendURL = `./api/dd_set_current_mailout.php?mailout=${mailout}`;
   emailsSent.appendChild(loading);
   const res = await fetch(sendURL);
   const output = await res.text();
@@ -43,7 +43,7 @@ const updatePreviews = (value) => {
 };
 
 const populateMailoutSelect = async () => {
-  const dataURL = './API/dd_mailoutOptions.php';
+  const dataURL = './api/dd_mailoutOptions.php';
   const res = await fetch(dataURL);
   const mailoutOptions = await res.json();
   const select = document.getElementById('mailoutSelect');

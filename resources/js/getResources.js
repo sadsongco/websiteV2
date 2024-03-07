@@ -1,5 +1,5 @@
 const getResources = async (resourceName) => {
-  const url = `./API/get_resource.php?resource=${resourceName}`;
+  const url = `./api/get_resource.php?resource=${resourceName}`;
   const res = await fetch(url);
   const data = await res.json();
   return data;
