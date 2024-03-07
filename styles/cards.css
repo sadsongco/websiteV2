@@ -90,3 +90,7 @@
 .article-content {
   padding: 0.5rem;
 }
+
+br.clear {
+  clear: both;
+}

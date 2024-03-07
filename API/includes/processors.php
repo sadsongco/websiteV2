@@ -21,15 +21,25 @@ function formatArticle($content) {
     return $output;
 }
 
-function getImageData($article_id, $img_pos, $db) {
+function getImageData($db, $img_id, $img_align=null) {
     try {
-        $query = "SELECT * FROM ArticleImages WHERE article_id = ? AND img_pos = ?;";
+        $query = "SELECT * FROM ArticleImages WHERE img_id = ?;";
         $stmt = $db->prepare($query);
-        $stmt->execute([$article_id, $img_pos]);
+        $stmt->execute([$img_id]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     catch (PDOException $e) {
         throw new Exception($e);
     }
+    $html_align = null;
+    switch ($img_align) {
+        case "l":
+            $html_align = "left";
+            break;
+        case "r":
+            $html_align = "right";
+            break;
+    }
+    $result[0]['align'] = $html_align;
     return $result[0];
 }

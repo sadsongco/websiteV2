@@ -1,0 +1,12 @@
+{{#gig_data}}
+    <form hx-post="api/update_gig.php">
+        <select name="venue" hx-get="api/select_venue.php?venue_id={{venue}}" hx-trigger="load"></select>
+        <input type="date" name="date" value="{{date}}" />
+        <input type="text" name="tickets" value="{{tickets}}" placeholder="ticket link" />
+        <input type="hidden" name="gig_id" value="{{gig_id}}" />
+        <input type="submit" value="Update Gig" />
+    </form>
+    <form hx-post="api/delete_gig.php" hx-confirm="Are you sure you want to delete gig {{gig_id}}?">
+        <input type="hidden" name="gig_id" value="{{gig_id}}" />
+        <input type="submit" value="Delete Gig" />
+{{/gig_data}}

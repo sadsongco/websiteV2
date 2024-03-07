@@ -1,0 +1,13 @@
+<section id="createVenue">
+    <button type="button" name="newVenue" hx-get="api/create_venue_form.php" hx-target="#createVenue">Add New Venue</button>
+</section>
+
+<form hx-post="api/create_gig.php">
+    <label for="venue">Select Venue</label>
+    <select name="venue" id="venue" hx-get="api/select_venue.php" hx-trigger="load, venueAdded from:body"></select>
+    <label for="gigDate">Gig Date</label>
+    <input id="gigDate" type="date" name="date" required />
+    <label for="ticketLink">Ticket link</label>
+    <input type="text" id="ticketLink" name="tickets" />
+    <input type="submit" value="Create Gig" />
+</form>

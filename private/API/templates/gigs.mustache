@@ -1,0 +1,10 @@
+<h2>Saved Gigs</h2>
+<p>Double click to edit</p>
+
+{{#gigs}}
+    <article class='gigEdit' hx-get='api/edit_gig.php?gig_id={{gig_id}}' hx-trigger='dblclick' hx-target="#editGig">
+        <div>{{date}}</div>
+        <div>{{name}}, {{address}}, {{city}} {{postcode}} {{country}}</div>
+        <div><a href="{{tickets}}" target="_blank">{{tickets}}</a></div>
+    </article>
+{{/gigs}}

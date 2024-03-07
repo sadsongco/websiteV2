@@ -9,6 +9,7 @@ try {
     FROM Articles 
     WHERE card_id = ?
     AND live_date < NOW()
+    ORDER BY live_date DESC
     LIMIT 1;
     ";
     $stmt = $db->prepare($query);
@@ -23,8 +24,8 @@ if (sizeof($result)==0) exit("<h1>ABOUT</h1>");
 
 $article = $result[0];
 $article['article_content'] = formatArticle($article['article_content']);
-$article['article_content'] = preg_replace_callback('/<!--{{img-([0-9])+}}-->/',
-    fn ($matches) => $m->render('article-image', getImageData($article['article_id'], $matches[0], $db)),
-    $article['article_content']);
+$article['article_content'] = preg_replace_callback('/<!--{{i::([0-9]+)(::)?(l|r)?}}-->/',
+fn ($matches) => $m->render('article-image', getImageData($db, $matches[1], isset($matches[3]) ? $matches[3] : null)),
+$article['article_content']);
 
 echo $m->render('card-content-single', $article);

@@ -2,4 +2,4 @@
 
 include_once('includes/private-api-header.php');
 
-p_2($_POST);
+echo $m->render('createGig');

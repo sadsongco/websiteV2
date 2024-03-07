@@ -1,5 +1,5 @@
 {{#card-info}}
-<h1>Edit Card: {{title}}</h1>
+<h1>Edit Gigs: {{title}}</h1>
 
 <section class="editCardInfo">
     <form hx-post="api/updateCard.php">
@@ -9,17 +9,16 @@
         <input id="cardStrap" type="text" name="strap" value="{{strap}}"" />
         <input type="submit" value="Update Card Info" />
     </form>
-    <form hx-post="api/create-article-form.php" hx-target="#createArticle">
-        <input type="hidden" name="card_id" value="{{card_id}}" />
-        <input type="submit" value="Create Article" />
+    <form hx-post="api/create_gig_form.php" hx-target="#createArticle">
+        <input type="submit" value="Create Gig" />
     </form>
 </section>
 {{/card-info}}
 <section id="createArticle"></section>
 
 {{#card-info}}
-<section class="articleList" hx-get="api/get_card_articles.php?card_id={{card_id}}&content_type={{content_type}}" hx-trigger="load, articleAdded from:body, articleUpdated from:body, articleDeleted from:body">
+<section class="articleList" hx-get="api/get_gigs.php" hx-trigger="load, gigAdded from:body, gigUpdated from:body, gigDeleted from:body">
 </section>
 {{/card-info}}
 
-{{>fileUpload}}
+<section id="editGig"></section>

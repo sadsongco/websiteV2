@@ -1,6 +1,6 @@
 <?php
 
-require_once("../../../secure/scripts/teo_connect.php");
+require_once("../../../secure/scripts/teo_a_connect.php");
 require '../../lib/mustache.php-main/src/Mustache/Autoloader.php';
 Mustache_Autoloader::register();
 

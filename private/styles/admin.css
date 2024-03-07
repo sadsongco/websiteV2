@@ -218,8 +218,10 @@ fieldset:nth-of-type(even) {
 /* gigs */
 
 .gigEdit {
+  padding: 0.5em;
+  margin-bottom: 0.2em;
   display: grid;
-  grid-template-columns: 1fr 2fr 2fr 1fr 1fr;
+  grid-template-columns: 0.5fr 2fr 1fr;
   align-items: center;
 }
 

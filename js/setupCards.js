@@ -8,7 +8,7 @@ const updateOrder = async () => {
     getArr.push(`${cards[card_pos].id}=${card_pos}`);
   }
   const getString = getArr.join('&');
-  const updateOrderURL = './api/updateOrder.php?' + getString;
+  const updateOrderURL = './api/update_order.php?' + getString;
   try {
     const res = await fetch(updateOrderURL);
     console.log(await res.text());

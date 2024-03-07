@@ -1,14 +1,18 @@
 {{#article_data}}
-    <form hx-post="api/updateArticle.php">
+    <form hx-post="api/update_article.php">
     <label for="articleTitle">Title</label>
     <input type="text" id="articleTitle" name="article_title" value="{{article_title}}" />
     <label for="articleContent">Title</label>
-    <<textarea  id="articleContent" name="article_content"  cols="25" rows="10">{{article_content}}</textarea>
+    <textarea  id="articleContent" name="article_content"  cols="25" rows="10">{{article_content}}</textarea>
     <label for="postDate">Post Date</label>
     <input type="datetime-local" id="postDate" name="post_date" value="{{post_date}}" />
     <label for="liveDate">Post Date</label>
     <input type="datetime-local" id="liveDate" name="live_date" value="{{post_date}}" />
     <input type="hidden" name="article_id" id="article_id" value="{{article_id}}">
     <input type="submit" value="Update Article" />
+    </form>
+    <form hx-post="api/delete_article.php" hx-confirm="Are you sure you wish to delete article {{article_id}}?">
+        <input type="hidden" name="article_id" value="{{article_id}}" />
+        <input type="submit" value="Delete Article" />
     </form>
 {{/article_data}}

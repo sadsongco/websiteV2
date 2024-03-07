@@ -24,8 +24,8 @@ $output = [];
 $output['articles'] = [];
 foreach ($result as $article) {
     $article['article_content'] = formatArticle($article['article_content']);
-    $article['article_content'] = preg_replace_callback('/<!--{{img-([0-9])+}}-->/',
-    fn ($matches) => $m->render('article-image', getImageData($article['article_id'], $matches[0], $db)),
+    $article['article_content'] = preg_replace_callback('/<!--{{i::([0-9]+)(::)?(l|r)?}}-->/',
+    fn ($matches) => $m->render('article-image', getImageData($db, $matches[1], isset($matches[3]) ? $matches[3] : null)),
     $article['article_content']);
     $output['articles'][] = $article;
 }

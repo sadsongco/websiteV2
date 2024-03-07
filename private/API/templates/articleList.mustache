@@ -1,4 +1,4 @@
-    <h2>Double click article to edit</h2>
+    <h2>Double click article to edit (opens in section below)</h2>
     {{#articles}}
         <article class="articleSelect" hx-get="api/edit-article.php?article_id={{article_id}}" hx-trigger="dblclick" hx-target="#editArticle">
             <div class="article-date">{{live_date}}</div>
