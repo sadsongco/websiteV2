@@ -1,14 +1,7 @@
 <?php
 
-require_once("../../secure/scripts/teo_connect.php");
-require '../lib/mustache.php-main/src/Mustache/Autoloader.php';
-Mustache_Autoloader::register();
-
-$m = new Mustache_Engine(array(
-    'loader' => new Mustache_Loader_FilesystemLoader('../templates'),
-    'partials_loader' => new Mustache_Loader_FilesystemLoader('../templates/partials')
-));
-
+require_once('includes/api-header.php');
+ 
 function getGigs ($db, $past=false) {
     $past_cond = $past ? 'WHERE date < CURDATE() ORDER BY order_date DESC' : 'WHERE date >= CURDATE() ORDER BY order_date ASC';
     try {
