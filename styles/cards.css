@@ -107,5 +107,5 @@ br.clear {
 
 .imgContainer img {
   object-fit: contain;
-  max-width: 100%;
+  max-width: 70%;
 }
