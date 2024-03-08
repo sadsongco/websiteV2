@@ -3,7 +3,7 @@
 function getSingleContent($db, $card_id) {
     $output = [];
     try {
-        $stmt = $db->prepare("SELECT article_id, article_content
+        $stmt = $db->prepare("SELECT article_id, article_content, article_title
         FROM Articles
         WHERE card_id = ?
         AND live_date <= NOW()

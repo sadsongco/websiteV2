@@ -43,5 +43,3 @@ $output = [
 if (!$output['gigs'] && !$output['gigography']) exit("<h1>GIGS</h1>");
 
 echo $m->render("gigs", $output);
-
-?>

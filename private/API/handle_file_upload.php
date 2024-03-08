@@ -19,7 +19,7 @@ function insertMediaDB ($files, $key, $db, $table_name) {
         return $db->lastInsertId();
     }
     catch (PDOException $e) {
-        die($e->getMessage());
+        die("Error inserting image into database: ".$e->getMessage());
     }
 }
 

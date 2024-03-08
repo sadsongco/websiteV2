@@ -5,6 +5,7 @@ require_once(__DIR__.'/includes/api-header.php');
 try {
     $query = "SELECT article_id,
         article_content,
+        article_title,
         DATE_FORMAT(live_date, '%a %D %b, %Y') AS live_date
     FROM Articles 
     WHERE card_id = ?
