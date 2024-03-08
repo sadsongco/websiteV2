@@ -2,6 +2,7 @@
 
 .card {
   /* scroll-snap-align: start; */
+  max-width: 100vw;
   position: sticky;
   position: -webkit-sticky;
   display: flex;
@@ -38,7 +39,7 @@
 .card .logo-spacer {
   position: relative;
   width: 100%;
-  height: 15vh;
+  height: 10vh;
 }
 
 .card:nth-of-type(odd) > .card-title {
@@ -56,7 +57,7 @@
     height: 100vh;
   }
   .card .logo-spacer {
-    height: 10vh;
+    height: 15vh;
   }
   .card-content {
     height: 60vh;

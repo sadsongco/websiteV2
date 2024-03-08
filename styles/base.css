@@ -10,6 +10,7 @@ html {
 body {
   font-family: var(--std-font);
   background-color: var(--body-bg);
+  max-width: 100vw;
 }
 
 h1 {
@@ -25,6 +26,7 @@ h2 {
 }
 
 main {
+  max-width: 100vw;
 }
 
 main > * {
