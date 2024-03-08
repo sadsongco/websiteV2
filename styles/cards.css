@@ -3,7 +3,7 @@
 .card {
   /* scroll-snap-align: start; */
   width: 100vw;
-  position: sticky;
+  position: relative;
   position: -webkit-sticky;
   display: flex;
   flex-direction: column;
@@ -52,6 +52,7 @@
 
 @media screen and (min-width: 800px) {
   .card {
+    position: sticky;
     top: 0;
     width: 100vw;
     height: 100vh;
