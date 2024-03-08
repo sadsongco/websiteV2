@@ -57,7 +57,7 @@ footer {
 
 @media screen and (max-width: 800px) {
   footer {
-    position: inherit;
+    position: relative;
     bottom: -40px;
     overflow-x: hidden;
   }
@@ -93,10 +93,14 @@ br.big {
 }
 
 .mobile-logo {
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   height: 25vh;
+  width: 100vw;
 }
 
 .mobile-logo img {
