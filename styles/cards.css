@@ -94,3 +94,7 @@
 br.clear {
   clear: both;
 }
+
+.imgContainer {
+  margin: 0.4em;
+}
