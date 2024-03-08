@@ -86,7 +86,7 @@
 }
 
 .card-article {
-  width: 85%;
+  width: 100%;
   padding: 0.7em;
   margin-top: 1em;
   border-bottom: 2px solid var(--article-underline-color);
