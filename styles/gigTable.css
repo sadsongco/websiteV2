@@ -55,7 +55,7 @@
 @media screen and (min-width: 600px) {
   .gigHeadRow,
   .gigBodyRow {
-    grid-template-columns: 0.8fr 1fr 1fr 1.6fr 0.8fr 0.8fr;
+    grid-template-columns: 0.8fr 1.2fr 1fr 1.4fr 0.8fr 0.8fr;
   }
   .gigs.gigography {
     max-width: 50em;
