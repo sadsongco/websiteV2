@@ -2,11 +2,12 @@
 <h1>Edit Gigs: {{title}}</h1>
 
 <section class="editCardInfo">
-    <form hx-post="api/updateCard.php">
+    <form hx-post="api/update_card.php">
         <label for="cardTitle">Title</label>
         <Input id="cardTitle" type="text" name="title" value="{{title}}" />
         <label for="cardStrap">Strapline</label>
-        <input id="cardStrap" type="text" name="strap" value="{{strap}}"" />
+        <input id="cardStrap" type="text" name="strap" value="{{strap}}" />
+        <input type="hidden" name="card_id" value="{{card_id}}" />
         <input type="submit" value="Update Card Info" />
     </form>
     <form hx-post="api/create_gig_form.php" hx-target="#createArticle">
