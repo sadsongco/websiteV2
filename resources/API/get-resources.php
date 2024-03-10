@@ -17,8 +17,11 @@ include("get-resource.php");
 
 $resource_sections = ['bio_&_press_releases', 'playlists', 'uncompressed_audio', 'artwork', 'press_shots', 'videos', 'logos', 'tech_spec'];
 
-
+$sections = [];
+$resources = [];
 foreach ($resource_sections AS $resource_section) {
-    $resources = getResource($resource_section);
-    echo $m->render('resourceSection', $resources);
+    $sections[] = ["section_id"=>$resource_section, "disp_name"=>ucwords(str_replace("_", " ", $resource_section))];
+    $resources[] = getResource($resource_section);
 }
+echo $m->render('resourcePage',["sections"=>$sections, "resources"=>$resources]);
+// echo $m->render('resourceSection', $resources);

@@ -47,6 +47,7 @@ function getResource($section) {
     if ($section == 'press_shots' || $section == 'artwork') $sub_dir = 'full_res/';
     
     $path = 'resource_dirs/'.$section.'/';
+    $output['section'] = $section;
     $output['name'] = ucwords(str_replace("_", " ", $section));
     $output['resources'] = [];
     
