@@ -1,7 +1,7 @@
 <section class="resource">
     <h2>{{name}}</h2>
     {{#resources}}
-        {{^playlists}}
+        {{^ext_media}}
             <div class="resourceItem">
                 {{#img_preview}}
                     <img src="{{path}}thumbnail/{{resource}}" alt="Thumbnail image of {{resource}}" {{#thumbnail_size}}{{{3}}}{{/thumbnail_size}}/>
@@ -23,11 +23,16 @@
                     {{#logo_size}}({{0}}px x {{1}}px){{/logo_size}}
                 {{/img_preview}}
             </div>
-        {{/playlists}}
+        {{/ext_media}}
         {{#playlists}}
             <div class="resourceItem">
                 {{>playlist}}
             </div>
         {{/playlists}}
+        {{#videos}}
+            <div class="resourceItem">
+                {{>youtubeIframe}}
+            </div>
+        {{/videos}}
     {{/resources}}
 </section>

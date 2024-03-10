@@ -23,6 +23,23 @@ function getSouncloudPlaylists($path) {
     return $playlists;
 }
 
+function getYouTubeVideos($path) {
+    $file_string = file_get_contents("../".$path."youtube_videos.txt");
+    $videeos_arr = explode("\n", $file_string);
+    $videos = [];
+    foreach ($videeos_arr as $video) {
+        if ($video == "") continue;
+        $video_data = explode("|", $video);
+        $videos[] = [
+            "video_title"=>$video_data[0],
+            "yt_id"=>$video_data[1],
+            "yt_si"=>$video_data[2],
+            "url"=>$video_data[3]
+        ];
+    }
+    return $videos;
+}
+
 function getResource($section) {
     $output = [];
     $sub_dir = '';
@@ -35,7 +52,11 @@ function getResource($section) {
     
     try {
         if ($section == 'playlists') {
-            $output['resources'] = ['playlists'=>getSouncloudPlaylists($path)];
+            $output['resources'] = ['playlists'=>getSouncloudPlaylists($path), "ext_media"=>true];
+            return $output;
+        }
+        if ($section == "videos") {
+            $output['resources'] = ['videos'=>getYouTubeVideos($path), "ext_media"=>true];
             return $output;
         }
         if ($handle = opendir('../'.$path.$sub_dir)) {
