@@ -6,12 +6,13 @@
     <link rel="stylesheet" href="/styles/base.css">
     <script src="lib/htmx.min.js"></script>
     <script defer src="js/emailManagement.js"></script>
+    <script defer src="js/deepLink.js"></script>
     <title>The Exact Opposite</title>
   </head>
   <body>
     <header class="logo desktop-logo"><img src="./assets/graphics/onelineLogoWB.svg" alt="The Exact Opposite logo" /></header>
     <header class="logo mobile-logo"><img src="./assets/graphics/threelineLogoW.svg" alt="The Exact Opposite logo" /></header>
-    <main hx-get="/api/get-content.php" hx-swap="innerHTML" hx-trigger="load">
+    <main hx-get="/api/get-content.php" hx-swap="innerHTML" hx-trigger="load" hx-on::after-settle="scrollToLink()">
         <img src="/assets/graphics/loading.svg" alt="loading spinner" class="htmx-indicator" />
     </main>
     <footer>
