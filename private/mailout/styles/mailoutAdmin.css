@@ -18,3 +18,8 @@ a {
   font-size: 1em;
   color: #acacac;
 }
+
+pre {
+  overflow-x: auto !important;
+  white-space: pre-wrap !important;
+}

@@ -1,0 +1,18 @@
+        <form hx-post="/private/mailout/API/set_mailout.php" id="mailoutForm">
+        <label for="dd">Send to Dive Dive list</label>
+        <input type="checkbox" name="dd" id="dd" onchange="htmx.trigger('#mailoutSelect', 'listChange')" /><br />
+        <label for="mailoutSelect">Select mailout to send</label>
+          <select
+            name="mailout"
+            id="mailoutSelect"
+            hx-get="/private/mailout/API/select_mailout_options.php"
+            hx-trigger="load, listChange"
+            hx-include="#dd"
+            hx-on::after-settle="htmx.trigger('#previews', 'mailoutSelected')"
+            onchange="htmx.trigger('#previews', 'mailoutSelected')"
+          >
+          </select>
+          <input type="submit" value="Send This Mailout" id="submit" />
+        </form>
+        <section class="previews" id="previews" hx-get="/private/mailout/API/preview_mailout.php" hx-include="#mailoutSelect, #dd" hx-trigger="mailoutSelected">
+        </section>

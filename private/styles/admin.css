@@ -273,3 +273,23 @@ fieldset:nth-of-type(even) {
   font-size: 0.8em;
   text-align: right;
 }
+
+.underline {
+  text-decoration: underline;
+}
+
+label {
+  display: inline-block;
+  font-size: 1em;
+}
+
+select {
+  display: inline-block;
+}
+
+input[type='checkbox'] {
+  display: inline-block;
+  background-color: red;
+  min-width: 10px;
+  max-width: 2em;
+}
