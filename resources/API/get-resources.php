@@ -23,5 +23,6 @@ foreach ($resource_sections AS $resource_section) {
     $sections[] = ["section_id"=>$resource_section, "disp_name"=>ucwords(str_replace("_", " ", $resource_section))];
     $resources[] = getResource($resource_section);
 }
+// p_2($resources);
 echo $m->render('resourcePage',["sections"=>$sections, "resources"=>$resources]);
 // echo $m->render('resourceSection', $resources);

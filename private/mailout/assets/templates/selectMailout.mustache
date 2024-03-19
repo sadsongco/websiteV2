@@ -14,7 +14,7 @@
     name="mailout"
     id="mailoutSelect"
     hx-get="/private/mailout/API/select_mailout_options.php"
-    hx-trigger="load, listChange"
+    hx-trigger="load, listChange, listChange from:body"
     hx-include="#dd"
     hx-on::after-settle="htmx.trigger('#previews', 'mailoutSelected')"
     onchange="htmx.trigger('#previews', 'mailoutSelected')"

@@ -12,6 +12,10 @@
   <body>
     <main>
       <h1>The Exact Opposite - Mailout</h1>
+      <seection>
+        <button hx-get="API/create_mailout_form.php" hx-target="#createMailout">Create New Mailout</button>
+      </seection>
+      <section id="createMailout"></section>
       <section class="selectMailout" hx-get="API/select_mailout.php" hx-trigger="load, mailoutAdded from:body"></section>
     </main>
     <footer id="foot"></footer>

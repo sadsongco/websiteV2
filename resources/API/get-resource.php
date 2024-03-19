@@ -40,6 +40,36 @@ function getYouTubeVideos($path) {
     return $videos;
 }
 
+function getPressShotList($path, $sub_dir) {
+    $file_string = file_get_contents("../".$path."press_shots.txt");
+    $photos_arr = explode("\n", $file_string);
+    $photos = [];
+    foreach ($photos_arr as $photo) {
+        if ($photo == "") continue;
+        $photo_data = explode("|", $photo);
+        $photos[] = [
+            "resource"=>$photo_data[0],
+            "full_res_url"=>"/resources/".$path."full_res/".$photo_data[0],
+            "web_url"=>"/resources/".$path."web/".$photo_data[0],
+            "thumbnail_url"=>"/resources/".$path."thumbnail/".$photo_data[0],
+            "photo_credit"=>$photo_data[1]
+        ];
+    }
+    foreach ($photos as &$photo) {
+        $full_res_size = getimagesize("../".$path."full_res/".$photo["resource"]);
+        $photo["full_res_width"] = $full_res_size[0];
+        $photo["full_res_height"] = $full_res_size[1];
+        $web_size = getimagesize("../".$path."web/".$photo["resource"]);
+        $photo["web_width"] = $web_size[0];
+        $photo["web_height"] = $web_size[1];
+        $thumbnail_size = getimagesize("../".$path."thumbnail/".$photo["resource"]);
+        $photo["thumbnail_width"] = $thumbnail_size[0];
+        $photo["thumbnail_height"] = $thumbnail_size[1];
+    }
+
+    return $photos;
+}
+
 function getResource($section) {
     $output = [];
     $sub_dir = '';
@@ -60,18 +90,19 @@ function getResource($section) {
             $output['resources'] = ['videos'=>getYouTubeVideos($path), "ext_media"=>true];
             return $output;
         }
+        if (($section == "press_shots")) {
+            $output['resources'] = ["press_shots"=>getPressShotList($path, $sub_dir), "ext_media"=>true];
+            return $output;
+        }
         if ($handle = opendir('../'.$path.$sub_dir)) {
             while (false != ($entry = readdir($handle))) {
                 if (substr($entry, 0, 1) == '.') continue;
                 $resource = ["path"=>'/resources/'.$path, "resource"=>$entry];
-                if ($section == 'press_shots' || $section == 'artwork') {
+                if ($section == 'artwork') {
                     $resource['full_res_size'] = getimagesize("../".$path."full_res/".$entry);
                     $resource['web_size'] = getimagesize("../".$path."web/".$entry);
                     $resource['thumbnail_size'] = getimagesize("../".$path."thumbnail/".$entry);
                     $resource['img_preview'] = true;
-                    if ($section == 'press_shots') {
-                        $resource['photo_credit'] = "Scarlet Page <a href = 'https://www.instagram.com/scarletpage/' target='_blank'>@scarletpage</a>";
-                    }
                 }
                 if ($section == 'logos') {
                     $resource['logo_size'] = getimagesize("../".$path.$entry);
@@ -88,6 +119,6 @@ function getResource($section) {
     }
 
     usort($output['resources'], 'sortResourcesByName');
-    
+
     return $output;
 }

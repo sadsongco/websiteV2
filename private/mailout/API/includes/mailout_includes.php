@@ -45,8 +45,12 @@ function createHTMLBody($content) {
 
 function createTextBody($content) {
     foreach($content as &$line) {
-        $line = preg_replace('/{{link}}(.*){{\/link}}/', '$1', $line);
+        $line = trim(preg_replace('/{{link}}(.*){{\/link}}/', '$1', $line));
     }
-    return implode("", $content);
+    return implode("\n", $content);
 }
 
+
+function p_2($input) {
+    echo "<pre>"; print_r($input); echo "</pre>";
+}

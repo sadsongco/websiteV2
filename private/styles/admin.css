@@ -79,8 +79,7 @@ form {
 
 input {
   display: block;
-  min-width: 60em;
-  max-width: 100%;
+  width: clamp(10em, 40em, 90%);
 }
 
 input[type='submit'] {
@@ -104,8 +103,7 @@ textarea {
   display: block;
   margin: 0;
   padding: 0.1em;
-  min-width: 60em;
-  max-width: 100%;
+  width: clamp(10em, 40em, 90%);
   height: auto;
   min-height: 10em;
   border: 1px solid black;
@@ -113,7 +111,7 @@ textarea {
   /* background-color: #666; */
   color: #000;
   overflow: auto;
-  resize: both;
+  resize: none;
 }
 
 textarea::placeholder {
