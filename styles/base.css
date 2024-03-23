@@ -51,7 +51,8 @@ a,
 a:visited {
   color: #fffffa;
   font-weight: 700;
-  text-decoration: dotted;
+  text-decoration: dashed;
+  mix-blend-mode: difference;
 }
 
 a:hover {
