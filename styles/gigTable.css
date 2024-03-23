@@ -70,3 +70,8 @@
     background-color: inherit;
   }
 }
+
+.gigBodyCell a,
+.gigBodyCell a:visited {
+  color: #888 !important;
+}
