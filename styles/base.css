@@ -46,3 +46,14 @@ input:disabled {
 .small {
   font-size: 0.6em;
 }
+
+a,
+a:visited {
+  color: #a0a0a6;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #c0c0c8;
+}
