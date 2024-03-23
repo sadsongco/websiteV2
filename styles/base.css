@@ -42,3 +42,7 @@ input:disabled {
   background-color: #222;
   color: #f88;
 }
+
+.small {
+  font-size: 0.6em;
+}
