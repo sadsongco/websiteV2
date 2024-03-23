@@ -9,7 +9,8 @@ try {// update this with nl2br in php
         DATE_FORMAT(live_date, '%a %D %b, %Y') AS live_date
     FROM Articles 
     WHERE card_id = ?
-    AND live_date < NOW()";
+    AND live_date < NOW()
+    ORDER BY live_date DESC";
     $stmt = $db->prepare($query);
     $stmt->execute(['news']);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
