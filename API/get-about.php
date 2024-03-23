@@ -6,7 +6,7 @@ try {
     $query = "SELECT article_id,
         article_content,
         article_title,
-        DATE_FORMAT(live_date, '%a %D %b, %Y') AS live_date
+        DATE_FORMAT(live_date, '%a %D %b, %Y') AS display_date
     FROM Articles 
     WHERE card_id = ?
     AND live_date < NOW()

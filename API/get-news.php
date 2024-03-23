@@ -6,12 +6,11 @@ try {// update this with nl2br in php
     $query = "SELECT article_id,
         article_title,
         article_content,
-        live_date AS order_date,
-        DATE_FORMAT(live_date, '%a %D %b, %Y') AS live_date
+        DATE_FORMAT(live_date, '%a %D %b, %Y') AS display_date
     FROM Articles 
     WHERE card_id = ?
     AND live_date < NOW()
-    ORDER BY order_date DESC";
+    ORDER BY live_date DESC";
     $stmt = $db->prepare($query);
     $stmt->execute(['news']);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
