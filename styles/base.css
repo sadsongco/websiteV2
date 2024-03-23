@@ -49,9 +49,9 @@ input:disabled {
 
 a,
 a:visited {
-  color: #a0a0a6;
+  color: #fffffa;
   font-weight: 700;
-  text-decoration: none;
+  text-decoration: dotted;
 }
 
 a:hover {
