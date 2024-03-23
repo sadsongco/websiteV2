@@ -11,10 +11,30 @@
   align-items: center;
 }
 
+.card a,
+.card a:visited {
+  color: #fffffa;
+  font-weight: 700;
+  text-decoration: underline #888 dotted;
+}
+
+.card:nth-of-type(odd) a:hover {
+  color: #50505a;
+}
+
 .card:nth-of-type(odd) {
   background-color: var(--card-bg-odd);
   color: var(--card-color-odd);
   --article-underline-color: #0004;
+}
+
+.card:nth-of-type(odd) a,
+.card:nth-of-type(odd) a:visited {
+  color: #000009;
+}
+
+a:hover {
+  color: #c0c0c8;
 }
 
 .card:nth-of-type(even) {

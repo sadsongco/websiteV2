@@ -46,15 +46,3 @@ input:disabled {
 .small {
   font-size: 0.6em;
 }
-
-a,
-a:visited {
-  color: #fffffa;
-  font-weight: 700;
-  text-decoration: dashed;
-  mix-blend-mode: difference;
-}
-
-a:hover {
-  color: #c0c0c8;
-}
