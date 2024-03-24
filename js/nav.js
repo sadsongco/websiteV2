@@ -49,3 +49,7 @@ window.onscroll = () => {
   if (!detectScroll) return;
   activateNearestSelector();
 };
+
+window.onresize = () => {
+  getCardsInitPos();
+};
