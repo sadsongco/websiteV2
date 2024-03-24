@@ -6,24 +6,24 @@
     <link rel="stylesheet" href="/styles/base.css">
     <script src="lib/htmx.min.js"></script>
     <script defer src="js/emailManagement.js"></script>
-    <script defer src="js/deepLink.js"></script>
+    <script defer src="js/nav.js"></script>
     <title>The Exact Opposite</title>
   </head>
   <body>
     <header class="logo desktop-logo"><img src="./assets/graphics/onelineLogoWB.svg" alt="The Exact Opposite logo" /></header>
     <header class="logo mobile-logo"><img src="./assets/graphics/threelineLogoW.svg" alt="The Exact Opposite logo" /></header>
-    <main hx-get="/api/get-content.php" hx-swap="innerHTML" hx-trigger="load" hx-on::after-settle="scrollToLink()">
+    <nav hx-get="api/get-nav.php" hx-trigger="load"></nav>
+    <main hx-get="/api/get-content.php" hx-swap="innerHTML" hx-trigger="load" hx-on::after-settle="getCardsInitPos()">
         <img src="/assets/graphics/loading.svg" alt="loading spinner" class="htmx-indicator" />
     </main>
     <footer>
-      <section class="emailForm">
-        <form action="#" id="emailList">
+      <section class="emailContainer">
+        <form action="#" id="emailList" class="emailForm">
           <span class="emailCTA">Join our email list for news:</span>
           <input type="text" id="email" placeholder="email address" autocomplete="email" />
           <input type="text" id="name" placeholder="name (optional)" autocomplete="name" />
           <input type="submit" id="emailSubmit" value="enter your email" disabled="" />
         </form>
-        <span class="small">Contact: Nigel Powell nigel@theexactopposite.uk</span>
       </section>
       <section class="socials" hx-get="api/get-socials.php" hx-trigger="load">
       </section>

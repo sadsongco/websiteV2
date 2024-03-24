@@ -1,0 +1,75 @@
+nav {
+  z-index: 8;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  border: 2px red;
+}
+
+nav ul li:hover {
+  background-color: antiquewhite;
+}
+
+.card {
+  transition: opacity 1s ease-in;
+}
+
+.onScreen {
+  opacity: 1;
+}
+
+.offScreen {
+  opacity: 0;
+  display: none;
+}
+
+.cardSelector {
+  position: relative;
+  font-size: clamp(0.8em, 3vw, 1.5em);
+  font-weight: 300;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+  transition: font-size 0.3s ease-in;
+  cursor: pointer;
+}
+
+.cardSelector.selected {
+  font-weight: 600;
+  background-color: #444;
+  color: #fff;
+  mix-blend-mode: difference;
+}
+
+.cardSelector.deselected {
+  background-color: #222;
+  color: #444;
+  mix-blend-mode: difference;
+}
+
+.cardSelector.deselected:hover {
+  background-color: #333;
+  color: #666;
+}
+
+/* DESKTOP RESPONSIVE */
+@media screen and (min-width: 800px) {
+  nav {
+    position: fixed;
+    left: 20px;
+    top: 15vh;
+    z-index: 8;
+    height: 65.5vh;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
+  }
+  .cardSelector {
+    writing-mode: vertical-lr;
+    width: 2em;
+  }
+}

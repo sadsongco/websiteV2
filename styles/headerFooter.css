@@ -50,27 +50,6 @@ footer {
   display: none;
 }
 
-/* DESKTOP RESPONSIVE */
-@media screen and (min-width: 800px) {
-  .mobile-logo {
-    display: none;
-  }
-  .desktop-logo {
-    position: fixed;
-    scroll-snap-align: none;
-    top: 0;
-    width: 100vw;
-    margin-top: 0.2em;
-    display: block;
-  }
-  footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    scroll-snap-align: none;
-  }
-}
 /* specific header and footer */
 
 .socials {
@@ -91,4 +70,38 @@ footer {
 
 .socials a img {
   object-fit: contain;
+}
+
+.emailForm {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
+}
+
+/* DESKTOP RESPONSIVE */
+@media screen and (min-width: 800px) {
+  .mobile-logo {
+    display: none;
+  }
+  .desktop-logo {
+    position: fixed;
+    scroll-snap-align: none;
+    top: 0;
+    width: 100vw;
+    margin-top: 0.2em;
+    display: block;
+  }
+  footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    scroll-snap-align: none;
+  }
+  .emailForm {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100vw;
+  }
 }

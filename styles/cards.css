@@ -3,8 +3,8 @@
 .card {
   scroll-snap-align: start;
   width: 100vw;
+  min-height: 100vh;
   position: relative;
-  position: -webkit-sticky;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -105,7 +105,7 @@ br.clear {
 /* DESKTOP RESPONSIVE */
 @media screen and (min-width: 800px) {
   .card {
-    position: sticky;
+    position: relative;
     top: 0;
     width: 100vw;
     height: 100vh;
