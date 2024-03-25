@@ -1,5 +1,5 @@
 const navigateTo = (id) => {
-  window.scroll({ top: cardsInitPos[id], behavior: 'smooth' });
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
   activateSelector(id);
 };
 
