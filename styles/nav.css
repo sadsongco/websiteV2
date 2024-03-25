@@ -6,7 +6,6 @@ nav {
   position: sticky;
   position: -webkit-sticky;
   top: 0;
-  border: 2px red;
 }
 
 nav ul li:hover {
