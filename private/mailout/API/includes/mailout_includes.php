@@ -15,10 +15,10 @@ include_once("../../../email_management/includes/get_host.php");
 /* *** FUNCTIONS *** */
 function replaceHTMLLink($line) {
     $links = [];
-    preg_match_all('/{{link}}(.*){{\/link}}/', $line, $links);
+    preg_match_all('/({{link}}([^}]*){{\/link}})/', $line, $links);
     $replacements = [];
     foreach ($links[0] as $key=>$link) {
-        $replacements[] = ["search"=>$links[0][$key], "replace"=>$links[1][$key]];
+        $replacements[] = ["search"=>$links[0][$key], "replace"=>$links[2][$key]];
     }
     if (sizeof($replacements)==0) return $line;
     foreach ($replacements as $replace) {
@@ -46,7 +46,7 @@ function createHTMLBody($content) {
 
 function createTextBody($content) {
     foreach($content as &$line) {
-        $line = trim(preg_replace('/{{link}}(.*){{\/link}}/', '$1', $line));
+        $line = trim(preg_replace('/{{link}}([^}]*){{\/link}}/', '$1', $line));
         //remove images
         $line = preg_replace_callback('/{{i::([0-9]+)(::)?(l|r)?}}/',
         fn ($matches) => "",
@@ -62,7 +62,7 @@ function p_2($input) {
 
 function replaceImageTags($line) {
     global $m; global $db;
-    $line = preg_replace_callback('/{{i::([0-9]+)(::)?(l|r)?}}/',
+    $line = preg_replace_callback('/<!--{{i::([0-9]+)(::)?(l|r)?}}-->/',
     fn ($matches) => $m->render('articleImage', getImageData($db, $matches[1], isset($matches[3]) ? $matches[3] : null)),
     $line);
     return $line;
