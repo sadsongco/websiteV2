@@ -48,7 +48,7 @@ function createTextBody($content) {
     foreach($content as &$line) {
         $line = trim(preg_replace('/{{link}}([^}]*){{\/link}}/', '$1', $line));
         //remove images
-        $line = preg_replace_callback('/{{i::([0-9]+)(::)?(l|r)?}}/',
+        $line = preg_replace_callback('/<!--{{i::([0-9]+)(::)?(l|r)?}}-->/',
         fn ($matches) => "",
         $line);
     }
