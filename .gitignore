@@ -5,6 +5,7 @@ private/mailout/API/dd_current_mailout.txt
 private/mailout/assets/content/dd/*
 private/mailout/assets/content/teo/*
 assets/images/article_images/
+assets/images/mailout_images/
 .htaccess
 .cpanel.yml
 php.ini

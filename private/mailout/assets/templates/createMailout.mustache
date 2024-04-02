@@ -1,6 +1,13 @@
 <h1>Create new mailout</h1>
 <p>Filename is today's date in the form YYMMDD, and will overwrite any previous files</p>
-<p>Surround links URLs with the tags &#123;&#123;link&#125;&#125; &#123;&#123;/link&#125;&#125;, image URLs with &#123;&#123;img&#125;&#125; &#123;&#123;/img&#125;&#125;</p>
+<p>Surround external links URLs with the tags &#123;&#123;link&#125;&#125; &#123;&#123;/link&#125;&#125;, image URLs with &#123;&#123;img&#125;&#125; &#123;&#123;/img&#125;&#125;</p>
+<h3>Add an image to the mailout (will be resized)</h3>
+<form hx-post="API/upload_image.php" enctype="multipart/form-data">
+    <input type="file" name="image_upload[]" id="imageUpload" value="" />
+    <label for="imageCaption">Caption for image</label>
+    <input type="text" name="caption" id="imageCaption" />
+    <input type="submit" value="Upload Image">
+</form>
 <form hx-post="API/save_mailout.php" id="createMailoutForm">
     <input type="hidden" name="filename" id="filename" value="{{filename}}" />
     <label for="dd_new">Save as Dive Dive mailout</label>
