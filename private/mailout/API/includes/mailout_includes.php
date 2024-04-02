@@ -75,6 +75,7 @@ function getImageData($db, $img_id, $img_align=null) {
         $stmt->execute([$img_id]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $result[0]['caption'] = htmlentities($result[0]['caption']);
+        $result[0]['host'] =  getHost();
     }
     catch (PDOException $e) {
         throw new Exception($e);

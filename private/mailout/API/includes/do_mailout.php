@@ -138,6 +138,7 @@ $host = getHost();
 $mail->Subject = $subject;
 
 $result = get_email_addresses($db, $current_mailout, $mailing_list_table, $log_fp);
+
 if (sizeof($result) == 0) {
     write_to_log($log_fp, "\n\n--------COMPLETE--------");
     delete_current_mailout($current_mailout_file);
@@ -173,6 +174,7 @@ foreach ($result as $row) {
         $output .= "\nREMOVE: " . replace_tags($remove_path, $row);
         //Reset the connection to abort sending this message
         //The loop will continue trying to send to the rest of the list
+        echo ($output);
         $mail->getSMTPInstance()->reset();
     }
     //Clear all addresses and attachments for the next iteration
