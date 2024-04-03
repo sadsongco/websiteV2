@@ -10,7 +10,7 @@ if ($current_mailout == '') exit();
 $content_path = "../assets/content/dd/";
 $remove_path = '/email_management/dd_unsubscribe.php';
 $subject_id = "[DIVE DIVE]";
-$mailing_list_table = $current_mailout == "test" ? "test_mailing_list" : "dd_cons_mailing_list";
+$mailing_list_table = $current_mailout == "test" ? "test_mailing_list" : "dd_mailing_list";
 $log_dir =  $current_mailout == "test" ? './logs/test/' : './logs/dd/';
 
 // email variables

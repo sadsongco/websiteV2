@@ -12,7 +12,7 @@ include_once("includes/get_host.php");
 
 function getCheckCode($db, $email) {
     try {
-        $stmt = $db->prepare("SELECT email_id FROM dd_cons_mailing_list WHERE email=?;");
+        $stmt = $db->prepare("SELECT email_id FROM dd_mailing_list WHERE email=?;");
         $stmt->execute([$email]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if (sizeof($result) == 0) throw new Exception('Email not found in database', 1176);
