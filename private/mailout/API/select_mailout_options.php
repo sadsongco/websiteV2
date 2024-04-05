@@ -14,4 +14,6 @@ if ($handle = opendir($content_dir)) {
     closedir($handle);
 }
 
+rsort($mailoutOptions);
+
 echo $m->render("selectMailoutOptions", ["options"=>$mailoutOptions]);
