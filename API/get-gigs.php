@@ -14,7 +14,8 @@ function getGigs ($db, $past=false) {
             Venues.city as city,
             Venues.postcode as postcode,
             Venues.website as website,
-            Countries.name as country
+            Countries.name as country, 
+            event
             FROM Gigs
             LEFT JOIN Venues ON Gigs.venue = Venues.venue_id
             LEFT JOIN Countries ON Countries.abv = Venues.country

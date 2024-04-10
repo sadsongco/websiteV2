@@ -4,7 +4,7 @@
 {{#gigs}}
     <article class='gigEdit' hx-get='api/edit_gig.php?gig_id={{gig_id}}' hx-trigger='dblclick' hx-target="#editGig">
         <div>{{date}}</div>
-        <div>{{name}}, {{address}}, {{city}} {{postcode}} {{country}}</div>
+        <div>{{#event}}{{event}} @ {{/event}}{{name}}, {{address}}, {{city}} {{postcode}} {{country}}</div>
         <div><a href="{{tickets}}" target="_blank">{{tickets}}</a></div>
     </article>
 {{/gigs}}

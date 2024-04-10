@@ -11,7 +11,8 @@ try {
         address,
         city,
         postcode,
-        country
+        country, 
+        event
     FROM Gigs
     LEFT JOIN Venues ON Venues.venue_id = Gigs.venue
     ORDER BY order_date DESC;";
@@ -23,5 +24,7 @@ catch (PDO_EXCEPTION $e) {
 
 $params = [];
 $params['gigs'] = $result;
+
+p_2($params);
 
 echo $m->render('gigs', $params);
