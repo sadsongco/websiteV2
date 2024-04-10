@@ -25,6 +25,4 @@ catch (PDO_EXCEPTION $e) {
 $params = [];
 $params['gigs'] = $result;
 
-p_2($params);
-
 echo $m->render('gigs', $params);
