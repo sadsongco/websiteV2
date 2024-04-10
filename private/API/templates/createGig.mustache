@@ -3,6 +3,8 @@
 </section>
 
 <form hx-post="api/create_gig.php">
+    <label for="gigEvent">Event (optional)</label>
+    <input type="text" name="event" id="gigEvent">
     <label for="venue">Select Venue</label>
     <select name="venue" id="venue" hx-get="api/select_venue.php" hx-trigger="load, venueAdded from:body"></select>
     <label for="gigDate">Gig Date</label>

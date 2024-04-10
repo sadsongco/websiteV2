@@ -3,7 +3,7 @@
 include_once('includes/private-api-header.php');
 
 try {
-    $query = "INSERT INTO Gigs VALUES (NULL, :date, :tickets, :venue);";
+    $query = "INSERT INTO Gigs VALUES (NULL, :date, :tickets, :venue, :event);";
     $stmt = $db->prepare($query);
     $stmt->execute($_POST);
 }
