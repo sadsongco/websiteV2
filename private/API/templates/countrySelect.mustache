@@ -1,0 +1,5 @@
+<select class="country" id="venueCountry" name="country" placeholder="venue country" autocomplete="false" required>
+    {{#countries}}
+    <option value="{{abv}}"{{selected}}>{{name}}</option>
+    {{/countries}}
+</select>

@@ -77,7 +77,8 @@ form {
   border: 1px solid #888;
 }
 
-input {
+input,
+select.country {
   display: block;
   width: clamp(10em, 40em, 90%);
 }

@@ -8,7 +8,7 @@
     <label for="venueCity">City</label>
     <input type="text" name="city" id="venueCity" placeholder="venue city" autocomplete="false" required />
     <label for="venueCountry">Country</label>
-    <input type="text" name="country" id="venueCountry" placeholder="venue country" autocomplete="false" required />
+    <div id="venueCountry" hx-get="api/country_select.php" hx-trigger="load" hx-swap="outerHTML"></div>
     <label for="venueWebsite">Website</label>
     <input type="text" name="website" id="venueWebsite" placeholder="venue website" autocomplete="false" />
     <label for="venueNotes">Notes</label>
