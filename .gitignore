@@ -1,7 +1,7 @@
 .DS_Store
-private/mailout/API/logs/
-private/mailout/API/current_mailout.txt
-private/mailout/API/dd_current_mailout.txt
+private/mailout/api/logs/
+private/mailout/api/current_mailout.txt
+private/mailout/api/dd_current_mailout.txt
 private/mailout/assets/content/dd/*
 private/mailout/assets/content/teo/*
 assets/images/article_images/
