@@ -222,6 +222,7 @@ fieldset:nth-of-type(even) {
   display: grid;
   grid-template-columns: 0.5fr 2fr 1fr;
   align-items: center;
+  cursor: pointer;
 }
 
 .gigEdit:nth-of-type(odd) {
@@ -291,4 +292,9 @@ input[type='checkbox'] {
   background-color: red;
   min-width: 10px;
   max-width: 2em;
+}
+
+.articlePreview {
+  width: 90%;
+  border: 2px solid grey;
 }

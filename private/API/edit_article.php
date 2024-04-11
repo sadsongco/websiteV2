@@ -13,5 +13,6 @@ catch (PDOException $e) {
 }
 
 $params = ['article_data'=>$result[0]];
+header ("HX-Trigger-After-Settle: articleLoaded");
 
 echo $m->render('editArticle', $params);

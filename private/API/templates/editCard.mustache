@@ -10,7 +10,7 @@
         <input type="hidden" name="card_id" value="{{card_id}}" />
         <input type="submit" value="Update Card Info" />
     </form>
-    <form hx-post="api/create-article-form.php" hx-target="#createArticle">
+    <form hx-post="api/create_article_form.php" hx-target="#createArticle">
         <input type="hidden" name="card_id" value="{{card_id}}" />
         <input type="submit" value="Create Article" />
     </form>
@@ -25,3 +25,5 @@
 {{/card-info}}
 
 {{>fileUpload}}
+
+<section id="editArticle" hx-swap-oob="true"></section>

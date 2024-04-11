@@ -1,10 +1,13 @@
-<form hx-post="api/create-article.php">
+<form hx-post="api/create_article.php" id="createArticleForm">
     <input type="hidden" name="card_id" value="{{card_id}}" />
     <label for="articleTitle">Article Title</label>
-    <input type="text" name="article_title" id="articleTitle" />
+    <input type="text" name="article_title" id="articleTitle"  hx-get="api/preview_article.php" hx-target="#previewArticle" hx-trigger="input delay:3s, articleLoaded from:body" hx-include="#createArticleForm"/>
     <label for="articleContent">Article Content</label>
-    <textarea name="article_content" id="articleContent"></textarea>
+    <textarea name="article_content" id="articleContent" hx-get="api/preview_article.php" hx-target="#previewArticle" hx-trigger="input delay:3s" hx-include="#createArticleForm"></textarea>
     <label for="liveDate">Article Live Date (leave blank for immediate posting)</label>
     <input type="datetime-local" name="live_date" id="liveDate" />
-    <input type="submit" value="Create Article" />
+    <input type="submit" value="Submit Article" />
 </form>
+<section id="previewArticle" hx-get="api/preview_article.php" hx-trigger="articleLoaded from:body" hx-include="#createArticleForm"></section>
+
+<section id="editArticle" hx-swap-oob="true"></section>
