@@ -298,3 +298,12 @@ input[type='checkbox'] {
   width: 90%;
   border: 2px solid grey;
 }
+
+.createLink {
+  display: inline-block;
+  padding: 5px;
+  background-color: #444;
+  border-radius: 5px;
+  color: #dde;
+  cursor: pointer;
+}

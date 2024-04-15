@@ -1,0 +1,9 @@
+<form hx-post="api/create_card.php">
+    <label for="cardTitle">Card Title</label>
+    <input type="text" name="title" id="cardTitle">
+    <label for="cardStrap">Strapline for card</label>
+    <input type="text" name="strap" id="cardStrap">
+    {{>contentSelect}}
+    <input type="hidden" name="card_pos" value={{card_pos}}>
+    <input type="submit" value="Create New Card">
+</form>

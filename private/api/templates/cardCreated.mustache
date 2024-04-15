@@ -1,0 +1,7 @@
+<h2>New Card Created</h2>
+{{#render_script_created}}
+    {{script_name}} was created to handle the new card - edit for card-specific functionality
+{{/render_script_created}}
+{{^render_script_created}}
+    {{script_name}} couldn't be created: {{error}}
+{{/render_script_created}}

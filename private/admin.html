@@ -21,7 +21,11 @@
     </header>
     <a href="mailout/mailout.html">Send a mailout</a>
     <main id="content">
-      <section class="cards" hx-get="api/get-cards.php" hx-trigger="load"></section>
+      <section class="cards" hx-get="api/get-cards.php" hx-trigger="load, cardCreated from:body"></section>
+      <section id="createCard">
+        <div class="createLink" hx-get="api/create_card_form.php" hx-target="#createCardFormContainer">Create new card</div>
+        <div id="createCardFormContainer"></div>
+      </section>
       <section id="editCard"></section>
       <section id="editArticle"></section>
     </main>

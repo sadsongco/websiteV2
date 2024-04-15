@@ -1,4 +1,4 @@
-const cardsPreview = document.getElementById('cardsPreview');
+let cardsPreview = document.getElementById('cardsPreview');
 
 const updateOrder = async () => {
   const cards = document.getElementById('cardsPreview').getElementsByTagName('li');
