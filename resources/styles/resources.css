@@ -109,3 +109,21 @@ ul.nav {
 nav ul.nav {
   position: relative;
 }
+.socials {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px solid #888;
+  padding-bottom: 1em;
+  margin-bottom: 0.5em;
+}
+
+.social {
+  font-weight: bold;
+}
+
+.social a,
+.social a:visited,
+.social a:active {
+  text-decoration: underline;
+  color: #888;
+}
