@@ -1,7 +1,7 @@
 nav {
   z-index: 8;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(5em, 1fr));
   grid-template-rows: 1fr;
   position: sticky;
   position: -webkit-sticky;
@@ -62,13 +62,14 @@ nav ul li:hover {
     left: 20px;
     top: 15vh;
     z-index: 8;
-    height: 65.5vh;
+    /* height: 65.5vh; */
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-rows: repeat(auto-fill, minmax(5em, 1fr));
     grid-template-columns: 1fr;
   }
   .cardSelector {
     writing-mode: vertical-lr;
     width: 2em;
+    padding: 0.5em 0;
   }
 }

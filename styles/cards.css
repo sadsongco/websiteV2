@@ -57,7 +57,10 @@ a:hover {
 }
 
 .card .logo-spacer {
-  display: none;
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 5vh;
 }
 
 .card-inner-container {
@@ -111,9 +114,6 @@ br.clear {
     height: 100vh;
   }
   .card .logo-spacer {
-    display: block;
-    position: relative;
-    width: 100%;
     height: 15vh;
   }
   .card-content {
