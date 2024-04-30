@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../styles/reset.css" />
+    <link rel="stylesheet" href="../../styles/vars.css" />
+    <link rel="stylesheet" href="../../styles/cards.css" />
+    <link rel="stylesheet" href=".././styles/admin.css" />
+    <link rel="stylesheet" href="../../styles/loader.css" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <script src="../../lib/htmx.min.js"></script>
+    <script src="../../js/sorttable.js"></script>
+    <title>The Exact Opposite of admin</title>
+  </head>
+  <body>
+    <header>
+      <img src="../../assets/graphics/onelineLogoBW.svg" />
+
+      <h1>online order management system</h1>
+    </header>
+    <main>
+      <h1>Add Items</h1>
+      <div class="inForm" hx-get="php/new_item_form.php" hx-trigger="load"></div>
+      <div id="newItemMsg" class="msg"></div>
+      <h1>Add Customers</h1>
+      <div class="inForm" hx-get="php/new_customer_form.php" hx-trigger="load, clearCustomerForm from:body"></div>
+      <div id="newCustomerMsg" class="msg"></div>
+      <h1>Create Order</h1>
+      <div class="inForm" hx-get="php/new_order_form.php" hx-trigger="load, updateOrderForm from:body"></div>
+      <div id="newOrderMsg" class="msg"></div>
+      <h1>Orders</h1>
+      <div class="divider">
+        <form action="php/print_labels.php" method="post" target="_blank" class="colForm">
+          <label for="startLabel">Start Label</label>
+          <input type="number" name="start_label" id="startLabel" max="8" min="1" value="1" />
+          <label for="orderId">Print label for specific order</label>
+          <input type="number" name="order_id" id="orderId" value="null" />
+          <input type="submit" class="button" value="Print Labels" />
+        </form>
+      </div>
+      <div>
+        <label for="orderFilter">Filter Orders:</label>
+        <select name="orderFilter" id="orderFilter" hx-post="php/order_list.php" hx-trigger="change" hx-target="#orderList">
+          <option value="all">All Orders</option>
+          <option value="printed">Printed</option>
+          <option value="dispatched">Dispatched</option>
+          <option value="new" selected>New Orders</option>
+        </select>
+        <label for="nameFilter">Filter By Name:</label>
+        <input type="text" name="nameFilter" id="nameFilter" hx-post="php/order_list.php" hx-trigger="keyup changed delay:0.5s" hx-target="#orderList" />
+      </div>
+      <div id="orderList" hx-get="php/order_list.php" hx-trigger="load, updateOrderList from:body"></div>
+    </main>
+  </body>
+</html>
