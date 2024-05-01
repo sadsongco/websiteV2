@@ -11,7 +11,7 @@ class LABEL_PDF extends FPDF {
     const ADD_MARGIN = 10;
     const RET_MARGIN_X = 38;
     const RET_MARGIN_Y = 50;
-    const ORD_MARGIN_X = 90;
+    const ORD_MARGIN_X = 70;
     const ORD_MARGIN_Y = 4;
 
     function AddressCell ($row, $col, $order) {
@@ -29,11 +29,11 @@ class LABEL_PDF extends FPDF {
         );
     }
 
-    function OrderNoCell ($row, $col, $order_no) {
+    function OrderNoCell ($row, $col, $order_no, $shipping_method) {
         $this->SetFont('courier', '', 6);
         $h = 4;
         $this->SetXY((self::LABEL_W * $col) + self::ORD_MARGIN_X, (self::LABEL_H * $row) + self::ORD_MARGIN_Y);
-        $this->MultiCell(0, $h, $order_no, 0, 'L', false);        
+        $this->MultiCell(0, $h, "$order_no: $shipping_method", 0, 'L', false);        
     }
 
     function ReturnCell ($row, $col) {
@@ -59,7 +59,7 @@ class LABEL_PDF extends FPDF {
                 $this->SetXY((self::LABEL_W * $col), (self::LABEL_H * $row));
                 $this->AddressCell($row, $col, $order);
                 $this->ReturnCell($row, $col);
-                $this->OrderNoCell($row, $col, $order["sumup_id"]);
+                $this->OrderNoCell($row, $col, $order["sumup_id"], $order["shipping_method"]);
             }
         }
         if (sizeof($orders) > 0) $this->CreateLabels($orders);

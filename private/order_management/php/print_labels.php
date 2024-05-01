@@ -15,7 +15,7 @@ $start_label = 1;
 if (isset($_POST["start_label"])) $start_label = $_POST["start_label"];
 
 try {
-    $query = "SELECT Orders.order_id, Orders.sumup_id,
+    $query = "SELECT Orders.order_id, Orders.sumup_id, Orders.shipping_method,
     Customers.name, Customers.address_1, Customers.address_2, Customers.city, Customers.postcode, Customers.country
     FROM Orders
     LEFT JOIN Customers ON Orders.customer_id = Customers.customer_id
