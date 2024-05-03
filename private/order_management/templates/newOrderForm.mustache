@@ -5,7 +5,7 @@
 </form>
 
 <form hx-post="php/add_new_order.php" hx-target="#newOrderMsg" id="orderForm">
-  <input type="number" name="sumup_id" id="sumup_id" placeholder="sumup order ID" required />
+  <input type="number" name="sumup_id" id="sumup_id" placeholder="sumup order ID" required /><button type="button" value="{{next_bc_id}}" onclick="document.getElementById('sumup_id').value=this.value; return false;">next Bandcamp ID: {{next_bc_id}}</button><br />
   <label for="orderDate">Order Date</label>
   <input type="datetime-local" name="order_date" step="86400" id="orderDate" required />
   <label for="customerId">Customer</label>

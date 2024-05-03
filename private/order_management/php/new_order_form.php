@@ -32,14 +32,26 @@ function getCustomers($db) {
     }
 }
 
+function getNextBCId($db) {
+    try {
+        $query = "SELECT MAX(sumup_id)+1 AS nextBCId FROM Orders;";
+        return $db->query($query)->fetchAll(PDO::FETCH_ASSOC)[0]['nextBCId'];
+    }
+    catch (PDOException $e) {
+        throw $e;
+    }
+}
+
 $params = [];
 
 try {
     $params["items"] = getItems($db);
     $params["customers"] = getCustomers($db);
+    $params["next_bc_id"] = getNextBCId($db);
 }
 
 catch (PDOException $e) {
+    echo "Problem getting data from database: ";
     echo $e->getMessage();
 }
 
