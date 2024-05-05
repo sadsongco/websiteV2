@@ -307,3 +307,11 @@ input[type='checkbox'] {
   color: #dde;
   cursor: pointer;
 }
+
+p.info {
+  display: inline-block;
+  padding: 3px;
+  background-color: #bbb;
+  border: 1px solid #111;
+  border-radius: 3px;
+}

@@ -14,12 +14,11 @@ function getCompletedEmails($db, $table, $current_mailout) {
         $stmt->execute([$current_mailout]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $sent = $result[0]['sent'];
-        $query = "SELECT COUNT(*) AS `errors` FROM `$table` WHERE `error`=?";
+        $query = "SELECT COUNT(*) AS `errors`, IF(COUNT(*) > 0, 1, NULL) AS `error_flag` FROM `$table` WHERE `error`=?";
         $stmt = $db->prepare($query);
         $stmt->execute([1]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $errors = $result[0]['errors'];
-
+        $errors = $result[0];
     }
     catch (PDO_EXCEPTION $e) {
         echo "Error retrieving completed emails: ".$e->getMessage();
@@ -35,7 +34,15 @@ $dd_current_mailout = file_get_contents("dd_current_mailout.txt");
 $sent = null;
 $dd_sent = null;
 
-if ($current_mailout != "") $sent = getCompletedEmails($db, "mailing_list", $current_mailout);
-if ($dd_current_mailout !="") $dd_sent = getCompletedEmails($db, "dd_mailing_list", $dd_current_mailout);
+if ($current_mailout != "") {
+    $mailing_list = $current_mailout == "test" ? "test_mailing_list" : "mailing_list";
+    $sent = getCompletedEmails($db, $mailing_list, $current_mailout);
+    $sent['mailing_list'] = $mailing_list;
+}
+if ($dd_current_mailout !="") {
+    $mailing_list = $current_mailout == "test" ? "test_mailing_list" : "dd_mailing_list";
+    $dd_sent = getCompletedEmails($db, $mailing_list, $current_mailout);
+    $sent['mailing_list'] = $mailing_list;
+}
 
 echo $m->render("selectMailout", ["current_mailout"=>$current_mailout, "sent"=>$sent, "dd_current_mailout"=>$dd_current_mailout, "dd_sent"=>$dd_sent]);
