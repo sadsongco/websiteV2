@@ -42,7 +42,7 @@ if ($current_mailout != "") {
 if ($dd_current_mailout !="") {
     $mailing_list = $current_mailout == "test" ? "test_mailing_list" : "dd_mailing_list";
     $dd_sent = getCompletedEmails($db, $mailing_list, $current_mailout);
-    $sent['mailing_list'] = $mailing_list;
+    $dd_sent['mailing_list'] = $mailing_list;
 }
 
 echo $m->render("selectMailout", ["current_mailout"=>$current_mailout, "sent"=>$sent, "dd_current_mailout"=>$dd_current_mailout, "dd_sent"=>$dd_sent]);
