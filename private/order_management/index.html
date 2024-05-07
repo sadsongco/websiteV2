@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="styles/main.css" />
     <script src="../../lib/htmx.min.js"></script>
     <script src="../../js/sorttable.js"></script>
+    <script src="js/exisitingCustomer.js" defer></script>
     <title>The Exact Opposite of admin</title>
   </head>
   <body>
@@ -36,7 +37,7 @@
           <label for="startLabel">Start Label</label>
           <input type="number" name="start_label" id="startLabel" max="8" min="1" value="1" />
           <label for="orderId">Print label for specific order</label>
-          <input type="number" name="order_id" id="orderId" value="null" />
+          <input type="number" name="order_id" id="orderId" />
           <input type="submit" class="button" value="Print Labels" />
         </form>
       </div>

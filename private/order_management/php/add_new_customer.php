@@ -11,7 +11,15 @@ try {
 }
 
 catch (PDOException $e) {
-    echo $e->getMessage();
+    if ($e->getCode() == 23000) {
+        $query = "SELECT customer_id FROM Customers WHERE name = ? AND postcode = ?;";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$_POST['name'], $_POST['postcode']]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        header ('HX-Trigger:{"existingCustomer":"'.$result[0]['customer_id'].'"}');
+        exit("That customer already exists - selected for order");
+    }
+    echo "Database error: ".$e->getMessage();
 }
 
 header ('HX-Trigger:updateOrderForm');
