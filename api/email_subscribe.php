@@ -11,7 +11,7 @@ use PHPMailer\PHPMailer\Exception;
 //Load Composer's autoloader
 require '../private/mailout/api/vendor/autoload.php';
 include_once("../email_management/includes/get_host.php");
-include_once('../private/mailout/includes/replace_tags.php');
+include_once('../private/mailout/api/includes/replace_tags.php');
 include_once("../../secure/secure_id/secure_id.php");
 
 function sendConfirmationEmail($row) {

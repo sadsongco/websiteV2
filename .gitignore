@@ -18,3 +18,4 @@ resources/resource_dirs/press_shots/*
 resources/resource_dirs/tech_spec/*
 resources/resource_dirs/uncompressed_audio/*
 resources/resource_dirs/artwork/*
+users/assets/media/*

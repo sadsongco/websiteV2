@@ -1,6 +1,6 @@
 <?php
 
-require_once('includes/mailout_includes.php');
+// require_once('includes/mailout_includes.php');
 
 $filename = date("ymd");
 

@@ -4,6 +4,14 @@ include_once("./includes/html_head.php");
 
 require_once("../../secure/scripts/teo_a_connect.php");
 
+require '../lib/mustache.php-main/src/Mustache/Autoloader.php';
+Mustache_Autoloader::register();
+
+$m = new Mustache_Engine(array(
+    'loader' => new Mustache_Loader_FilesystemLoader('../private/mailout/assets/templates'),
+    'partials_loader' => new Mustache_Loader_FilesystemLoader('../private/mailout/assets/templates/partials')
+));
+
 //Import PHPMailer classes into the global namespace
 //These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
@@ -13,11 +21,12 @@ use PHPMailer\PHPMailer\Exception;
 //Load Composer's autoloader
 require '../private/mailout/api/vendor/autoload.php';
 include_once("includes/get_host.php");
-include_once('../private/mailout/includes/replace_tags.php');
+include_once('../private/mailout/api/includes/replace_tags.php');
+include_once('../private/mailout/api/includes/mailout_create.php');
 
 function getLatestMailout() {
     $latest_mailout = 0;
-    if ($handle = opendir('../private/mailout/assets/mailout_bodies/html')) {
+    if ($handle = opendir('../private/mailout/assets/content/teo')) {
         while (false !== ($entry = readdir($handle))) {
             if (substr($entry, 0, 1) != ".") {
                 $mailout_id = explode('.', $entry)[0];
@@ -30,24 +39,35 @@ function getLatestMailout() {
     return $latest_mailout;
 }
 
-function sendLastMailout($row) {
+function sendLastMailout($row, $m) {
 
-    $last_mailout = getLatestMailout();
-    if ($last_mailout == 0) return null;
-    $bodies_path = '../private/mailout/assets/mailout_bodies/';
+    $current_mailout = getLatestMailout();
+    if ($current_mailout == 0) return null;
     //Create an instance; passing `true` enables exceptions
     $mail = new PHPMailer(true);
     require_once("../../secure/mailauth/teo.php");
 
+
     try {
 
-        $body_template = file_get_contents($bodies_path."html/".$last_mailout.".html");
-        $text_template = file_get_contents($bodies_path."text/".$last_mailout.".txt");
-        $subject = file_get_contents($bodies_path."subject/".$last_mailout.".txt");
+        // paths to email data
+        $content_path = "../private/mailout/assets/content/teo/";
+        $remove_path = '/email_management/unsubscribe.php';
+        $subject_id = "[THE EXACT OPPOSITE]";
+        $mailing_list_table = $current_mailout == "test" ? "test_mailing_list" : "mailing_list";
+        $log_dir =  $current_mailout == "test" ? './logs/test/' : './logs/teo/';
 
-        $body = replace_tags($body_template, $row);
-        $text_body = replace_tags($text_template, $row);
-
+        try {
+            $content = file($content_path.$current_mailout.'.txt');
+        }
+        catch (Exception $e) {
+            write_to_log($log_fp, "\nFATAL: missing email body file: ".$e->getMessage());
+            delete_current_mailout($current_mailout_file);
+            email_admin($mail, "FATAL: missing email body file: ".$e->getMessage()." - messages stopped");
+            exit();
+        }
+        
+        
         $mail->isSMTP();
         $mail->Host = $mail_auth['host'];
         $mail->SMTPAuth = true;
@@ -59,16 +79,23 @@ function sendLastMailout($row) {
         $mail->addReplyTo($mail_auth['reply']['address'], $mail_auth['reply']['name']);
         //Recipients
         $mail->addAddress($row['email'], $row['name']);     //Add a recipient
-
+        
+        $subject = $subject_id.array_shift($content);
+        $heading = array_shift($content);
+        $text_template = createTextBody($content);
+        $html_template = createHTMLBody($content);
+        $host = getHost();
 
         //Content
-        $mail->isHTML(true);                                  //Set email format to HTML
         $mail->Subject = $subject;
-        $mail->Body    = $body;
+        $secure_id = generateSecureId($row['email'], $row['email_id']);
+        $text_body = $m->render("textTemplate", ["heading"=>$heading, "content"=>$text_template, "host"=>$host, "remove_path"=>$remove_path, "name"=>$row['name'], "email"=>$row['email'], "secure_id"=>$secure_id]);
+        $html_body = $m->render("htmlTemplate", ["heading"=>$heading, "content"=>$html_template, "host"=>$host, "remove_path"=>$remove_path, "name"=>$row['name'], "email"=>$row['email'], "secure_id"=>$secure_id]);
+        $mail->msgHTML($html_body);
         $mail->AltBody = $text_body;
 
         $mail->send();
-        return $last_mailout;
+        return $current_mailout;
 
     } catch (Exception $e) {
         error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
@@ -91,7 +118,7 @@ if (isset($_GET) && isset($_GET['email'])) {
         $row = $result[0];
         $stmt = $db->prepare('UPDATE mailing_list SET confirmed = 1 WHERE email_id = ?');
         $stmt->execute([$email_id]);
-        $last_mailout = sendLastMailout($row);
+        $last_mailout = sendLastMailout($row, $m);
         if ($last_mailout != null) {
             // update last sent
             $query = 'UPDATE mailing_list SET last_sent = ? WHERE email_id = ?;';
