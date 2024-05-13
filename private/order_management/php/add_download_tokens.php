@@ -1,8 +1,16 @@
 <?php
 
 require_once("../../../../secure/scripts/teo_order_connect.php");
-include_once("includes/p_2.php");
-include_once(__DIR__.'/../../mailout/api/includes/replace_tags.php');
+include_once(__DIR__.'/../../mailout/api/includes/mailout_create.php');
+
+// Templating
+require '../lib/mustache.php-main/src/Mustache/Autoloader.php';
+Mustache_Autoloader::register();
+
+$m = new Mustache_Engine(array(
+    'loader' => new Mustache_Loader_FilesystemLoader(__DIR__.'/../templates'),
+    'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__.'/../templates/partials')
+));
 
 
 //Import PHPMailer classes into the global namespace
@@ -15,23 +23,44 @@ use PHPMailer\PHPMailer\Exception;
 require __DIR__.'/../../mailout/api/vendor/autoload.php';
 
 
+function getHost() {
+    /**r eturn complete URL of server */
+    $protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,5))=='https'?'https':'http';
+    $server = !isset($_SERVER['HTTP_HOST']) || $_SERVER['HTTP_HOST'] == '' ? "theexactopposite.uk" : $_SERVER['HTTP_HOST'];
+    return "$protocol://$server";
+}
+
 function makeUniqueToken($token, $email) {
     return hash('sha1', $token.$email);
 }
 
-function sendDownloadMail() {
+function sendDownloadMail($email, $m) {
+    echo "Send download mail<br>";
     //Create an instance; passing `true` enables exceptions
     $mail = new PHPMailer(true);
     require_once("../../../../secure/mailauth/teo.php");
 
     try {
+        $subject_id = "[THE EXACT OPPOSITE]";
+        $heading = "Download code for Skill Issue album";
+        // set up emails
+        $content_path = __DIR__."/../assets/download_mail_body/download_mail.txt";
+        $host = getHost();
+        $download_link = "$host/users/si_download.php?email=$email";
+        $download_html = '<a href="'.$download_link.'">Download Now</a>';
+        try {
+            $content = file($content_path);
+        }
+        catch (Exception $e) {
+            exit("FATAL: missing email body file: ".$e->getMessage()." - messages stopped");
+        }
 
-        $body_template = file_get_contents($bodies_path."html/".$last_mailout.".html");
-        $text_template = file_get_contents($bodies_path."text/".$last_mailout.".txt");
-        $subject = file_get_contents($bodies_path."subject/".$last_mailout.".txt");
-
-        $body = replace_tags($body_template, $row);
-        $text_body = replace_tags($text_template, $row);
+        $subject = $subject_id.array_shift($content);
+        $heading = array_shift($content);
+        $text_template = createTextBody($content);
+        $html_template = createHTMLBody($content);
+        $text_body = $m->render("textEmail", ["heading"=>$heading, "content"=>$text_template, "download_link"=>$download_link, "host"=>$host]);
+        $html_body = $m->render("htmlEmail", ["heading"=>$heading, "content"=>$html_template, "download_link"=>$download_html, "host"=>$host]);
 
         $mail->isSMTP();
         $mail->Host = $mail_auth['host'];
@@ -43,17 +72,17 @@ function sendDownloadMail() {
         $mail->setFrom($mail_auth['from']['address'], $mail_auth['from']['name']);
         $mail->addReplyTo($mail_auth['reply']['address'], $mail_auth['reply']['name']);
         //Recipients
-        $mail->addAddress($row['email'], $row['name']);     //Add a recipient
+        $mail->addAddress($email);     //Add a recipient
 
 
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
         $mail->Subject = $subject;
-        $mail->Body    = $body;
+        $mail->msgHTML($html_body);
         $mail->AltBody = $text_body;
 
         $mail->send();
-        return $last_mailout;
+        return true;
 
     } catch (Exception $e) {
         error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
@@ -68,6 +97,9 @@ try {
     WHERE Order_items.item_id = 2
     AND Orders.sumup_id < 999;";
     $result = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
+    $result = [
+        ["customer_id"=>"90", "email"=>"nigel@thesadsongco.com"]
+    ];
 }
 
 catch (PDOException $e) {
@@ -78,21 +110,26 @@ $error = false;
 
 foreach($result as $customer) {
     $token = makeUniqueToken($customer['customer_id'], $customer['email']);
-    try {
-        $query = "INSERT INTO download_tokens VALUES (NULL, ?, ?)";
-        $stmt = $db->prepare($query);
-        $stmt->execute([$customer['customer_id'], $token]);
-        echo "Download token added for ".$customer['customer_id']."<br>";
-        sendDownloadMail($customer['email']);
-    }
-    catch (PDOException $e) {
-        if ($e->getCode() == 23000) {
-            echo("Customer id ".$customer['customer_id']." already has token added<br>");
-            $error = true;
-        } else {
-            exit("Database insert error: ".$e->getMessage());
+    if ($customer['email'] != "nigel@thesadsongco.com") {
+        try {
+            $query = "INSERT INTO download_tokens VALUES (NULL, ?, ?)";
+            $stmt = $db->prepare($query);
+            $stmt->execute([$customer['customer_id'], $token]);
+            echo "Download token added for ".$customer['customer_id']."<br>";
+        }
+        catch (PDOException $e) {
+            if ($e->getCode() == 23000) {
+                echo("Customer id ".$customer['customer_id']." already has token added<br>");
+                $error = true;
+            } else {
+                exit("Database insert error: ".$e->getMessage());
+            }
         }
     }
+    sendDownloadMail($customer['email'], $m);
+    echo "email sent to ".$customer['email']."<br>";
+    ob_flush();
+    sleep(5);
 }
 
-echo $error ? "Database errors as above" : "Tokens added";
+echo $error ? "Database errors as above" : "Tokens added, emails sent";

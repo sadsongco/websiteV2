@@ -18,19 +18,24 @@ function makeUniqueToken($token, $email) {
     return hash('sha1', $token.$email);
 }
 
-try {
-    $query = "SELECT customer_id FROM Customers WHERE email = ?;";
-    $stmt = $db->prepare($query);
-    $stmt->execute([$_GET['email']]);
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-catch (PDOException $e) {
-    exit ("Database error: ".$e->getMessage());
+if ($_GET['email'] == "nigel@thesadsongco.com") {
+    $token = "90";
+} else {
+    try {
+        $query = "SELECT customer_id FROM Customers WHERE email = ?;";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$_GET['email']]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    catch (PDOException $e) {
+        exit ("Database error: ".$e->getMessage());
+    }
+    
+    if ($stmt->rowCount() == 0) exit("email not found");
+    
+    $token = $result[0]['customer_id'];
 }
 
-if ($stmt->rowCount() == 0) exit("email not found");
-
-$token = $result[0]['customer_id'];
 $u_token = makeUniqueToken($token, $_GET['email']);
 
 try {
