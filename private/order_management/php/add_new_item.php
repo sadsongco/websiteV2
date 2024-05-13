@@ -16,7 +16,3 @@ catch (PDOException $e) {
 
 header ('HX-Trigger:updateOrderForm');
 echo "New Item Added";
-
-require_once("../../../../secure/scripts/db_disconnect.php");
-
-?>

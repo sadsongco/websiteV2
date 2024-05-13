@@ -25,7 +25,3 @@ catch (PDOException $e) {
 header ('HX-Trigger:updateOrderForm');
 header ('HX-Trigger-After-Settle:clearCustomerForm');
 echo "New Customer Added";
-
-require_once("../../../../secure/scripts/db_disconnect.php");
-
-?>

@@ -46,5 +46,3 @@ catch (PDOException $e) {
     echo $e->getMessage();
 }
 
-require_once("../../../../secure/scripts/db_disconnect.php");
-?>

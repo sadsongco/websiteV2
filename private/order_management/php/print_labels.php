@@ -43,6 +43,3 @@ foreach ($result as $row) {
     }
 }
 
-require_once("../../../../secure/scripts/db_disconnect.php");
-
-?>

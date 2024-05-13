@@ -63,7 +63,3 @@ catch (PDOException $e) {
 $params["orders"] = $result;
 
 echo $m->render("orderList", $params);
-
-require_once("../../../../secure/scripts/db_disconnect.php");
-
-?>
