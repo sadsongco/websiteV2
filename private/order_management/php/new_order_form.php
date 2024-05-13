@@ -56,7 +56,3 @@ catch (PDOException $e) {
 }
 
 echo $m->render("newOrderForm", $params);
-
-require_once("../../../../secure/scripts/db_disconnect.php");
-
-?>
