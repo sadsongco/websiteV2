@@ -110,7 +110,6 @@ $error = false;
 
 foreach($result as $customer) {
     $token = makeUniqueToken($customer['customer_id'], $customer['email']);
-    if ($customer['email'] != "nigel@thesadsongco.com") {
         try {
             $query = "INSERT INTO download_tokens VALUES (NULL, ?, ?)";
             $stmt = $db->prepare($query);
@@ -124,7 +123,6 @@ foreach($result as $customer) {
             } else {
                 exit("Database insert error: ".$e->getMessage());
             }
-        }
     }
     sendDownloadMail($customer['email'], $m);
     echo "email sent to ".$customer['email']."<br>";
