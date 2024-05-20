@@ -9,7 +9,7 @@ if (ob_get_level()) {
 }
 
 function getHost() {
-    $protocol = 'http';
+    $protocol = 'https';
     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') $protocol .= 's';
     return "$protocol://".$_SERVER['HTTP_HOST'];
 }
