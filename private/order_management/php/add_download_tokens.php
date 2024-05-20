@@ -24,11 +24,11 @@ require __DIR__.'/../../mailout/api/vendor/autoload.php';
 
 
 function getHost() {
-    /**r eturn complete URL of server */
-    $protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,5))=='https'?'https':'http';
-    $server = !isset($_SERVER['HTTP_HOST']) || $_SERVER['HTTP_HOST'] == '' ? "theexactopposite.uk" : $_SERVER['HTTP_HOST'];
-    return "$protocol://$server";
+    $protocol = 'https';
+    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') $protocol .= 's';
+    return "$protocol://".$_SERVER['HTTP_HOST'];
 }
+
 
 function makeUniqueToken($token, $email) {
     return hash('sha1', $token.$email);
