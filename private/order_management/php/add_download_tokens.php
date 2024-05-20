@@ -97,9 +97,9 @@ try {
     WHERE Order_items.item_id = 2
     AND Orders.sumup_id < 999;";
     $result = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
-    $result = [
-        ["customer_id"=>"90", "email"=>"nigel@thesadsongco.com"]
-    ];
+    // $result = [
+    //     ["customer_id"=>"90", "email"=>"nigel@thesadsongco.com"]
+    // ];
 }
 
 catch (PDOException $e) {
