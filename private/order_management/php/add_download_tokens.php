@@ -115,6 +115,10 @@ foreach($result as $customer) {
             $stmt = $db->prepare($query);
             $stmt->execute([$customer['customer_id'], $token]);
             echo "Download token added for ".$customer['customer_id']."<br>";
+            sendDownloadMail($customer['email'], $m);
+            echo "email sent to ".$customer['email']."<br>";
+            ob_flush();
+            sleep(5);
         }
         catch (PDOException $e) {
             if ($e->getCode() == 23000) {
@@ -124,10 +128,6 @@ foreach($result as $customer) {
                 exit("Database insert error: ".$e->getMessage());
             }
     }
-    sendDownloadMail($customer['email'], $m);
-    echo "email sent to ".$customer['email']."<br>";
-    ob_flush();
-    sleep(5);
 }
 
 echo $error ? "Database errors as above" : "Tokens added, emails sent";
