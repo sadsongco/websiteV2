@@ -4,6 +4,10 @@ require_once("../../secure/scripts/teo_order_connect.php");
 
 include_once("../api/includes/processors.php");
 
+if (ob_get_level()) {
+    ob_end_clean();
+}
+
 function getHost() {
     $protocol = 'http';
     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') $protocol .= 's';
