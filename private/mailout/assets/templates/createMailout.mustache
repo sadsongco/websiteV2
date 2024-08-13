@@ -1,12 +1,17 @@
 <h1>Create new mailout</h1>
 <p>Filename is today's date in the form YYMMDD, and will overwrite any previous files</p>
 <p>Surround external links URLs with the tags &#123;&#123;link&#125;&#125; &#123;&#123;/link&#125;&#125;, image URLs with &#123;&#123;img&#125;&#125; &#123;&#123;/img&#125;&#125;</p>
-<h3>Add an image to the mailout (will be resized)</h3>
 <form hx-post="api/upload_image.php" enctype="multipart/form-data">
+    <h3>Add an image to the mailout (will be resized)</h3>
     <input type="file" name="image_upload[]" id="imageUpload" value="" />
     <label for="imageCaption">Caption for image</label>
     <input type="text" name="caption" id="imageCaption" />
     <input type="submit" value="Upload Image">
+</form>
+<form>
+    <h3>Select existing image</h3>
+    <section hx-get="api/get_existing_images.php" hx-trigger="load"></section>
+    <section id="imageTag"></section>
 </form>
 <form hx-post="api/save_mailout.php" id="createMailoutForm">
     <input type="hidden" name="filename" id="filename" value="{{filename}}" />
