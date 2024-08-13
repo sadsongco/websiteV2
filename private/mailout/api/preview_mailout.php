@@ -1,6 +1,7 @@
 <?php
 
 require_once('includes/mailout_includes.php');
+require_once('includes/mailout_create.php');
 
 if (isset($_GET['preview_mailout'])) {
     $content = explode("\n", $_GET['content']);
